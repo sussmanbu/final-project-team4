@@ -1,5 +1,5 @@
 ---
-title: "About"
+title: "MA415_team4"
 # image: profile.jpg
 about:
   template: jolla
@@ -22,9 +22,6 @@ This comes from the file `about.qmd`.
 This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
 The members of this team are below.
 
-## Dan Sussman
-
-AAAAAAAAA Dan is a professor in the Math/Stat department and is the instructor for the course.
 
 <!-- Please leave in the information below -->
 

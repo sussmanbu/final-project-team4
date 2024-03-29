@@ -130,3 +130,55 @@ grouped8 <- merged_data |>
 
 grouped8
 ```
+
+```{r}
+grouped9 <- merged_data |>
+  #filter(survey == 'DHS') |>
+  filter(sub_region %in% c('Northern Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = mean_primary_completion_rate, fill = iso_code)) +
+    geom_col() +ylim(c(0,1))
+grouped9
+```
+
+```{r}
+grouped10 <- merged_data |>
+  #filter(survey == 'DHS') |>
+  filter(sub_region %in% c('Latin America and the Caribbean')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = mean_primary_completion_rate, fill = iso_code)) +
+    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+grouped10
+```
+
+```{r}
+grouped11 <- merged_data |>
+  #filter(survey == 'DHS') |>
+  filter(sub_region %in% c('Latin America and the Caribbean')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            obs_primary_completion_rate = sum(!is.na(comp_prim_v2_m)),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = obs_primary_completion_rate, fill = iso_code)) + geom_col() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+grouped11
+```

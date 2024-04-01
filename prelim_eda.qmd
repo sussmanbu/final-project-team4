@@ -221,3 +221,7 @@ summary(lm_form_fit)
 ```{r}
 broom::glance(lm_form_fit)
 ```
+
+```{r}
+ggplot(grouped2, aes(x = mean_primary_completion_rate, y=mean_educ_years_20_24)) + geom_point()
+```

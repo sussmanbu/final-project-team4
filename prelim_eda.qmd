@@ -220,8 +220,18 @@ summary(lm_form_fit)
 
 ```{r}
 broom::glance(lm_form_fit)
+broom::augment(lm_form_fit, new_data = grouped2)
 ```
 
 ```{r}
-ggplot(grouped2, aes(x = mean_primary_completion_rate, y=mean_educ_years_20_24)) + geom_point()
+ggplot(grouped2, aes(x = mean_primary_completion_rate, y=mean_educ_years_20_24)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
+```
+
+```{r}
+ggplot(
+  broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)
+  ) + 
+  geom_point(alpha = 0.45, style = 'O', size = 2.5) + 
+  ylim(c(-1,1)) + 
+  geom_line(y =   0, color = 'red')
 ```

@@ -1,29 +1,37 @@
-------------------------------------------------------------------------
+---
+title: "Post 3"
+author: "Team 4"
+date: "2024-04-01"
+date-modified: "2024-04-01"
+draft: FALSE
+---
 
-------------------------------------------------------------------------
-
-## Visualizing the data
+### Progress
 
 After cleaning/grouping the data, we took a deeper look to understand the data set by visualized the data in different graph to catch the pattern.
 
-![](images/Screenshot%202024-04-01%20at%204.50.41%20PM.png)
+![](images/1.png)
 
 This graph shows the proportion of people in NORTH AFRICA who have completed primary school. It is interesting how people in Urban areas have a slightly higher completion rate as I would expect people in urban areas to have alower completion rate. It is also worth noting that the NA bar is near the proportion of the Rural bar which suggests that most of the NA probably would fall into the Rural bar.
 
-![](images/Screenshot%202024-04-01%20at%204.51.05%20PM.png)
+![](images/2.png)
 
 This graph is the same as the one above but for SUB-SAHARAN AFRICA. Here, overall, the proportions are lower which implies that education in sub-saharan Africa is not as good as education in Northern Africa. Also, there is abigger diggerence between the urban and rural bar here.
 
+![](images/3.png)
+
+This graph shows the mean primary completion rate for all of the North African countries.
+
+![](images/4.png)
+
 This graph shows the mean primary school completion rate of all sub-saharan African countries. 
 
-This shows the number of observations for each Latin American country. It is definitely worth noting that countries like LCA and BRB do not have nearly as much data as the other countries. This should be noted for the entirety of our project.
+![This shows the number of observations for each Latin American country. It is definitely worth noting that countries like LCA and BRB do not have nearly as much data as the other countries. This should be noted for the entirety of our project.](images/5.png)
 
-![](images/Screenshot 2024-04-01 at 5.03.21 PM.png)
+![](images/6.png)
 
-This is a quick linear regression model we made. There is a relatively strong linear relationships between mean education years for 20-24 year olds and the mean primary completion rate. Note that this is grouped by country. The r-square is 0.72999 which indicates our model is relatively strong
+This is a quick linear regression model we made. There is a relatively strong linear relationships between mean education years for 20-24 year olds and the mean primary completion rate. Note that this is grouped by country. The r-square is 0.72999 which indicated our model relative strong.
 
-![](images/Screenshot 2024-04-01 at 5.02.43 PM.png)
+![](images/7.png)
 
 This is a residual plot. The residuals are relatively randomly distributed around y= 0, which means our model is doing a pretty good job of fitting the data. However, it is definitely worth noting that this is an extremely simple 1 variable and our models will require a lot more fine-tuning when they get more advanced.
-
-

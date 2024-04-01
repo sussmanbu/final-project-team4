@@ -6,17 +6,17 @@ date-modified: "2024-04-01"
 draft: FALSE
 ---
 
-### Progress
+### Data Visualizing Approach
 
 After cleaning/grouping the data, we took a deeper look to understand the data set by visualized the data in different graph to catch the pattern.
 
 ![](images/1.png)
 
-This graph shows the proportion of people in NORTH AFRICA who have completed primary school. It is interesting how people in Urban areas have a slightly higher completion rate as I would expect people in urban areas to have alower completion rate. It is also worth noting that the NA bar is near the proportion of the Rural bar which suggests that most of the NA probably would fall into the Rural bar.
+This graph shows the proportion of people in NORTH AFRICA who have completed primary school. It is interesting how people in Urban areas have a slightly higher completion rate as I would expect people in urban areas to have a lower completion rate. It is also worth noting that the NA bar is near the proportion of the Rural bar which suggests that most of the NA probably would fall into the Rural bar.
 
 ![](images/2.png)
 
-This graph is the same as the one above but for SUB-SAHARAN AFRICA. Here, overall, the proportions are lower which implies that education in sub-saharan Africa is not as good as education in Northern Africa. Also, there is abigger diggerence between the urban and rural bar here.
+This graph is the same as the one above but for SUB-SAHARAN AFRICA. Here, overall, the proportions are lower which implies that education in sub-saharan Africa is not as good as education in Northern Africa. Also, there is a bigger difference between the urban and rural bar here.
 
 ![](images/3.png)
 
@@ -26,7 +26,9 @@ This graph shows the mean primary completion rate for all of the North African c
 
 This graph shows the mean primary school completion rate of all sub-saharan African countries. 
 
-![This shows the number of observations for each Latin American country. It is definitely worth noting that countries like LCA and BRB do not have nearly as much data as the other countries. This should be noted for the entirety of our project.](images/5.png)
+![](images/5.png)
+
+This shows the number of observations for each Latin American country. It is definitely worth noting that countries like LCA and BRB do not have nearly as much data as the other countries. This should be noted for the entirety of our project.
 
 ![](images/6.png)
 

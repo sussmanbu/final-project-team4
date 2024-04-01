@@ -5,6 +5,8 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+library(tidymodels)
+library(broom)
 ```
 
 ```{r}
@@ -181,4 +183,41 @@ grouped11 <- merged_data |>
   ggplot(aes(x = iso_code, y = obs_primary_completion_rate, fill = iso_code)) + geom_col() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 grouped11
+```
+
+```{r}
+lm_model <- 
+  linear_reg() %>% 
+  set_engine("lm")
+
+grouped2 <- data |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            count = n()) |>
+  ungroup()
+
+grouped2
+
+```
+
+```{r}
+lm_model <- 
+  linear_reg() |> 
+  set_engine("lm")
+
+lm_form_fit <- 
+  lm_model %>% 
+  fit(mean_primary_completion_rate ~ mean_educ_years_20_24, data = grouped2)
+
+lm_form_fit
+```
+
+```{r}
+summary(lm_form_fit)
+```
+
+```{r}
+broom::glance(lm_form_fit)
 ```

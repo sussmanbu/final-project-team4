@@ -154,7 +154,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sharing-your-data" id="toc-sharing-your-data" class="nav-link" data-scroll-target="#sharing-your-data">Sharing your data</a></li>
   <li><a href="#load-and-clean-data-script" id="toc-load-and-clean-data-script" class="nav-link" data-scroll-target="#load-and-clean-data-script">Load and clean data script</a></li>
   </ul></li>
-  <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a></li>
+  <li><a href="#rubric-on-this-page" id="toc-rubric-on-this-page" class="nav-link" data-scroll-target="#rubric-on-this-page">Rubric: On this page</a>
+  <ul class="collapse">
+  <li><a href="#data-backgroud" id="toc-data-backgroud" class="nav-link" data-scroll-target="#data-backgroud">Data Backgroud</a></li>
+  <li><a href="#data-loading-and-grouping" id="toc-data-loading-and-grouping" class="nav-link" data-scroll-target="#data-loading-and-grouping">Data loading and grouping</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -302,8 +306,80 @@ dbl (4): country-code, region-code, sub-region-code, intermediate-region-code
 <li>This page should be self-contained.</li>
 </ul></li>
 </ul>
+<section id="data-backgroud" class="level3">
+<h3 class="anchored" data-anchor-id="data-backgroud">Data Backgroud</h3>
+<p>The dataset provided by the World Inequality Database on Education (WIDE) tracks educational disparities across various countries, including the United States.</p>
+<p>https://www.education-inequalities.org/countries/united-states</p>
+<p>From the 212,969 rows and 86 columns, it provides data on education outcomes differentiated by wealth, gender, ethnicity, and location, among other factors. This database can be significant for analyzing racial disparities in education. Meanwhile, the dataset provides numerous variables such as income, region, and completions of education which enable us to perform variable selection to find the best variable to show the correlation between racial disparities and education.</p>
+<p>We used two data sets so far. We mainly focused on the education dataset which includes many education-related variables that are used to assess various aspects of educational attainment and attendance rates across different levels of schooling, from pre-primary to upper-secondary education. Examples of the variable and its definition: comp_prim_1524_m refers to the Percentage of young people aged 15‐24 years, who have completed primary school; comp_upsec_2029_m refers to people aged 20‐29 years, who have completed upper secondary school; eduout_upsec_m refers to Percentage of youth of upper secondary school age who are not in school. (WHO defines ‘Adolescents’ as individuals in the 10-19 years age group and ‘Youth’ as the 15–24 years age group.) Our data is mainly focused on education access and completion conditions by categorizing different demographics such as sex, ethnicity, location, region, wealth, and speaking language at home. The data also combined those categories to narrow down the group and get the education data. For example, we had the category of “Location &amp; Sex,” which groups data with either Rural or Urban, each further grouped by either female or male. Thus, we have four different groups of data: Rural-Female, Rural-Male, Urban-Female, and Urban-Male. However, to avoid overfitting the model or processing duplicate data, we may filter the data by a single category of either one of the “Location”, ”Sex”, “Ethnicity”, ”Region”, “And wealth,” discarding other combined ones. For response value, we will keep those variables about the access and completion rate and remove those indicators about learning indicators such as learning achievement in reading/mathematics/science because there are a lot of missing values. For future analysis of education based on race, we also used another dataset that contains the name of the country, the country code, the central region (e.g.&nbsp;Asia), and its sub-region (e.g.&nbsp;Southern Asia) in order to regroup the area in the education data set.</p>
+<p><a href="https://uis.unesco.org/en/news/education-data-release-one-every-five-children-adolescents-and-youth-out-school" class="uri">https://uis.unesco.org/en/news/education-data-release-one-every-five-children-adolescents-and-youth-out-school</a></p>
+</section>
+<section id="data-loading-and-grouping" class="level3">
+<h3 class="anchored" data-anchor-id="data-loading-and-grouping">Data loading and grouping</h3>
+<p><code>[script](/scripts/load_and_clean_data.R)</code></p>
+<p>The libraries we use:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the ‘region’ column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner. To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the ‘region’ column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'dataset/educ.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 212969 Columns: 86
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (14): iso_code, region_group, income_group, country, survey, level, cate...
+dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>continent <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'dataset/continents2.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 249 Columns: 11
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (7): name, alpha-2, alpha-3, iso_3166-2, region, sub-region, intermediat...
+dbl (4): country-code, region-code, sub-region-code, intermediate-region-code
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>continent <span class="ot">&lt;-</span> continent<span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">country =</span> name</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>continent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 249 × 11
+   country   `alpha-2` `alpha-3` `country-code` `iso_3166-2` region `sub-region`
+   &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;              &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;       
+ 1 Afghanis… AF        AFG                    4 ISO 3166-2:… Asia   Southern As…
+ 2 Åland Is… AX        ALA                  248 ISO 3166-2:… Europe Northern Eu…
+ 3 Albania   AL        ALB                    8 ISO 3166-2:… Europe Southern Eu…
+ 4 Algeria   DZ        DZA                   12 ISO 3166-2:… Africa Northern Af…
+ 5 American… AS        ASM                   16 ISO 3166-2:… Ocean… Polynesia   
+ 6 Andorra   AD        AND                   20 ISO 3166-2:… Europe Southern Eu…
+ 7 Angola    AO        AGO                   24 ISO 3166-2:… Africa Sub-Saharan…
+ 8 Anguilla  AI        AIA                  660 ISO 3166-2:… Ameri… Latin Ameri…
+ 9 Antarcti… AQ        ATA                   10 ISO 3166-2:… &lt;NA&gt;   &lt;NA&gt;        
+10 Antigua … AG        ATG                   28 ISO 3166-2:… Ameri… Latin Ameri…
+# ℹ 239 more rows
+# ℹ 4 more variables: `intermediate-region` &lt;chr&gt;, `region-code` &lt;dbl&gt;,
+#   `sub-region-code` &lt;dbl&gt;, `intermediate-region-code` &lt;dbl&gt;</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> <span class="fu">merge</span>(data, continent, <span class="at">by =</span> <span class="st">"country"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> merged_data <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">sub_region =</span> <span class="st">`</span><span class="at">sub-region</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><img src="images/clipboard-123080745.png" class="img-fluid"></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

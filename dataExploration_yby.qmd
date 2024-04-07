@@ -1,0 +1,152 @@
+---
+title: "Data Exploration"
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(broom)
+```
+
+```{r}
+Education <- read_csv('dataset/educ.csv')
+```
+
+We hope to focus on the category of Ethnicity
+
+```{r}
+DataEth <- Education |>
+  filter(category == 'Ethnicity')
+```
+
+As the Ethnicity is being divided too detailed, we hope to regather the ethnicity in simply a few groups, such as Asian, Hispanic, Black, White...We need to find another table in order to regroup.
+
+# Regroup the Region by Continent
+
+```{r}
+continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
+continent <- continent|>
+  rename(
+    country = name
+  )
+
+merged_data <- merge(Education, continent, by = "country")
+
+merged_data <- merged_data |> rename(sub_region = `sub-region`)
+merged_data <- merged_data %>%
+  select(region, sub_region, everything())
+
+```
+
+
+# Mean Education Years By Different Categories (Categorical Variables)
+
+by Location
+
+```{r}
+Location_mean_edu_years <- merged_data |>
+  filter(category == 'Location') |>   group_by(region, Location) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE),count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+ggplot(Location_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Location)) +
+  geom_bar(stat = "identity", position = position_dodge()) +  scale_fill_manual(values = c("Rural" = "skyblue", "Urban" = "blue")) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Location and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Location_mean_edu_years
+```
+
+All the regions show that people in urban area has longer average education years for age group 20-24 years old. In general, the average education years is the longest in Europe while shortest in Africa.
+
+by sex
+
+```{r}
+Sex_mean_edu_years <- merged_data |>
+  filter(category == 'Sex') |>   group_by(region, Sex) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+ggplot(Sex_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Sex)) +
+  geom_bar(stat = "identity", position = position_dodge()) +  scale_fill_manual(values = c("Female" = "pink", "Male" = "black")) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Sex and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Sex_mean_edu_years
+```
+
+by ethnicity\[too detailed\]
+
+```{r}
+#count the number of distinct ethnicities
+number_of_distinct_ethnicities <- DataEth %>%
+  summarise(count_distinct_ethnicity = n_distinct(Ethnicity))
+number_of_distinct_ethnicities
+
+#calculate the mean education years for age group 20-24 after grouping by region and ethnicity
+Ethnicity_mean_edu_years <- merged_data |>
+  filter(category == 'Ethnicity') |>   group_by(region, Ethnicity) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+#plot the bar graph
+ggplot(Ethnicity_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Ethnicity)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Ethnicity and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Ethnicity_mean_edu_years
+```
+
+There are 700+ distinct ethnicities which is over detailed that we are not able to apply this information to our analysis.
+
+by Region\[too detailed\]
+
+```{r}
+#count the number of distinct regions
+number_of_distinct_regions <- merged_data |>
+  filter(category == 'Region') |>
+  summarise(count_distinct_regions = n_distinct(Region))
+number_of_distinct_regions
+
+#calculate mean
+Region_mean_edu_years <- merged_data |>
+  filter(category == 'Region') |>   group_by(region, Region) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE),count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+#plot bar graph
+ggplot(Region_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Region)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Region and region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Region_mean_edu_years
+```
+
+by wealth
+
+```{r}
+Wealth_mean_edu_years <- merged_data |>
+  filter(category == 'Wealth') |>   group_by(region, Wealth) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+ggplot(Wealth_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Wealth)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "black") + 
+  labs(title = "Average Education Years by Wealth and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Wealth_mean_edu_years
+```
+
+For all regions, the higher the wealth level, the longer the average education years. However, we should be careful that some regions only have a few data. For example, Oceania only has 1 data for each quintile and Europe only has 3 data points for each quintile, which may cause data collection bias.

@@ -1,0 +1,33 @@
+---
+title: "Post 4"
+description:  |
+  POST 4
+author: "Team 4"
+date: "2024-04-08"
+date-modified: "2024-04-08"
+draft: FALSE
+---
+
+### Unearthing Mean Education Years by Categories
+
+After regrouping our data set, we want to take a deeper understanding of all the variables to make sure we can make correct decision when we perform variable selection. In our previous posts, we have only use simply region and elementary education level and building simple regression just to see whether the data make sense to us. After verifying the potential answer we will get, we also want to add our variable to help building the regression.
+
+Our analysis sought to reveal the mean years of education across different categorizations such as location (urban vs. rural), sex (male vs. female), and more. Utilizing ggplot2, we visualized these differences, which unveiled significant disparities. For instance, urban areas consistently showed higher educational attainment than rural counterparts, with Europe leading in educational years and Africa lagging behind.
+
+![](images/Screenshot 2024-04-08 at 6.32.17 PM-02.png)
+
+![](images/Screenshot 2024-04-08 at 6.35.41 PM-02.png)
+
+## **Insights and Implications**
+
+From our exploration, we found some insights:
+
+-   **Location Matters**: Urban residents generally have access to better educational opportunities than rural ones.
+
+-   **Wealth's Influence**: Higher wealth correlates with longer education years, albeit with potential data collection biases in regions with sparse data.
+
+-   **Gender Disparities**: A nuanced picture of education years by sex across different regions, indicating areas where policy could bridge gaps.
+
+To further our understanding, we delved into regression analysis, examining the impact of various factors on education years. Simple linear regression gave way to multiple linear regression models, incorporating factors like wealth and location alongside primary school completion rates.
+
+model \<- lm(eduyears_2024_m \~ comp_prim_1524_m + Location + Wealth, data = merged_data)

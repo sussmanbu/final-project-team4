@@ -7,24 +7,34 @@ editor: visual
 library(tidyverse)
 library(tidymodels)
 library(broom)
+library(scales) # for the label_comma() function
 ```
 
 ```{r}
 data <- read_csv('dataset/educ.csv')
 continent <- read_csv('dataset/continents2.csv')
+pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv')
+```
+
+ 
+
+```{r}
+#data
+#continent
+#pisa
 ```
 
 ```{r}
-continent <- continent|>
+continent <- continent |>
   rename(
-    country = name
+    country = name,
+    sub_region = `sub-region`
   )
-continent
 
+#continent
 merged_data <- merge(data, continent, by = "country")
-
-merged_data <- merged_data |> rename(sub_region = `sub-region`)
-
+merged_data2 <- merge(merged_data, pisa, by = "country")
+#merged_data
 ```
 
 ```{r}
@@ -237,11 +247,77 @@ broom::augment(lm_form_fit, new_data = grouped2)
 ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
 ```
 
+`{r}lo} ggplot(   broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)   ) +    geom_point(alpha = 0.45, style = 'O', size = 2.5) +    ylim(c(-1,1)) +    geom_line(y =   0, color = 'red')`
+
 ```{r}
-ggplot(
-  broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)
-  ) + 
-  geom_point(alpha = 0.45, style = 'O', size = 2.5) + 
-  ylim(c(-1,1)) + 
-  geom_line(y =   0, color = 'red')
+pisa_summary <- merged_data2 |>
+  group_by(country) |>
+  summarise(
+    mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+    obs_primary_completion_rate = sum(!is.na(comp_prim_v2_m)),
+    percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+    mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+    attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+    number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+    pisa_overall_mean = mean(OverallPisaScore2022),
+    pisa_math_mean = mean(PISAScoresScienceScore2022),
+    pisa_science_mean = mean(PISAScoresScienceScore2022),
+    pisa_reading_mean = mean(PISAScoresReadingScore2022)
+  )
+
+pisa_summary
+```
+
+```{r}
+
+# Assuming merged_data is your original data frame
+americas_pisa_long <- merged_data2 %>%
+  filter(region == 'Americas') %>%
+  group_by(country) %>%
+  summarise(
+    pisa_overall_mean = mean(OverallPisaScore2022, na.rm = TRUE),
+    pisa_math_mean = mean(PISAScoresMathScore2022, na.rm = TRUE), # Assuming you meant Math Score here
+    pisa_science_mean = mean(PISAScoresScienceScore2022, na.rm = TRUE),
+    pisa_reading_mean = mean(PISAScoresReadingScore2022, na.rm = TRUE)
+  ) %>%
+  pivot_longer(
+    cols = starts_with("pisa_"),
+    names_to = "score_type",
+    values_to = "score"
+  ) %>%
+  mutate(score_type = factor(score_type, levels = c("pisa_overall_mean", "pisa_math_mean", "pisa_science_mean", "pisa_reading_mean")))
+
+# Creating the plot
+americas_pisa_plot <- americas_pisa_long %>%
+  ggplot(aes(x = country, y = score, fill = score_type)) + 
+  geom_col(position = "dodge") + 
+  scale_y_continuous(labels = label_comma()) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(y = "PISA Score", x = "Country", fill = "Score Type") +
+  scale_fill_brewer(palette = "Pastel1") # Using a color palette for better visual distinction
+
+americas_pisa_plot
+```
+
+```{r}
+lm_form_fit2 <- 
+  lm_model |> 
+  fit(pisa_math_mean ~ mean_primary_completion_rate + percent_people_not_in_primary_school + mean_educ_years_20_24 + attend_higher_education + number_complete_prim_1524, data = pisa_summary)
+
+lm_form_fit2
+
+```
+
+```{r}
+broom::glance(lm_form_fit2)
+broom::augment(lm_form_fit2, new_data = pisa_summary)
+```
+
+```{r}
+lm_form_fit2 <- 
+  lm_model |> 
+  fit(pisa_overall_mean ~ mean_primary_completion_rate + percent_people_not_in_primary_school + mean_educ_years_20_24 + attend_higher_education + number_complete_prim_1524, data = pisa_summary)
+
+lm_form_fit2
+
 ```

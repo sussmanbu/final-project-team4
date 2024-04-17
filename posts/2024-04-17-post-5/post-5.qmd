@@ -1,13 +1,10 @@
 ---
 title: "Post 5"
-description:  |
-  POST 5
 author: "Team 4"
-date: "2024-04-15"
-date-modified: "2024-04-15"
+date: "2024-04-17"
+date-modified: "2024-04-17"
 draft: FALSE
 ---
-
 This week we found two datasets to merge our original dataset with. 
 
 1.) The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.

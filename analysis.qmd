@@ -16,6 +16,8 @@ Our project begins with section 1, where we will identify educational trends by 
 In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface
 
 ```{r}
+#| label: libraries
+#| echo: false
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(tidymodels))
 suppressPackageStartupMessages(library(broom))
@@ -23,14 +25,19 @@ suppressPackageStartupMessages(library(scales)) # for the label_comma() function
 ```
 
 ```{r}
+#| label: data import
+#| echo: false
+#| 
 data <- read_csv('dataset/educ.csv')
 continent <- read_csv('dataset/continents2.csv')
 pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv')
 literacy <- read_csv('dataset/literacy.csv')
-data
 ```
 
 ```{r}
+#| label: data cleaning
+#| echo: false
+
 # clean literacy
 literacy_clean <- literacy |>
   filter(Age == '15+', Gender == 'total') |>
@@ -42,12 +49,13 @@ literacy_clean <- literacy_clean |>
     country = Country
   )
 
-literacy_clean
 ```
 
 ```{r}
-# rename columns to make it easier to merge
+#| label: data cleaning2
+#| echo: false
 
+# rename columns to make it easier to merge
 continent <- continent |>
   rename(
     country = name,
@@ -56,11 +64,13 @@ continent <- continent |>
 ```
 
 ```{r}
+#| label: data merging
+#| echo: false
+
 # merge the data
 merged_data <- merge(data, continent, by = "country")
 merged_data2 <- merge(merged_data, pisa, by = "country")
 merged_data3 <- merge(continent, literacy_clean, by = "country")
-#merged_data3
 ```
 
 ### Section 1.1: PISA Scores and Literacy Rates
@@ -68,6 +78,9 @@ merged_data3 <- merge(continent, literacy_clean, by = "country")
 The first step to understanding economic disparties is to get a general understanding of what parts of the world generally tend to have better education than others. There are multiple ways of measuring this, but reliable way to measure this is with PISA scores and literacy rates. Both of these metrics serve as standardized bench marks for the whole world!
 
 ```{r}
+#| label: PISA
+#| echo: false
+
 continent_pisa <- merged_data2 |>
   group_by(region) |>
   summarise(overallpisa2022 = mean(OverallPisaScore2022, na.rm = TRUE)) |>
@@ -78,6 +91,8 @@ continent_pisa
 
 
 ```{r}
+#| label: literacy
+#| echo: false
 continent_literacy <- merged_data3 |>
   filter(region != "Americas") |>
   group_by(region) |>
@@ -88,6 +103,9 @@ continent_literacy
 ```
 
 ```{r}
+#| label: pisa facet
+#| echo: false
+#| 
 americas_pisa_long <- merged_data2 %>%
   group_by(country) %>%
   summarise(
@@ -124,6 +142,9 @@ It is clear that in terms of PISA scores, Oceania and Europe perform the best, w
 The next step of analyzing education around the world was to simply look at the percentage of (i) children and young people aged 3-5 years above primary school graduation age and (ii) young people aged 15-24, who have completed primary school.
 
 ```{r}
+#| label: priary school completion 3-5
+#| echo: false
+
 continent_pisa2 <- merged_data |>
   group_by(region, year) |>
   summarise(complete_prim = mean(comp_prim_v2_m, na.rm = TRUE)) |>
@@ -137,6 +158,9 @@ continent_pisa2
 ```
 
 ```{r}
+#| label: primary school completion 20-24
+#| echo: false
+
 continent_pisa2 <- merged_data |>
   group_by(region, year) |>
   summarise(complete_prim = mean(comp_prim_1524_m, na.rm = TRUE)) |>
@@ -151,6 +175,9 @@ continent_pisa2
 As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa.
 
 ```{r}
+#| label: north africa primary completion
+#| echo: false
+
 northern_africa_mean_completion <- merged_data |>
   filter(sub_region %in% c('Northern Africa')) |>
   group_by(iso_code) |>
@@ -166,6 +193,9 @@ northern_africa_mean_completion <- merged_data |>
 northern_africa_mean_completion
 ```
 ```{r}
+#| label: sub-saharan africa primary school completion
+#| echo: false
+
 subsaharan_africa_mean_completion <- merged_data |>
   filter(sub_region %in% c('Sub-Saharan Africa')) |>
   group_by(iso_code) |>
@@ -191,6 +221,9 @@ The next step is to analyze the mean years of education of each region
 ### Section 1.4: Rural vs Urban
 
 ```{r}
+#| label: rural vs urban
+#| echo: false
+
 grouped7 <- merged_data2 |>
   group_by(region, Location) |>
   summarise(
@@ -210,6 +243,9 @@ This suggests that education should be focused more on Rural areas rather than n
 ### Section 1.5: Male vs. Female
 
 ```{r}
+#| label: sub_region rural vs urban
+#| echo: false
+
 grouped7 <- merged_data2 |>
   group_by(sub_region, Sex) |>
   summarise(
@@ -228,6 +264,9 @@ Relatively even except for Africa where the males get more education. Surprisnly
 ### Section 2: Modeling
 
 ```{r}
+#| label: model cleaning
+#| echo: false
+
 grouped2 <- data |>
   group_by(iso_code) |>
   summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
@@ -239,6 +278,9 @@ grouped2 <- data |>
 
 
 ```{r}
+#| label: linear model
+#| echo: false
+
 lm_model <- 
   linear_reg() |> 
   set_engine("lm")
@@ -251,15 +293,24 @@ lm_form_fit
 ```
 
 ```{r}
+#| label: model summary
+#| echo: false
+
 summary(lm_form_fit)
 ```
 
 ```{r}
+#| label: model summary 2
+#| echo: false
+
 broom::glance(lm_form_fit)
 broom::augment(lm_form_fit, new_data = grouped2)
 ```
 
 ```{r}
+#| label: residual plot
+#| echo: false
+
 ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
 ```
 

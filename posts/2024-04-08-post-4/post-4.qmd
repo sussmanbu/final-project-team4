@@ -14,9 +14,9 @@ After regrouping our data set, we want to take a deeper understanding of all the
 
 Our analysis sought to reveal the mean years of education across different categorizations such as location (urban vs. rural), sex (male vs. female), and more. Utilizing ggplot2, we visualized these differences, which unveiled significant disparities. For instance, urban areas consistently showed higher educational attainment than rural counterparts, with Europe leading in educational years and Africa lagging behind.
 
-![](images/Screenshot 2024-04-08 at 6.32.17 PM-02.png)
+![](images/Screenshot%202024-04-08%20at%206.32.17%20PM-02.png)
 
-![](images/Screenshot 2024-04-08 at 6.35.41 PM-02.png)
+![](images/Screenshot%202024-04-08%20at%206.35.41%20PM-02.png)
 
 ## **Insights and Implications**
 

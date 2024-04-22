@@ -1,0 +1,120 @@
+---
+title: "Post 5"
+author: "Team 4"
+date: "2024-04-17"
+date-modified: "2024-04-17"
+draft: FALSE
+---
+This week we found two datasets to merge our original dataset with. 
+
+1.) The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.
+
+2.) The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparties between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries. This dataset was found from this link: https://www.oecd.org/pisa/data/.
+
+These are the two datasets that we have merged our original datset; however, there are a few more datasets that we are considering. We want to merge our dataset with some sort of teacher salary dataset as that may provide some insight into why the PISA scores are the way they are. Additionaly, we want to add years to the PISA scores. We only included PISA scores from 2022, and it may be interesting to include PISA scores from specific years.
+
+https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(tidymodels))
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(scales))
+
+data <- read_csv('dataset/educ.csv')
+continent <- read_csv('dataset/continents2.csv')
+pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv')
+
+data_example <- data |> group_by(region_group) |> slice_head(n = 1) 
+data_example
+continent_example <- continent |> group_by(`sub-region`) |> slice_head(n=1)
+continent_example
+```
+
+```{r}
+continent <- continent |>
+  rename(
+    country = name,
+    sub_region = `sub-region`
+  )
+
+#continent
+merged_data <- merge(data, continent, by = "country")
+merged_data2 <- merge(merged_data, pisa, by = "country")
+head(pisa)
+head(merged_data)
+head(merged_data2)
+```
+
+With this new data, we are able to make some new visualizations. For example, the following is a graph that shows the relative PISA scores for eahc Latin American Country.
+
+```{r}
+# Assuming merged_data is your original data frame
+americas_pisa_long <- merged_data2 %>%
+  filter(region == 'Americas') %>%
+  group_by(country) %>%
+  summarise(
+    pisa_overall_mean = mean(OverallPisaScore2022, na.rm = TRUE),
+    pisa_math_mean = mean(PISAScoresMathScore2022, na.rm = TRUE), # Assuming you meant Math Score here
+    pisa_science_mean = mean(PISAScoresScienceScore2022, na.rm = TRUE),
+    pisa_reading_mean = mean(PISAScoresReadingScore2022, na.rm = TRUE)
+  ) %>%
+  pivot_longer(
+    cols = starts_with("pisa_"),
+    names_to = "score_type",
+    values_to = "score"
+  ) %>%
+  mutate(score_type = factor(score_type, levels = c("pisa_overall_mean", "pisa_math_mean", "pisa_science_mean", "pisa_reading_mean")))
+
+# Creating the plot
+americas_pisa_plot <- americas_pisa_long %>%
+  ggplot(aes(x = country, y = score, fill = score_type)) + 
+  geom_col(position = "dodge") + 
+  scale_y_continuous(labels = label_comma()) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(y = "PISA Score", x = "Country", fill = "Score Type") +
+  scale_fill_brewer(palette = "Pastel1") # Using a color palette for better visual distinction
+
+americas_pisa_plot
+```
+
+```{r}
+pisa_summary <- merged_data2 |>
+  group_by(country) |>
+  summarise(
+    mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+    obs_primary_completion_rate = sum(!is.na(comp_prim_v2_m)),
+    percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+    mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+    attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+    number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+    pisa_overall_mean = mean(OverallPisaScore2022),
+    pisa_math_mean = mean(PISAScoresScienceScore2022),
+    pisa_science_mean = mean(PISAScoresScienceScore2022),
+    pisa_reading_mean = mean(PISAScoresReadingScore2022)
+  )
+
+pisa_summary
+```
+
+Using this data, we have also made some relatively simple multivariate regression models. The linear regression model below examines the relationship betwee the PISA math score, and factors such as primary school completition rate, % of people not in primary school, mean education years for 20-24 yera olds, and % of people who attend higher education. From the coefficients it seems that all of these factors have a positive linear relationship with the PISA math score. However, the mean education years for 20-24 year olds has a negative relationship which is not what we would expect. This may be due to some sort of colinearity or homoscedacity, which we plan to examine in this coming week.
+
+```{r}
+lm_model <- 
+  linear_reg() |> 
+  set_engine("lm")
+
+lm_form_fit2 <- 
+  lm_model |> 
+  fit(pisa_math_mean ~ mean_primary_completion_rate + percent_people_not_in_primary_school + mean_educ_years_20_24 + attend_higher_education, data = pisa_summary)
+
+lm_form_fit2
+
+```
+Here, we can see that the r^2 value is 0.353 which is not a super high r^2 value, so we will continue to refine our modeling in the coming week. 
+
+```{r}
+broom::glance(lm_form_fit2)
+broom::augment(lm_form_fit2, new_data = pisa_summary)
+```
+

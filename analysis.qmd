@@ -5,68 +5,313 @@ toc: true
 draft: false
 ---
 
-![](https://upload.wikimedia.org/wikipedia/commons/7/77/Pebbleswithquarzite.jpg)
+![](https://habitatbroward.org/wp-content/uploads/2020/01/10-Benefits-Showing-Why-Education-Is-Important-to-Our-Society.jpg)
 
-This comes from the file `analysis.qmd`.
+### Section 1: Analysis of Education Statistics
 
-We describe here our detailed data analysis. This page will provide an overview of what questions you addressed, illustrations of relevant aspects of the data with tables and figures, and a statistical model that attempts to answer part of the question. You'll also reflect on next steps and further analysis.
+Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success. 
 
-The audience for this page is someone like your class mates, so you can expect that they have some level of statistical and quantitative sophistication and understand ideas like linear and logistic regression, coefficients, confidence intervals, overfitting, etc. 
+Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer ***why*** these country's are the way they are.
 
-While the exact number of figures and tables will vary and depend on your analysis, you should target around 5 to 6. An overly long analysis could lead to losing points.
-If you want you can link back to your blog posts or create separate pages with more details.
-
-The style of this paper should aim to be that of an academic paper. 
-I don't expect this to be of publication quality but you should keep that aim in mind.
-Avoid using "we" too frequently, for example "We also found that ...". Describe your methodology and your findings but don't describe your whole process.
-
-### Example of loading data
-
-The code below shows an example of loading the loan refusal data set (which you should delete at some point).
+In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface
 
 ```{r}
-library(tidyverse)
-print(getwd())
-data <- read_csv(here::here("dataset/loan_refusal_clean.csv"))
-load(here::here("dataset/loan_refusal.RData"))
-print(ls())
+#| label: libraries
+#| echo: false
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(tidymodels))
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(scales)) # for the label_comma() function
 ```
 
-## Note on Attribution
-
-In general, you should try to provide links to relevant resources, especially those that helped you. You don't have to link to every StackOverflow post you used but if there are explainers on aspects of the data or specific models that you found helpful, try to link to those. Also, try to link to other sources that might support (or refute) your analysis. These can just be regular hyperlinks. You don't need a formal citation.
-
-If you are directly quoting from a source, please make that clear. You can show quotes using `>` like this
-
-```         
-> To be or not to be.
+```{r}
+#| label: data import
+#| echo: false
+#| 
+data <- read_csv('dataset/educ.csv')
+continent <- read_csv('dataset/continents2.csv')
+pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv')
+literacy <- read_csv('dataset/literacy.csv')
 ```
 
-> To be or not to be.
+```{r}
+#| label: data cleaning
+#| echo: false
 
-------------------------------------------------------------------------
+# clean literacy
+literacy_clean <- literacy |>
+  filter(Age == '15+', Gender == 'total') |>
+  group_by(Country) |>
+  summarize(mean_literacy_rate = mean(`Literacy rate`, na.rm = TRUE))
 
-## Rubric: On this page
+literacy_clean <- literacy_clean |>
+  rename(
+    country = Country
+  )
 
-You will
+```
 
--   Introduce what motivates your Data Analysis (DA)
-    -   Which variables and relationships are you most interested in?
-    -   What questions are you interested in answering?
-    -   Provide context for the rest of the page. This will include figures/tables that illustrate aspects of the data of your question.
--   Modeling and Inference
-    -   The page will include some kind of formal statistical model. This could be a linear regression, logistic regression, or another modeling framework.
-    -   Explain the ideas and techniques you used to choose the predictors for your model. (Think about including interaction terms and other transformations of your variables.)
-    -   Describe the results of your modelling and make sure to give a sense of the uncertainty in your estimates and conclusions.
--   Explain the flaws and limitations of your analysis
-    -   Are there some assumptions that you needed to make that might not hold? Is there other data that would help to answer your questions?
--   Clarity Figures
-    -   Are your figures/tables/results easy to read, informative, without problems like overplotting, hard-to-read labels, etc?
-    -   Each figure should provide a key insight. Too many figures or other data summaries can detract from this. (While not a hard limit, around 5 total figures is probably a good target.)
-    -   Default `lm` output and plots are typically not acceptable.
--   Clarity of Explanations
-    -   How well do you explain each figure/result?
-    -   Do you provide interpretations that suggest further analysis or explanations for observed phenomenon?
--   Organization and cleanliness.
-    -   Make sure to remove excessive warnings, hide most or all code, organize with sections or multiple pages, use bullets, etc.
-    -   This page should be self-contained, i.e. provide a description of the relevant data.
+```{r}
+#| label: data cleaning2
+#| echo: false
+
+# rename columns to make it easier to merge
+continent <- continent |>
+  rename(
+    country = name,
+    sub_region = `sub-region`
+  )
+```
+
+```{r}
+#| label: data merging
+#| echo: false
+
+# merge the data
+merged_data <- merge(data, continent, by = "country")
+merged_data2 <- merge(merged_data, pisa, by = "country")
+merged_data3 <- merge(continent, literacy_clean, by = "country")
+```
+
+### Section 1.1: PISA Scores and Literacy Rates
+
+The first step to understanding economic disparties is to get a general understanding of what parts of the world generally tend to have better education than others. There are multiple ways of measuring this, but reliable way to measure this is with PISA scores and literacy rates. Both of these metrics serve as standardized bench marks for the whole world!
+
+```{r}
+#| label: PISA
+#| echo: false
+
+continent_pisa <- merged_data2 |>
+  group_by(region) |>
+  summarise(overallpisa2022 = mean(OverallPisaScore2022, na.rm = TRUE)) |>
+  ggplot(aes(x = region, y = overallpisa2022, fill = region)) + geom_col()
+
+continent_pisa
+```
+
+
+```{r}
+#| label: literacy
+#| echo: false
+continent_literacy <- merged_data3 |>
+  filter(region != "Americas") |>
+  group_by(region) |>
+  summarise(literacy = mean(mean_literacy_rate, na.rm = TRUE)) |>
+  ggplot(aes(x = region, y = literacy, fill = region)) + geom_col()
+
+continent_literacy
+```
+
+```{r}
+#| label: pisa facet
+#| echo: false
+#| 
+americas_pisa_long <- merged_data2 %>%
+  group_by(country) %>%
+  summarise(
+    pisa_overall_mean = mean(OverallPisaScore2022, na.rm = TRUE),
+    pisa_math_mean = mean(PISAScoresMathScore2022, na.rm = TRUE), # Assuming you meant Math Score here
+    pisa_science_mean = mean(PISAScoresScienceScore2022, na.rm = TRUE),
+    pisa_reading_mean = mean(PISAScoresReadingScore2022, na.rm = TRUE),
+    region = region
+  ) %>%
+  pivot_longer(
+    cols = starts_with("pisa_"),
+    names_to = "score_type",
+    values_to = "score"
+  ) %>%
+  mutate(score_type = factor(score_type, levels = c("pisa_overall_mean", "pisa_math_mean", "pisa_science_mean", "pisa_reading_mean")))
+
+# Creating the plot
+americas_pisa_plot <- americas_pisa_long %>%
+  ggplot(aes(x = country, y = score, fill = score_type)) + 
+  geom_col(position = "dodge") + 
+  scale_y_continuous(labels = label_comma()) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(y = "PISA Score", x = "Country", fill = "Score Type") +
+  scale_fill_brewer(palette = "Pastel1") +
+  facet_wrap(~ region, scales = "free_x") 
+
+americas_pisa_plot
+```
+
+It is clear that in terms of PISA scores, Oceania and Europe perform the best, while Africa performed the worst, and in terms of literacy rate, all of the continents performed relatively equally while Africa performed the worst again. Now that you have a general understanding of where education is better and where education is worse, we can now get into more specific statistics.
+
+### Section 1.2: Percentage of People who did not Complete Primary School
+
+The next step of analyzing education around the world was to simply look at the percentage of (i) children and young people aged 3-5 years above primary school graduation age and (ii) young people aged 15-24, who have completed primary school.
+
+```{r}
+#| label: priary school completion 3-5
+#| echo: false
+
+continent_pisa2 <- merged_data |>
+  group_by(region, year) |>
+  summarise(complete_prim = mean(comp_prim_v2_m, na.rm = TRUE)) |>
+  ggplot(aes(x = year, y = complete_prim, color = region)) +
+    geom_line() +
+  labs(
+    title = "Primary School Completion Rate for People aged 3-5 years above primary school"
+  )
+
+continent_pisa2
+```
+
+```{r}
+#| label: primary school completion 20-24
+#| echo: false
+
+continent_pisa2 <- merged_data |>
+  group_by(region, year) |>
+  summarise(complete_prim = mean(comp_prim_1524_m, na.rm = TRUE)) |>
+  ggplot(aes(x = year, y = complete_prim, color = region)) +
+    geom_line() + 
+  labs(
+    title = "Primary School Completion Rate for ages 15-24"
+  )
+
+continent_pisa2
+```
+As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa.
+
+```{r}
+#| label: north africa primary completion
+#| echo: false
+
+northern_africa_mean_completion <- merged_data |>
+  filter(sub_region %in% c('Northern Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = mean_primary_completion_rate, fill = iso_code)) +
+    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+northern_africa_mean_completion
+```
+```{r}
+#| label: sub-saharan africa primary school completion
+#| echo: false
+
+subsaharan_africa_mean_completion <- merged_data |>
+  filter(sub_region %in% c('Sub-Saharan Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = mean_primary_completion_rate)) +
+    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+subsaharan_africa_mean_completion
+```
+As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.
+
+The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see. 
+
+The next step is to analyze the mean years of education of each region
+
+### Section 1.3: Mean Years of Education
+
+### Section 1.4: Rural vs Urban
+
+```{r}
+#| label: rural vs urban
+#| echo: false
+
+grouped7 <- merged_data2 |>
+  group_by(region, Location) |>
+  summarise(
+    mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+    count = n()
+  ) |>
+  ggplot(
+    aes(x = Location, y = mean_educ_years_20_24, fill = Location) 
+  )+geom_col() +
+  facet_wrap(~ region, scales = "free_x") 
+
+grouped7
+```
+
+This suggests that education should be focused more on Rural areas rather than non-rural areas
+
+### Section 1.5: Male vs. Female
+
+```{r}
+#| label: sub_region rural vs urban
+#| echo: false
+
+grouped7 <- merged_data2 |>
+  group_by(sub_region, Sex) |>
+  summarise(
+    mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+    count = n()
+  ) |>
+  ggplot(
+    aes(x = Sex, y = mean_educ_years_20_24, fill = Sex) 
+  )+geom_col() +
+  facet_wrap(~ sub_region, scales = "free_x") 
+
+grouped7
+```
+Relatively even except for Africa where the males get more education. Surprisnly, females get more education except for in Africa.
+
+### Section 2: Modeling
+
+```{r}
+#| label: model cleaning
+#| echo: false
+
+grouped2 <- data |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            count = n()) |>
+  ungroup()
+```
+
+
+```{r}
+#| label: linear model
+#| echo: false
+
+lm_model <- 
+  linear_reg() |> 
+  set_engine("lm")
+
+lm_form_fit <- 
+  lm_model %>% 
+  fit(mean_primary_completion_rate ~ mean_educ_years_20_24, data = grouped2)
+
+lm_form_fit
+```
+
+```{r}
+#| label: model summary
+#| echo: false
+
+summary(lm_form_fit)
+```
+
+```{r}
+#| label: model summary 2
+#| echo: false
+
+broom::glance(lm_form_fit)
+broom::augment(lm_form_fit, new_data = grouped2)
+```
+
+```{r}
+#| label: residual plot
+#| echo: false
+
+ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
+```
+
+

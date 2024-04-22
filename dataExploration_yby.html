@@ -193,7 +193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 ✖ dplyr::lag()      masks stats::lag()
 ✖ yardstick::spec() masks readr::spec()
 ✖ recipes::step()   masks stats::step()
-• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+• Use tidymodels_prefer() to resolve common conflicts.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -259,19 +259,21 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
 </div>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Location_mean_edu_years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 4
-   region   Location mean_educ_years count_non_missing
-   &lt;chr&gt;    &lt;chr&gt;              &lt;dbl&gt;             &lt;int&gt;
- 1 Africa   Rural               4.88                82
- 2 Africa   Urban               8.31                82
- 3 Americas Rural               7.71                39
- 4 Americas Urban              10.4                 39
- 5 Asia     Rural               8.42                51
- 6 Asia     Urban              10.2                 49
- 7 Europe   Rural              10.9                  2
- 8 Europe   Urban              13.5                  3
- 9 Oceania  Rural             NaN                    0
-10 Oceania  Urban             NaN                    0</code></pre>
+<pre><code># A tibble: 12 × 4
+   region        Location mean_educ_years count_non_missing
+   &lt;chr&gt;         &lt;chr&gt;              &lt;dbl&gt;             &lt;int&gt;
+ 1 Africa        Rural               4.88                82
+ 2 Africa        Urban               8.31                82
+ 3 Asia          Rural               8.42                51
+ 4 Asia          Urban              10.2                 49
+ 5 Europe        Rural              10.9                  2
+ 6 Europe        Urban              13.5                  3
+ 7 North America Rural               6.05                14
+ 8 North America Urban               9.39                14
+ 9 Oceania       Rural             NaN                    0
+10 Oceania       Urban             NaN                    0
+11 South America Rural               8.65                25
+12 South America Urban              11.0                 25</code></pre>
 </div>
 </div>
 <p>All the regions show that people in urban area has longer average education years for age group 20-24 years old. In general, the average education years is the longest in Europe while shortest in Africa.</p>
@@ -294,19 +296,21 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
 </div>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>Sex_mean_edu_years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 10 × 4
-   region   Sex    mean_educ_years count_non_missing
-   &lt;chr&gt;    &lt;chr&gt;            &lt;dbl&gt;             &lt;int&gt;
- 1 Africa   Female            5.74                83
- 2 Africa   Male              6.94                83
- 3 Americas Female           10.1                 45
- 4 Americas Male              9.82                45
- 5 Asia     Female            8.96                51
- 6 Asia     Male              9.40                51
- 7 Europe   Female           12.9                  3
- 8 Europe   Male             12.5                  3
- 9 Oceania  Female           13.0                  1
-10 Oceania  Male             12.3                  1</code></pre>
+<pre><code># A tibble: 12 × 4
+   region        Sex    mean_educ_years count_non_missing
+   &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;             &lt;int&gt;
+ 1 Africa        Female            5.74                83
+ 2 Africa        Male              6.94                83
+ 3 Asia          Female            8.96                51
+ 4 Asia          Male              9.40                51
+ 5 Europe        Female           12.9                  3
+ 6 Europe        Male             12.5                  3
+ 7 North America Female            8.95                18
+ 8 North America Male              8.92                18
+ 9 Oceania       Female           13.0                  1
+10 Oceania       Male             12.3                  1
+11 South America Female           10.8                 27
+12 South America Male             10.4                 27</code></pre>
 </div>
 </div>
 </section>
@@ -337,17 +341,17 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
 <span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 265 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning: Removed 268 rows containing missing values (`geom_bar()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 265 rows containing missing values (`geom_text()`).</code></pre>
+<pre><code>Warning: Removed 268 rows containing missing values (`geom_text()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="dataExploration_yby_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>Ethnicity_mean_edu_years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 627 × 4
+<pre><code># A tibble: 631 × 4
    region Ethnicity                     mean_educ_years count_non_missing
    &lt;chr&gt;  &lt;chr&gt;                                   &lt;dbl&gt;             &lt;int&gt;
  1 Africa Acholi                                NaN                     0
@@ -360,7 +364,7 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
  8 Africa Affar / Adal, Danakil, Denkel           0.488                 1
  9 Africa African                                 9.24                  1
 10 Africa Afrikaans                              10.8                   1
-# ℹ 617 more rows</code></pre>
+# ℹ 621 more rows</code></pre>
 </div>
 </div>
 <p>There are 700+ distinct ethnicities which is over detailed that we are not able to apply this information to our analysis.</p>
@@ -390,17 +394,17 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
 <span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 481 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning: Removed 485 rows containing missing values (`geom_bar()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 481 rows containing missing values (`geom_text()`).</code></pre>
+<pre><code>Warning: Removed 485 rows containing missing values (`geom_text()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="dataExploration_yby_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Region_mean_edu_years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,337 × 4
+<pre><code># A tibble: 1,344 × 4
    region Region      mean_educ_years count_non_missing
    &lt;chr&gt;  &lt;chr&gt;                 &lt;dbl&gt;             &lt;int&gt;
  1 Africa Abia                 NaN                    0
@@ -413,7 +417,7 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
  8 Africa Akwa Ibom            NaN                    0
  9 Africa Al Gadarif           NaN                    0
 10 Africa Al Gazira            NaN                    0
-# ℹ 1,327 more rows</code></pre>
+# ℹ 1,334 more rows</code></pre>
 </div>
 </div>
 </section>
@@ -436,20 +440,20 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
 </div>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>Wealth_mean_edu_years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 25 × 4
-   region   Wealth     mean_educ_years count_non_missing
-   &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;             &lt;int&gt;
- 1 Africa   Quintile 1            3.51                72
- 2 Africa   Quintile 2            4.56                72
- 3 Africa   Quintile 3            5.55                72
- 4 Africa   Quintile 4            6.88                72
- 5 Africa   Quintile 5            9.32                72
- 6 Americas Quintile 1            7.75                41
- 7 Americas Quintile 2            8.98                41
- 8 Americas Quintile 3            9.97                41
- 9 Americas Quintile 4           10.9                 41
-10 Americas Quintile 5           12.3                 41
-# ℹ 15 more rows</code></pre>
+<pre><code># A tibble: 30 × 4
+   region Wealth     mean_educ_years count_non_missing
+   &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt;             &lt;int&gt;
+ 1 Africa Quintile 1            3.51                72
+ 2 Africa Quintile 2            4.56                72
+ 3 Africa Quintile 3            5.55                72
+ 4 Africa Quintile 4            6.88                72
+ 5 Africa Quintile 5            9.32                72
+ 6 Asia   Quintile 1            7.11                46
+ 7 Asia   Quintile 2            8.21                46
+ 8 Asia   Quintile 3            9.00                46
+ 9 Asia   Quintile 4           10.0                 46
+10 Asia   Quintile 5           11.6                 46
+# ℹ 20 more rows</code></pre>
 </div>
 </div>
 <p>For all regions, the higher the wealth level, the longer the average education years. However, we should be careful that some regions only have a few data. For example, Oceania only has 1 data for each quintile and Europe only has 3 data points for each quintile, which may cause data collection bias.</p>
@@ -469,17 +473,17 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 44 rows containing missing values (`geom_bar()`).</code></pre>
+<pre><code>Warning: Removed 52 rows containing missing values (`geom_bar()`).</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 44 rows containing missing values (`geom_text()`).</code></pre>
+<pre><code>Warning: Removed 52 rows containing missing values (`geom_text()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <p><img src="dataExploration_yby_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Religion_mean_edu_years</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 111 × 4
+<pre><code># A tibble: 120 × 4
    region Religion                 mean_educ_years count_non_missing
    &lt;chr&gt;  &lt;chr&gt;                              &lt;dbl&gt;             &lt;int&gt;
  1 Africa .                                   6.95                 4
@@ -492,7 +496,7 @@ dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
  8 Africa Armee De Salut                    NaN                    0
  9 Africa Assemblee De Dieu                 NaN                    0
 10 Africa Assembly Of God                     7.53                 2
-# ℹ 101 more rows</code></pre>
+# ℹ 110 more rows</code></pre>
 </div>
 </div>
 </section>

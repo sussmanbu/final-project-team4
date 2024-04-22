@@ -1,0 +1,310 @@
+---
+title: "Data Exploration"
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(broom)
+```
+
+```{r}
+Education <- read_csv('dataset/educ.csv')
+```
+
+We hope to focus on the category of Ethnicity
+
+```{r}
+DataEth <- Education |>
+  filter(category == 'Ethnicity')
+```
+
+As the Ethnicity is being divided too detailed, we hope to regather the ethnicity in simply a few groups, such as Asian, Hispanic, Black, White...We need to find another table in order to regroup.
+
+# Regroup the Region by Continent
+
+```{r}
+continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
+continent <- continent|>
+  rename(
+    country = name
+  )
+
+merged_data <- merge(Education, continent, by = "country")
+
+merged_data <- merged_data |> rename(sub_region = `sub-region`)
+merged_data <- merged_data %>%
+  select(region, sub_region, everything())
+
+```
+
+# Mean Education Years By Different Categories (Categorical Variables)
+
+## By Location
+
+```{r}
+Location_mean_edu_years <- merged_data |>
+  filter(category == 'Location') |>   group_by(region, Location) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE),count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+ggplot(Location_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Location)) +
+  geom_bar(stat = "identity", position = position_dodge()) +  scale_fill_manual(values = c("Rural" = "skyblue", "Urban" = "blue")) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Location and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Location_mean_edu_years
+```
+
+All the regions show that people in urban area has longer average education years for age group 20-24 years old. In general, the average education years is the longest in Europe while shortest in Africa.
+
+## By Sex
+
+```{r}
+Sex_mean_edu_years <- merged_data |>
+  filter(category == 'Sex') |>   group_by(region, Sex) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+ggplot(Sex_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Sex)) +
+  geom_bar(stat = "identity", position = position_dodge()) +  scale_fill_manual(values = c("Female" = "pink", "Male" = "black")) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Sex and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Sex_mean_edu_years
+```
+
+## by ethnicity\[too detailed\]
+
+```{r}
+#count the number of distinct ethnicities
+number_of_distinct_ethnicities <- DataEth %>%
+  summarise(count_distinct_ethnicity = n_distinct(Ethnicity))
+number_of_distinct_ethnicities
+
+#calculate the mean education years for age group 20-24 after grouping by region and ethnicity
+Ethnicity_mean_edu_years <- merged_data |>
+  filter(category == 'Ethnicity') |>   group_by(region, Ethnicity) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+#plot the bar graph
+ggplot(Ethnicity_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Ethnicity)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Ethnicity and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Ethnicity_mean_edu_years
+```
+
+There are 700+ distinct ethnicities which is over detailed that we are not able to apply this information to our analysis.
+
+## by Region\[too detailed\]
+
+```{r}
+#count the number of distinct regions
+number_of_distinct_regions <- merged_data |>
+  filter(category == 'Region') |>
+  summarise(count_distinct_regions = n_distinct(Region))
+number_of_distinct_regions
+
+#calculate mean
+Region_mean_edu_years <- merged_data |>
+  filter(category == 'Region') |>   group_by(region, Region) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE),count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+#plot bar graph
+ggplot(Region_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Region)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "white") + 
+  labs(title = "Average Education Years by Region and region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Region_mean_edu_years
+```
+
+## by wealth
+
+```{r}
+Wealth_mean_edu_years <- merged_data |>
+  filter(category == 'Wealth') |>   group_by(region, Wealth) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+ggplot(Wealth_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Wealth)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "black") + 
+  labs(title = "Average Education Years by Wealth and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Wealth_mean_edu_years
+```
+
+For all regions, the higher the wealth level, the longer the average education years. However, we should be careful that some regions only have a few data. For example, Oceania only has 1 data for each quintile and Europe only has 3 data points for each quintile, which may cause data collection bias.
+
+## by religion\[too detailed but can do some data cleaning\]
+
+```{r}
+Religion_mean_edu_years <- merged_data |>
+  filter(category == 'Religion') |>   group_by(region, Religion) %>%
+  summarise(mean_educ_years = mean(eduyears_2024_m, na.rm = TRUE), count_non_missing = sum(!is.na(eduyears_2024_m)), .groups = 'drop')
+
+ggplot(Religion_mean_edu_years, aes(x = region, y = mean_educ_years, fill = Religion)) +
+  geom_bar(stat = "identity", position = position_dodge()) +
+  geom_text(aes(label = sprintf("%.2f", mean_educ_years)), position = position_dodge(width = 0.9), vjust = 5, size = 3.5, color = "black") + 
+  labs(title = "Average Education Years by Religion and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+Religion_mean_edu_years
+```
+
+## ANOVA for Sex, Wealth, and Location vs. Mean Education Years 20_24
+
+```{r}
+library(dplyr)
+
+# Assuming your data is in a dataframe called data
+Sexdata <- merged_data |>
+  filter(category == 'Sex')
+Locationdata <- merged_data |>
+  filter(category == 'Location')
+Wealthdata <- merged_data |>
+  filter(category == 'Wealth')
+
+# Perform ANOVA to check if mean of y differs by categories of each categorical variable
+anova_cat1 <- aov(eduyears_2024_m ~ Sex, data = Sexdata)
+anova_cat2 <- aov(eduyears_2024_m ~ Location, data = Locationdata)
+anova_cat3 <- aov(eduyears_2024_m ~ Wealth, data = Wealthdata)
+
+# Get the summaries of the ANOVA tests
+summary(anova_cat1)
+summary(anova_cat2)
+summary(anova_cat3)
+```
+
+As p value is smaller than alpha = 0.05 for Location and Wealth, the two categorical values are statistically significant to the average education years.
+
+# Mean Education Years By Different Completion rate (Continuous Variables)
+
+Before regression analysis, grouping by categories of sex, wealth, location 6 Variables: -Primary completion rate: Percentage of (i) children and young people aged 3‐5 years above primary school graduation age and (ii) young people aged 15‐24 years, who have completed primary school. -Lower secondary completion rate: Percentage of (i) young people aged 3‐5 years above lower secondary school graduation age and (ii) young people aged 15‐24 years, who have completed lower secondary school. -Upper secondary completion rate: Percentage of (i) young people aged 3‐5 years above upper secondary school graduation age and (ii) people aged 20‐29 years, who have completed upper secondary school. \[Think about possible Multicollinearity\]
+
+## By Location
+
+```{r}
+library(tidyverse)
+
+#Boxplots for Urban Only
+Urban <- merged_data %>%
+  filter(category == 'Location') |> filter(Location == "Urban")
+# Reshaping the data from wide to long format
+long_data <- Urban %>%
+  pivot_longer(
+    cols = c(comp_prim_v2_m, comp_prim_1524_m, comp_lowsec_v2_m, comp_lowsec_1524_m, comp_upsec_v2_m, comp_upsec_2029_m), 
+    names_to = "variable", 
+    values_to = "value"
+  )
+
+# Creating the box plot with all variables
+ggplot(long_data, aes(x = variable, y = value)) +
+  geom_boxplot() +
+  labs(title = "Box plot of Variables in Location of Urban", 
+       x = "", 
+       y = "Completion Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x labels if needed
+
+#Boxplots for Rural Only {may mainly focus on this location where needs more education resources}
+Rural <- merged_data %>%
+  filter(category == 'Location') |> filter(Location == "Rural")
+# Reshaping the data from wide to long format
+long_data <- Rural %>%
+  pivot_longer(
+    cols = c(comp_prim_v2_m, comp_prim_1524_m, comp_lowsec_v2_m, comp_lowsec_1524_m, comp_upsec_v2_m, comp_upsec_2029_m), 
+    names_to = "variable", 
+    values_to = "value"
+  )
+
+# Creating the box plot with all variables
+ggplot(long_data, aes(x = variable, y = value)) +
+  geom_boxplot() +
+  labs(title = "Box plot of Variables in Location of Rural", 
+       x = "", 
+       y = "Completion Rate") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x labels if needed
+```
+
+As we expected, the primary completion rate \> the lower secondary completion rate \> the higher secondary completion rate, indicated by the box (Q1, median, Q3) that the median primary completion rates approaches or greater than 0.75. Also, we found that the general completion rate at rural is lower than that in urban area.
+
+```         
+```
+
+## Try Simple Linear Regression
+
+```{r}
+library(ggplot2)
+library(gridExtra)  # For arranging the plots
+
+# Assume your dependent variable is named 'y' and your data is in a dataframe named 'data'
+Location <- merged_data %>%
+  filter(category == 'Location') 
+# Create a list of plots
+plots <- list()
+variables <- c("comp_prim_v2_m", "comp_prim_1524_m", "comp_lowsec_v2_m", 
+               "comp_lowsec_1524_m", "comp_upsec_v2_m", "comp_upsec_2029_m")
+
+for (var in variables) {
+  p <- ggplot(Location, aes_string(x = var, y = "eduyears_2024_m")) +
+    geom_point() +
+    geom_smooth(method = "lm", se = TRUE) +
+    labs(title = paste("Regression of y on", var),
+         x = var, 
+         y = "y")
+  plots[[var]] <- p
+}
+
+# Arrange the plots in a grid
+do.call(gridExtra::grid.arrange, plots)
+```
+
+Multicolinearity: because the secondary completion rates highly depends on the primary completion rate, so we will not use all of them \[just pick one of them\]. Remove the ones for upper secondary because the ages(either 3-5 above 18, which will be 21-23, or 20-29) is already over 20-24 age groups.
+
+# Multiple Linear Regression Model
+
+### x = as.factor(wealth), as factor(location), Percentage of (i) children and young people aged 3‐5 years above primary school graduation age and (ii) young people aged 15‐24 years, who have completed primary school.
+
+```{r}
+library(ggplot2)
+#filter by location and wealth
+mlr1Data <- merged_data %>%
+  filter(category == 'Location & Wealth') 
+
+# multiple regression model
+model <- lm(eduyears_2024_m ~ comp_prim_1524_m+ comp_prim_v2_m + Location + Wealth, data = mlr1Data)
+
+# Interaction plot for a continuous and one categorical variable
+ggplot(mlr1Data, aes(x = comp_prim_v2_m, y = eduyears_2024_m, color = Wealth)) +
+  geom_point(alpha = 0.6) +  # Use points with some transparency
+  geom_smooth(method = "lm", aes(group = Wealth), se = FALSE) #+  # Add regression lines
+  #facet_wrap(~ Wealth) +  # Create separate plots for each level of the second categorical variable
+  labs(title = "Multiple Linear Regression Model with Continuous and Categorical Predictors",
+       x = "Continuous Variable",
+       y = "Dependent Variable") +
+  theme_minimal()
+  
+  
+model1 <- lm(mlr1Data$eduyears_2024_m ~ mlr1Data$comp_prim_v2_m + as.factor(mlr1Data$Wealth) + as.factor(mlr1Data$Location) + mlr1Data$comp_prim_1524_m)
+summary(model1)
+```
+
+R-squared = 0.8675, F stats p value extremely small
+
+check for multicolinearity later.

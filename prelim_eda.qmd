@@ -247,7 +247,7 @@ broom::augment(lm_form_fit, new_data = grouped2)
 ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
 ```
 
-`{r}lo} ggplot(   broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)   ) +    geom_point(alpha = 0.45, style = 'O', size = 2.5) +    ylim(c(-1,1)) +    geom_line(y =   0, color = 'red')`
+`{r}lo ggplot(   broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)   ) +    geom_point(alpha = 0.45, style = 'O', size = 2.5) +    ylim(c(-1,1)) +    geom_line(y =   0, color = 'red')`
 
 ```{r}
 pisa_summary <- merged_data2 |>
@@ -320,4 +320,66 @@ lm_form_fit2 <-
 
 lm_form_fit2
 
+```
+
+### Section 1.3: Years of Edcuation
+
+After just two sections, it seems that there is a trend: Europe tends to have the "best education" while Africa seems to have "the worst education." We will now explore college attendane as another measure of education.
+
+```{r}
+#| label: mean years of education
+#| echo: false
+
+mean_educ <- merged_data |>
+  group_by(region, year) |>
+  summarise(attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE)) |>
+  ggplot(aes(x = year, y = attend_higher_education, color = region)) +
+    geom_line() +
+  labs(
+    title = "Mean Years of Education for 20-24 Year Olds"
+  )
+
+mean_educ
+```
+
+This graph shows a similar result to the other graphs: Africa again ranks as the lowest.
+
+```{r}
+#| label: north africa college
+#| echo: false
+
+northern_africa_college <- merged_data |>
+  filter(sub_region %in% c('Northern Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = attend_higher_education, fill = iso_code)) +
+    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+
+northern_africa_college
+```
+
+```{r}
+#| label: sub-saharan africa college
+#| echo: false
+
+saharan_africa_college <- merged_data |>
+  filter(sub_region %in% c('Sub-Saharan Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = attend_higher_education, fill = iso_code)) +
+    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+
+saharan_africa_college
 ```

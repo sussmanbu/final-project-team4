@@ -9,7 +9,7 @@ draft: false
 
 ### Section 1: Analysis of Education Statistics
 
-Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success. 
+Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success.
 
 Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer ***why*** these country's are the way they are.
 
@@ -18,26 +18,30 @@ In section 2, we will model our data with a linear regression model and uncover 
 ```{r}
 #| label: libraries
 #| echo: false
+#| warning: false
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(tidymodels))
 suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(scales)) # for the label_comma() function
 suppressPackageStartupMessages(library(patchwork))
+suppressPackageStartupMessages(library(knitr))
 ```
 
 ```{r}
 #| label: data import
 #| echo: false
+#| warning: false
 
-data <- read_csv('dataset/educ.csv')
-continent <- read_csv('dataset/continents2.csv')
-pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv')
-literacy <- read_csv('dataset/literacy.csv')
+data <- read_csv('dataset/educ.csv', show_col_types = FALSE)
+continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
+pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FALSE)
+literacy <- read_csv('dataset/literacy.csv', show_col_types = FALSE)
 ```
 
 ```{r}
 #| label: data cleaning
 #| echo: false
+#| warning: false
 
 # clean literacy
 literacy_clean <- literacy |>
@@ -55,6 +59,7 @@ literacy_clean <- literacy_clean |>
 ```{r}
 #| label: data cleaning2
 #| echo: false
+#| warning: false
 
 # rename columns to make it easier to merge
 continent <- continent |>
@@ -67,6 +72,7 @@ continent <- continent |>
 ```{r}
 #| label: data merging
 #| echo: false
+#| warning: false
 
 # merge the data
 merged_data <- merge(data, continent, by = "country")
@@ -81,6 +87,7 @@ The first step to understanding economic disparties is to get a general understa
 ```{r}
 #| label: PISA
 #| echo: false
+#| warning: false
 
 continent_pisa <- merged_data2 |>
   group_by(region) |>
@@ -90,10 +97,10 @@ continent_pisa <- merged_data2 |>
 continent_pisa
 ```
 
-
 ```{r}
 #| label: literacy
 #| echo: false
+#| warning: false
 continent_literacy <- merged_data3 |>
   filter(region != "Americas") |>
   group_by(region) |>
@@ -106,7 +113,7 @@ continent_literacy
 ```{r}
 #| label: pisa facet
 #| echo: false
-#| 
+#| warning: false
 americas_pisa_long <- merged_data2 %>%
   group_by(country) %>%
   summarise(
@@ -146,6 +153,7 @@ The next step of analyzing education around the world was to simply look at the 
 ```{r}
 #| label: priary school completion 3-5
 #| echo: false
+#| warning: false
 
 continent_pisa2 <- merged_data |>
   group_by(region, year) |>
@@ -162,6 +170,7 @@ continent_pisa2
 ```{r}
 #| label: primary school completion 20-24
 #| echo: false
+#| warning: false
 
 continent_pisa2 <- merged_data |>
   group_by(region, year) |>
@@ -174,11 +183,13 @@ continent_pisa2 <- merged_data |>
 
 continent_pisa2
 ```
+
 As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some intersting outcomes.
 
 ```{r}
 #| label: north africa primary completion
 #| echo: false
+#| warning: false
 
 northern_africa_mean_completion <- merged_data |>
   filter(sub_region %in% c('Northern Africa')) |>
@@ -194,9 +205,11 @@ northern_africa_mean_completion <- merged_data |>
     geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
 northern_africa_mean_completion
 ```
+
 ```{r}
 #| label: sub-saharan africa primary school completion
 #| echo: false
+#| warning: false
 
 subsaharan_africa_mean_completion <- merged_data |>
   filter(sub_region %in% c('Sub-Saharan Africa')) |>
@@ -212,9 +225,10 @@ subsaharan_africa_mean_completion <- merged_data |>
     geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 60, hjust = 1))
 subsaharan_africa_mean_completion
 ```
+
 As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.
 
-The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see. 
+The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see.
 
 The next step is to analyze the mean years of education of each region.
 
@@ -225,6 +239,7 @@ After just two sections, it seems that there is a trend: Europe tends to have th
 ```{r}
 #| label: mean years of education
 #| echo: false
+#| warning: false
 
 mean_educ <- merged_data |>
   group_by(region, year) |>
@@ -243,6 +258,7 @@ This graph shows a similar result to the other graphs: Africa again ranks as the
 ```{r}
 #| label: rural vs urban for mean years of education
 #| echo: false
+#| warning: false
 
 grouped7 <- merged_data |>
   group_by(region, Location) |>
@@ -265,6 +281,7 @@ Additionally, if we again break Africa down by region, we can see that Northern 
 ```{r}
 #| label: north africa vs subsaharan africa mean_educ
 #| echo: false
+#| warning: false
 
 africa_mean_educ <- merged_data |>
   filter(sub_region %in% c('Northern Africa', 'Sub-Saharan Africa')) |>
@@ -286,6 +303,7 @@ In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset
 ```{r}
 #| label: test scores 1
 #| echo: false
+#| warning: false
 
 learning1 <- merged_data |>
   filter(year %in% c(2012,2013,2014,2015,2016,2017,2018)) |>
@@ -335,6 +353,7 @@ It is clear from these graphs that Oceania and Europe have the highest test scor
 ```{r}
 #| label: north africa vs subsaharan africa math score
 #| echo: false
+#| warning: false
 
 africa_mean_math <- merged_data |>
   filter(sub_region %in% c('Northern Africa', 'Sub-Saharan Africa')) |>
@@ -348,9 +367,11 @@ africa_mean_math <- merged_data |>
 
 africa_mean_math
 ```
+
 ```{r}
 #| label: Latin America
 #| echo: false
+#| warning: false
 
 southamerica_mean_math <- merged_data2 |>
   filter(region %in% c('South America')) |>
@@ -374,6 +395,7 @@ Another important metric of education is the percentage of students who are and 
 ```{r}
 #| label: per. of people not in prim school
 #| echo: false
+#| warning: false
 
 prim <- merged_data |>
   #filter(year %in% c(2014, 2015, 2016, 2017, 2018)) |>
@@ -392,6 +414,7 @@ prim
 ```{r}
 #| label: per. of people not in lowsec school
 #| echo: false
+#| warning: false
 
 lowsec <- merged_data |>
   #filter(year %in% c(2014, 2015, 2016, 2017, 2018)) |>
@@ -410,6 +433,7 @@ lowsec
 ```{r}
 #| label: per. of people not in upsec school
 #| echo: false
+#| warning: false
 
 upsec <- merged_data |>
   #filter(year %in% c(2014, 2015, 2016, 2017, 2018)) |>
@@ -430,6 +454,7 @@ As you can see, Africa has the highest percentage of not attending school for al
 ```{r}
 #| label: rural vs urban
 #| echo: false
+#| warning: false
 
 grouped7 <- merged_data |>
   group_by(region, Location) |>
@@ -447,6 +472,7 @@ Similar to what we observed in section 1.3 the rural areas perform worse in this
 ```{r}
 #| label: gender
 #| echo: false
+#| warning: false
 
 grouped7 <- merged_data |>
   group_by(region, Sex) |>
@@ -460,11 +486,12 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
-Explain gender...
+It seems that The Americas and Europe do a good job keeping their kids in school, but North America's rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their educaiton systems.
 
 ```{r}
 #| label: facet
 #| echo: false
+#| warning: false
 
 grouped7 <- merged_data |>
   group_by(region, iso_code) |>
@@ -479,13 +506,117 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
-Explain countries
-
-maybe add a top 5 countries in each region.
+When looking at discrepancies across each country in each continent, it is clear that every continent has multiple countries that have extremely high rates of not being in school as well as multiple countries that have extremely low rates. While some continents have more countries with higher rates than others, what is clear that every continent has countries with poor education.
 
 ### Section 1.6: Top countries in each section
 
+We have analyzed continents as a whole, but now lets analyze each continent's lowest performers in each category.
+
+Bottom 3 conntries in each continent with lowest primary school completion rate
+
+```{r}
+#| label: primary school completion by continent
+#| echo: false
+#| warning: false
+
+top3 <- merged_data2 |>
+  group_by(region, country) |>
+  summarise(complete_prim = mean(comp_prim_v2_m, na.rm = TRUE))
+
+top_3_by_continent <- top3 |>
+  group_by(region) |>
+  arrange((complete_prim)) |>
+  mutate(rank = row_number()) |>
+  filter(rank <= 3)  
+
+top_3_by_continent <- top_3_by_continent |>
+  arrange(region)
+
+kable(top_3_by_continent, format = "markdown")
+```
+
+Bottom 3 couries in each continent with lowest mean years of education
+
+```{r}
+#| label: average education years by continent
+#| echo: false
+#| warning: false
+
+top3 <- merged_data2 |>
+  group_by(region, country) |>
+  summarise(mean_years_educ = mean(eduyears_2024_m, na.rm = TRUE))
+
+top_3_by_continent <- top3 |>
+  group_by(region) |>
+  arrange(mean_years_educ) |>
+  mutate(rank = row_number()) |>
+  filter(rank <= 3)  
+
+top_3_by_continent <- top_3_by_continent |>
+  arrange(region)
+
+kable(top_3_by_continent, format = "markdown")
+```
+
+Top 3 countries in Each Continent of Lowest Passing rate of Level 1 Math Test
+
+```{r}
+#| label: average math level1 score by continent
+#| echo: false
+#| warning: false
+
+top3 <- merged_data2 |>
+  group_by(region, country) |>
+  summarise(math_level1 = mean(mlevel1_m, na.rm = TRUE))
+
+top_3_by_continent <- top3 |>
+  group_by(region) |>
+  arrange((math_level1)) |>
+  mutate(rank = row_number()) |>
+  filter(rank <= 3)  
+
+top_3_by_continent <- top_3_by_continent |>
+  arrange(region)
+
+kable(top_3_by_continent, format = "markdown")
+```
+
+Top 3 Countries in Each Continent of Percentage of People Not in Primary School
+
+```{r}
+#| label: average people not in primary school by continent
+#| echo: false
+#| warning: false
+
+top3 <- merged_data2 |>
+  group_by(region, country) |>
+  summarise(not_in_prim = mean(eduout_prim_m, na.rm = TRUE))
+
+top_3_by_continent <- top3 |>
+  group_by(region) |>
+  arrange(desc(not_in_prim)) |>
+  mutate(rank = row_number()) |>
+  filter(rank <= 3)  
+
+top_3_by_continent <- top_3_by_continent |>
+  arrange(region)
+
+kable(top_3_by_continent, format = "markdown")
+```
+
+Some countries that appear more than 3 times on these 4 tables are Niger, Pakistan, Afganistan, Haiti... If these countries are appearng the lowest on all of these tables multiple times, these are clearly the countries that require the most help in terms of education.
+
 ### Section 1.7: Section 1 Conclusion
+
+Through this section, we have explored many different areas of education such as PISA scores, literacy rates, primary school completion rate, and many more metrics. Through all of our analysis there are some pretty clear conclusions:
+
+1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second. 
+
+2.) Within Africa, Northern Africa is somewhat up to standard, but Sub-Saharan Africa is far behind.
+
+3.) Europe was consistently the highest performer in almost all of the metrics.
+
+4.) Urban education on average is much better than rural education
 
 ### Section 2: Modeling
 
@@ -500,8 +631,8 @@ grouped2 <- data |>
             attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
             count = n()) |>
   ungroup()
+grouped2
 ```
-
 
 ```{r}
 #| label: linear model
@@ -547,3 +678,80 @@ ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate))
 ggplot(broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)) +    geom_point(alpha = 0.45, style = 'O', size = 2.5) + ylim(c(-1,1)) + geom_line(y = 0, color = 'red')
 ```
 
+Thesis: African areas have poor educational resources compared with other regions in the World. (find what makes the poor education: primary school completion rate, urban/rural, )
+
+Hypothesis 1: Factors that will affect the lower secondary school completion rate: primary school completion rate_v2(young people who are 3-5 ages above the normal primary graduation age\[prolly neagtively affect the lower secondary school completion rate\]) + Big_REGION +WEALTH + gender
+
+Pre-primary education attendance significantly affects primary school completion rates, with variations noticeable between rural and urban settings within African countries. Model: Multiple linear regression with primary completion rate as the dependent variable, and pre-primary education attendance, location (if data on rural/urban is available), and possibly region as independent variables. Take a look at how Africa performs(on each variable both x and y) before applying model
+
+```{r}
+continent <- read_csv('dataset/continents2.csv')
+data <- read_csv('dataset/educ.csv')
+pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv')
+literacy <- read_csv('dataset/literacy.csv')
+continent <- continent |>
+  rename(
+    country = name,
+    sub_region = `sub-region`
+  )
+
+merged_data <- merge(data, continent, by = "country")
+```
+
+```{r}
+#group by wealth, Big region
+#merged_data
+Location_data <- merged_data %>%
+  filter(category == 'Location & Sex & Wealth')
+#Location_data
+summary(as.factor(Location_data$Location))
+summary(as.factor(Location_data$Wealth))
+summary(as.factor(Location_data$Sex))
+
+model1 <- lm(comp_lowsec_v2_m ~ as.factor(region) + as.factor(Location) + as.factor(Sex)  + as.factor(Wealth) + comp_prim_v2_m, data = Location_data)
+summary(model1)
+```
+
+```{r}
+library(car)
+broom::glance(model1)
+broom::augment(model1, new_data = grouped2)
+vif(model1)
+```
+
+no multicollinearity
+
+```{r}
+library(car)
+library(caret)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(MLmetrics)
+library(GGally)
+```
+
+```{r}
+boxplot(Location_data$comp_lowsec_v2_m)
+#ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
+```
+
+Hypothesis 2: Overall PISA score \~ primary_completion_rate(young people aged 15-24 completed primary schoool) + transition rate to lower secondary + region + location + wealth
+
+PISA score is for students age group of 15\~16. Consider transition rate to lower secondary school.
+
+```{r}
+merged_pisa <- merge(merged_data, pisa, by = "country")
+merged_literacy <- merge(continent, literacy_clean, by = "country")
+#merged_pisa
+
+pisa_data <- merged_pisa %>%
+  filter(category == 'Location') |> group_by(region, Location) |> summarise(average_overall_pisa = mean(OverallPisaScore2022, na.rm = TRUE), mean_primary_completion_rate_15_24 = mean(comp_prim_1524_m, na.rm = TRUE), mean_transition_to_lowsec_rate = mean(trans_prim_m, na.rm = TRUE), .groups = 'drop')
+#pisa_data
+
+model2 <- lm(average_overall_pisa ~ as.factor(region) + as.factor(Location) + mean_primary_completion_rate_15_24 + mean_transition_to_lowsec_rate, data = pisa_data)
+summary(model2)
+vif(model2)
+```
+
+Model 3

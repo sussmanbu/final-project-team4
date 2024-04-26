@@ -665,17 +665,10 @@ broom::augment(lm_form_fit, new_data = grouped2)
 ```
 
 ```{r}
-#| label: scatter plot
-#| echo: false
-
-ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
-```
-
-```{r}
 #| label: residual plot
 #| echo: false
 
-ggplot(broom::augment(lm_form_fit, new_data =grouped2), aes(x = .pred, y = .resid)) +    geom_point(alpha = 0.45, style = 'O', size = 2.5) + ylim(c(-1,1)) + geom_line(y = 0, color = 'red')
+ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
 ```
 
 Thesis: African areas have poor educational resources compared with other regions in the World. (find what makes the poor education: primary school completion rate, urban/rural, )
@@ -700,26 +693,33 @@ merged_data <- merge(data, continent, by = "country")
 
 ```{r}
 #group by wealth, Big region
-#merged_data
+merged_data
 Location_data <- merged_data %>%
   filter(category == 'Location & Sex & Wealth')
-#Location_data
-summary(as.factor(Location_data$Location))
-summary(as.factor(Location_data$Wealth))
-summary(as.factor(Location_data$Sex))
 
 model1 <- lm(comp_lowsec_v2_m ~ as.factor(region) + as.factor(Location) + as.factor(Sex)  + as.factor(Wealth) + comp_prim_v2_m, data = Location_data)
 summary(model1)
-```
 
-```{r}
-library(car)
+###Bar graph to show Africa's average literacy_1524
+group_data <- merged_data %>%
+  filter(category == 'Location & Sex & Wealth') |> group_by(region) %>%
+  summarise(mean_comp_lowsec_v2_m = mean(comp_lowsec_v2_m, na.rm = TRUE),count_non_missing = sum(!is.na(comp_lowsec_v2_m)), .groups = 'drop')
+
+ggplot(group_data, aes(x = region, y = mean_comp_lowsec_v2_m)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  labs(title = "Average lower secondary school completion rate by Region",
+       x = "Region", y = "Average lower secondary school completion rate") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 broom::glance(model1)
 broom::augment(model1, new_data = grouped2)
 vif(model1)
 ```
 
-no multicollinearity
+**The region, Location(rural/urban), the sex, the wealth**, and **comp_prim_v2_m** (the Percentage of primary school completion rate for children and young people aged 3‐5 years above primary school graduation age) can have the effect over **comp_lowsec_v2_m** (the Percentage of lower secondary completion rate for young people aged 3‐5 years above lower secondary school graduation age). Based on the result of the model, every factor can positively affect the model that all their correlation coefficients are positive, which means that as the predictors increase by one unit, the comp_lowsec_v2_m
+
+The R-squared is 0.8525, and the vif shows that there is no collinearity between predictors. And we get the plot for different region's average lower secondary school's completion rate. We found that Africa has the lowest average completion rate, thus, other predictors such as location, sex, wealth and primary completion rate
 
 ```{r}
 library(car)
@@ -731,27 +731,50 @@ library(MLmetrics)
 library(GGally)
 ```
 
-```{r}
-boxplot(Location_data$comp_lowsec_v2_m)
-#ggplot(grouped2, aes(x = mean_educ_years_20_24, y=mean_primary_completion_rate)) + geom_point() + geom_smooth() + geom_smooth(method = 'lm', color = 'red')
-```
+Hypothesis 2: literacy_1524_no \~ comp_prim_1524_no(# of young people aged 15-24 completed primary school) + edu2_2024_no(less than 2 years schooling) + preschool_3_no(# of 3 to 4 year olds attending any type of pre--primary education programme) + region + location + wealth
 
-Hypothesis 2: Overall PISA score \~ primary_completion_rate(young people aged 15-24 completed primary schoool) + transition rate to lower secondary + region + location + wealth
+Pre‐primary education attendance
 
-PISA score is for students age group of 15\~16. Consider transition rate to lower secondary school.
+learning literacy number is for students age group of 15-24.
 
 ```{r}
-merged_pisa <- merge(merged_data, pisa, by = "country")
-merged_literacy <- merge(continent, literacy_clean, by = "country")
-#merged_pisa
+merged_data
+Location_data <- merged_data %>%
+  filter(category == 'Location & Sex & Wealth')
+Location_data
 
-pisa_data <- merged_pisa %>%
-  filter(category == 'Location') |> group_by(region, Location) |> summarise(average_overall_pisa = mean(OverallPisaScore2022, na.rm = TRUE), mean_primary_completion_rate_15_24 = mean(comp_prim_1524_m, na.rm = TRUE), mean_transition_to_lowsec_rate = mean(trans_prim_m, na.rm = TRUE), .groups = 'drop')
-#pisa_data
-
-model2 <- lm(average_overall_pisa ~ as.factor(region) + as.factor(Location) + mean_primary_completion_rate_15_24 + mean_transition_to_lowsec_rate, data = pisa_data)
+model2 <- lm(literacy_1524_no ~ as.factor(region) + as.factor(Wealth) + edu2_2024_no + preschool_3_no, data = Location_data)
 summary(model2)
 vif(model2)
+
+###Bar graph to show Africa's average literacy_1524
+group1_data <- merged_data %>%
+  filter(category == 'Location & Sex & Wealth') |> group_by(region) %>%
+  summarise(mean_literacy_1524_no = mean(literacy_1524_no, na.rm = TRUE),count_non_missing = sum(!is.na(literacy_1524_no)), .groups = 'drop')
+
+ggplot(group1_data, aes(x = region, y = mean_literacy_1524_no)) +
+  geom_bar(stat = "identity", position = position_dodge()) + 
+  labs(title = "Average Education Years by Location and Region",
+       x = "Region", y = "Average Education Years") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 ```
 
 Model 3
+
+```{r}
+# Load the dataset
+Location_data <- merged_data %>%
+  filter(category == 'Location & Sex & Wealth')
+
+# Transform 'am' into a factor (binary)
+Location_data$region <- as.factor(Location_data$region)
+
+# Build the logistic regression model
+model <- glm(region ~ literacy_1524_no + comp_lowsec_v2_m, data = Location_data, family = binomial())
+
+# Summary of the model
+summary(model)
+
+```

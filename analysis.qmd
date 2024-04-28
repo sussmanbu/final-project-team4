@@ -610,7 +610,7 @@ Some countries that appear more than 3 times on these 4 tables are Niger, Pakist
 
 Through this section, we have explored many different areas of education such as PISA scores, literacy rates, primary school completion rate, and many more metrics. Through all of our analysis there are some pretty clear conclusions:
 
-1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second. 
+1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second.
 
 2.) Within Africa, Northern Africa is somewhat up to standard, but Sub-Saharan Africa is far behind.
 
@@ -630,17 +630,17 @@ library(MLmetrics)
 library(GGally)
 ```
 
-
 Thesis: African areas have poor educational resources compared with other regions in the World. Our investigation will delve into the factors contributing to poor educational resources, particularly in African regions, and will evaluate whether Africa indeed has the most challenging educational conditions compared to the rest of the world.
 
 ## Section 2.1: Model1
+
 Hypothesis 1: Factors that will affect the lower secondary school completion rate: primary school completion rate_v2(young people who are 3-5 ages above the normal primary graduation age\[prolly neagtively affect the lower secondary school completion rate\]), big_region, wealth, gender, and Urbanicity
 
 Expectation: comp_prim_v2_m will positively affect comp_lowsec_v2_m. In region of Africa, the area of rural, the gender of female, or the quintile 1 in Wealth will negatively affect comp_lowsec_v2_m.
 
 -Continuous variable: comp_prim_v2_m
--Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)
 
+-Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)
 
 ```{r}
 library(car)
@@ -670,30 +670,41 @@ vif(model1)
 ```
 
 ### Section 2.1.1: Model1 Formula
-Final Model1 Formula: 
+
 comp_lowsec_v2_m = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m
 
 ### Section 2.1.2: Model1 Result Analysis
-Result Analysis:
-1) The model's intercept is negative, suggesting that the baseline group for region, location, sex, and wealth has a negative association with the completion rate for lower secondary education.
-2) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.092947 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.092947 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.
-3) Urban locations (as.factor(Location)Urban) have a positive coefficient, indicating that being in an urban location is associated with higher secondary completion rates compared to rural locations.
-4) Sex does not seem to be a significant predictor, as the coefficient for males is small and not statistically significant (p-value > 0.05).
-5) Wealth shows a strong positive association with lower secondary completion. As wealth quintiles increase, there's a corresponding significant increase in the completion rates, with the highest quintile (Quintile 5) having the largest coefficient.
-6) The comp_prim_v2_m variable has a large positive coefficient, indicating a strong association with higher rates of lower secondary completion.
-7) The adjusted R-squared is 0.8525, indicating a good fit even after adjusting for the number of predictors.
-8) The F-statistic is very high, and the associated p-value is less than 0.001, suggesting the model is statistically significant.
 
-### Section 2.1.3: Conclusion by Model1
-Model Conclusion:
+Result Analysis:
+
+1\) The model's intercept is negative, suggesting that the baseline group for region, location, sex, and wealth has a negative association with the completion rate for lower secondary education.
+
+2\) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.092947 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.092947 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.
+
+3\) Urban locations have a positive coefficient, indicating that being in an urban location is associated with higher secondary completion rates compared to rural locations.
+
+4\) Sex does not seem to be a significant predictor, as the coefficient for males is small and not statistically significant (p-value \> 0.05).
+
+5\) Wealth shows a strong positive association with lower secondary completion. As wealth quintiles increase, there's a corresponding significant increase in the completion rates, with the highest quintile (Quintile 5) having the largest coefficient.
+
+6\) The comp_prim_v2_m variable has a large positive coefficient, indicating a strong association with higher rates of lower secondary completion.
+
+7\) The adjusted R-squared is 0.8525, indicating a good fit even after adjusting for the number of predictors.
+
+8\) The F-statistic is very high, and the associated p-value is less than 0.001, suggesting the model is statistically significant.
+
+### Section 2.1.3: Model1 Conclusion
+
 The R-squared is 0.8525, and the vif shows that there is no collinearity between predictors. We will remove the predictor of gender from the mode because of insignificance indicated by p-value higher than 0.05. Finally, being in the region of Africa, being in the location of rural area, and staying in the lower wealth level will negatively influence the secondary education completion. And the high primary education completion will positively affect the secondary education completion rate.
 
 ## Section 2.2: Model2
+
 Hypothesis 2: Factors that will affect literacy_1524_m (Percentage of young people aged 15‐24 who can read a simple sentence): comp_prim_1524_no (# of young people aged 15-24 completed primary school), preschool_3_no (# of 3 to 4 year olds attending any type of pre--primary education programme), region, wealth.
 
 Expectation: The predictors of either comp_prim_1524_no or preschool_3_no will negatively affect literacy_1524_m. Urban region will increase literacy_1524_m, and higher level of wealth will postively affect the literacy_1524_m as well.
 
 -Continuous variable: comp_prim_1524_no, preschool_3_no
+
 -Categorical variable: wealth(by level 1-5), region(by continents)
 
 ```{r}
@@ -717,29 +728,34 @@ ggplot(group1_data, aes(x = region, y = mean_literacy_1524_no)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+
 ### Section 2.2.1: Model2 Formula
-Final Model2 Formula: 
+
 literacy_1524_no = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no
 
 ### Section 2.2.2: Model2 Result Analysis
-Result Analysis:
-1) For the region variable: Asia has a positive coefficient (514.8999), meaning that, compared to the Africa region, it is associated with an increase in the dependent variable.
-Europe has an even higher positive coefficient (616.8468), indicating a stronger association compared to the Africa region than Asia.
-North America and South America also have positive coefficients, but the impact is less compared to Asia and Europe.
-The coefficients for regions are statistically significant except for South America (p-value > 0.05).
-2) Wealth quintiles show a gradient of increasing positive coefficients from Quintile 2 to Quintile 5, suggesting that as wealth increases, the dependent variable also increases. Quintile 5 has a particularly high coefficient, and the effects for Quintile 4 and Quintile 5 are statistically significant (p < 0.01).
-3) The variable edu2_2024_no has a very high positive coefficient (2424.4635), indicating a strong and statistically significant association with the dependent variable.
-4) The preschool variable (preschool_3_no) has a small but statistically significant positive coefficient, indicating that an increase in this variable is associated with an increase in the dependent variable.
-5) The model has a relatively high R-squared value of 0.7265, meaning approximately 72.65% of the variance in the dependent variable is explained by the model, indicating a good fit.
-6) The F-statistic is very large, and the p-value is less than 0.001, suggesting that the model is highly statistically significant.
 
-### Section 2.2.3: Conclusion by Model2
-Model Conclusion:
+Result Analysis:
+
+1\) For the region variable: Asia has a positive coefficient (514.8999), meaning that, compared to the Africa region, it is associated with an increase in the dependent variable. Europe has an even higher positive coefficient (616.8468), indicating a stronger association compared to the Africa region than Asia. North America and South America also have positive coefficients, but the impact is less compared to Asia and Europe. The coefficients for regions are statistically significant except for South America (p-value \> 0.05).
+
+2\) Wealth quintiles show a gradient of increasing positive coefficients from Quintile 2 to Quintile 5, suggesting that as wealth increases, the dependent variable also increases. Quintile 5 has a particularly high coefficient, and the effects for Quintile 4 and Quintile 5 are statistically significant (p \< 0.01).
+
+3\) The variable edu2_2024_no has a very high positive coefficient (2424.4635), indicating a strong and statistically significant association with the dependent variable.
+
+4\) The preschool variable (preschool_3_no) has a small but statistically significant positive coefficient, indicating that an increase in this variable is associated with an increase in the dependent variable.
+
+5\) The model has a relatively high R-squared value of 0.7265, meaning approximately 72.65% of the variance in the dependent variable is explained by the model, indicating a good fit.
+
+6\) The F-statistic is very large, and the p-value is less than 0.001, suggesting that the model is highly statistically significant.
+
+### Section 2.2.3: Model2 Conclusion
+
 The R-squared is 0.7208, and the vif shows that there is no collinearity between predictors. We will remove the predictors that have the insignificance indicated by p-value higher than 0.05 from the model. In summary, being in the region of Africa and South America, or staying in the lower wealth level will negatively influence the secondary education completion. And the higher rate of attending pre-primary institution will positively affect the secondary education completion rate. However, an interetsing finding is that less than two years schooling can also increase the percentage of young people aged 15‐24 who can read a simple sentence. We could conduct further analysis on this relationship.
 
-
 ## Section 2.3: Model3
-Hypothesis 3: In this logistic regression model, we made a dummy variable "is_africa" based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are literacy_1524_m (Percentage of young people aged 15‐24 who can read a simple sentence) and comp_lowsec_v2_m (young people who are 3-5 ages above the normal lower secondary school's graduation age).
+
+Hypothesis 3: In this logistic regression model, we made a dummy variable "**is_africa**" based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are **literacy_1524_m** (Percentage of young people aged 15‐24 who can read a simple sentence) and **comp_lowsec_v2_m** (young people who are 3-5 ages above the normal lower secondary school's graduation age).
 
 Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.
 
@@ -755,7 +771,6 @@ Location_data$is_africa <- as.factor(Location_data$is_africa)
 
 ```
 
-
 ```{r}
 # Build the logistic regression model
 model <- glm(is_africa ~ literacy_1524_m + comp_lowsec_v2_m, data = Location_data, family = binomial())
@@ -766,14 +781,17 @@ summary(model)
 ```
 
 ### Section 2.3.1: Model3 Formula
-Final Model3 Formula:
+
 is_africa = b0 + b1 x comp_lowsec_v2_m
 
-
 ### Section 2.3.2: Model3 Result Analysis
+
 Result Analysis:
-1) Literacy Rate in 1524 (literacy_1524_m, Estimate: -0.7148): A one unit increase in the literacy rate in 1524 is associated with a decrease in the log-odds of a location being in Africa by 0.7148, although this predictor is not statistically significant at conventional levels (p > 0.05).
-2) Composite Measure of Lower Secondary Completion (comp_lowsec_v2_m, Estimate: -3.4087): A one unit increase in the composite measure is associated with a decrease in the log-odds of a location being in Africa by 3.4087. This effect is statistically significant (p < 0.001).
+
+1\) Literacy Rate in 1524 (literacy_1524_m, Estimate: -0.7148): A one unit increase in the literacy rate in 1524 is associated with a decrease in the log-odds of a location being in Africa by 0.7148, although this predictor is not statistically significant at conventional levels (p \> 0.05).
+
+2\) Composite Measure of Lower Secondary Completion (comp_lowsec_v2_m, Estimate: -3.4087): A one unit increase in the composite measure is associated with a decrease in the log-odds of a location being in Africa by 3.4087. This effect is statistically significant (p \< 0.001).
 
 ### Section 2.3.3: Conclusion by Model3
+
 In conclusion, higher values of lower-secondary completion are associated with a lower probability of a location being in Africa. This relationship is statistically significant in the model.

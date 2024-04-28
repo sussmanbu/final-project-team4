@@ -5,6 +5,7 @@ toc: true
 draft: false
 ---
 
+
 ![](https://habitatbroward.org/wp-content/uploads/2020/01/10-Benefits-Showing-Why-Education-Is-Important-to-Our-Society.jpg)
 
 # Section 1: Analysis of Education Statistics
@@ -14,6 +15,7 @@ Driven by the increasing interest in global education disparities, our team has 
 Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer ***why*** these country's are the way they are.
 
 In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface
+
 
 ```{r}
 #| label: libraries
@@ -80,9 +82,11 @@ merged_data2 <- merge(merged_data, pisa, by = "country", all.x = TRUE)
 merged_data3 <- merge(continent, literacy_clean, by = "country")
 ```
 
+
 ### Section 1.1: PISA Scores and Literacy Rates
 
 The first step to understanding economic disparties is to get a general understanding of what parts of the world generally tend to have better education than others. There are multiple ways of measuring this, but reliable way to measure this is with PISA scores and literacy rates. Both of these metrics serve as standardized bench marks for the whole world!
+
 
 ```{r}
 #| label: PISA
@@ -144,11 +148,13 @@ americas_pisa_plot
 
 ```
 
+
 It is clear that in terms of PISA scores, Oceania and Europe perform the best, while Africa performed the worst, and in terms of literacy rate, all of the continents performed relatively equally while Africa performed the worst again. Now that you have a general understanding of where education is better and where education is worse, we can now get into more specific statistics.
 
 ### Section 1.2: Percentage of People who did not Complete Primary School
 
 The next step of analyzing education around the world was to simply look at the percentage of (i) children and young people aged 3-5 years above primary school graduation age and (ii) young people aged 15-24, who have completed primary school.
+
 
 ```{r}
 #| label: priary school completion 3-5
@@ -184,7 +190,9 @@ continent_pisa2 <- merged_data |>
 continent_pisa2
 ```
 
+
 As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some intersting outcomes.
+
 
 ```{r}
 #| label: north africa primary completion
@@ -226,6 +234,7 @@ subsaharan_africa_mean_completion <- merged_data |>
 subsaharan_africa_mean_completion
 ```
 
+
 As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.
 
 The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see.
@@ -235,6 +244,7 @@ The next step is to analyze the mean years of education of each region.
 ### Section 1.3: Years of Edcuation
 
 After just two sections, it seems that there is a trend: Europe tends to have the "best education" while Africa seems to have "the worst education." We will now explore college attendane as another measure of education.
+
 
 ```{r}
 #| label: mean years of education
@@ -253,7 +263,9 @@ mean_educ <- merged_data |>
 mean_educ
 ```
 
+
 This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs. mean years of education in urban areas, we see that Africa has the largest descrpency in this area.
+
 
 ```{r}
 #| label: rural vs urban for mean years of education
@@ -274,9 +286,11 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
+
 This large discrepency in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa's urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.
 
 Additionally, if we again break Africa down by region, we can see that Northern Africa once again has a higher mean years of education when compared to the Sub-Saharan African region. This suggests that rural areas **in** Sub-Saharan Africa. Another important metric that will be explored in the next section is benchmark test scores.
+
 
 ```{r}
 #| label: north africa vs subsaharan africa mean_educ
@@ -296,9 +310,11 @@ africa_mean_educ <- merged_data |>
 africa_mean_educ
 ```
 
+
 ### Section 1.4: Learning Achievment
 
 In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult.
+
 
 ```{r}
 #| label: test scores 1
@@ -348,7 +364,9 @@ s <- learning1 + learning2 + learning3 + learning4
 s
 ```
 
+
 It is clear from these graphs that Oceania and Europe have the highest test scores while Africa and South Ameirca by far have the lowest test scores. It is completely expected for test scores to drop as the level gets harder and harder (level 1-4), but what is concerning is that in level 4, both Africa and South America are almost at an average of 0. In levels 1-3, both Africa and South America are at least some what on par with the other continents, but in the fourth level, they are signfiicantly lower than every other continent. This suggests that both Africa and South America's education gets worse when education gets to a higher level. This could be a key point of interest for these two continents.
+
 
 ```{r}
 #| label: north africa vs subsaharan africa math score
@@ -386,11 +404,13 @@ southamerica_mean_math <- merged_data2 |>
 southamerica_mean_math
 ```
 
+
 These graphs give us a better breakdown as to why the scores appear the way they do. Opposite of what we have seen before, for passing the level 4 math test, it seems as though the region does not affect the continent's performance dramatically. This implies that Africa and South America need better higher education systems all over the continent and not just in particular regions.
 
 ### Section 1.5: College Attendance
 
 Another important metric of education is the percentage of students who are and are not in school. Regardless of academic outcome (GPA, test scores, etc.) It is incredibly important that younger people are even attending school to begin with. UNESCO provides data on attendance rates for primary school, lower secondary school, and upper secondary school.
+
 
 ```{r}
 #| label: per. of people not in prim school
@@ -449,7 +469,9 @@ upsec <- merged_data |>
 upsec
 ```
 
+
 As you can see, Africa has the highest percentage of not attending school for all three categories, and Europe has the lowest. A suprising result in this metric is how South America has the second lowest non-attendane rate which is a good thing. While they ranked lower in other metrics such as their test scores, it is clear that at the very least, South America ***is*** doing a good job getting their students to at least attend school. Let's breka this down further by looking at Rural vs. Urban areas.
+
 
 ```{r}
 #| label: rural vs urban
@@ -467,7 +489,9 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
+
 Similar to what we observed in section 1.3 the rural areas perform worse in this metric; however, it is worth noting that rural areas are performing even worse in this metric than the mean years of education section. For example, in North America and South America, the Rural non-attendance rate is almost half of non-attendance rate for urban areas. This implies that Rural areas need significantly more work than non-rural areas. Let's now break it down by gender.
+
 
 ```{r}
 #| label: gender
@@ -486,7 +510,9 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
+
 It seems that The Americas and Europe do a good job keeping their kids in school, but North America's rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their educaiton systems.
+
 
 ```{r}
 #| label: facet
@@ -506,6 +532,7 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
+
 When looking at discrepancies across each country in each continent, it is clear that every continent has multiple countries that have extremely high rates of not being in school as well as multiple countries that have extremely low rates. While some continents have more countries with higher rates than others, what is clear that every continent has countries with poor education.
 
 ### Section 1.6: Top countries in each section
@@ -513,6 +540,7 @@ When looking at discrepancies across each country in each continent, it is clear
 We have analyzed continents as a whole, but now lets analyze each continent's lowest performers in each category.
 
 Bottom 3 conntries in each continent with lowest primary school completion rate
+
 
 ```{r}
 #| label: primary school completion by continent
@@ -535,7 +563,9 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
+
 Bottom 3 couries in each continent with lowest mean years of education
+
 
 ```{r}
 #| label: average education years by continent
@@ -558,7 +588,9 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
+
 Top 3 countries in Each Continent of Lowest Passing rate of Level 1 Math Test
+
 
 ```{r}
 #| label: average math level1 score by continent
@@ -581,7 +613,9 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
+
 Top 3 Countries in Each Continent of Percentage of People Not in Primary School
+
 
 ```{r}
 #| label: average people not in primary school by continent
@@ -604,6 +638,7 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
+
 Some countries that appear more than 3 times on these 4 tables are Niger, Pakistan, Afganistan, Haiti... If these countries are appearng the lowest on all of these tables multiple times, these are clearly the countries that require the most help in terms of education.
 
 ### Section 1.7: Section 1 Conclusion
@@ -620,6 +655,7 @@ Through this section, we have explored many different areas of education such as
 
 # Section 2: Modeling
 
+
 ```{r}
 library(car)
 library(caret)
@@ -631,6 +667,7 @@ library(GGally)
 ```
 
 
+
 Thesis: African areas have poor educational resources compared with other regions in the World. Our investigation will delve into the factors contributing to poor educational resources, particularly in African regions, and will evaluate whether Africa indeed has the most challenging educational conditions compared to the rest of the world.
 
 ## Section 2.1: Model1
@@ -640,6 +677,7 @@ Expectation: comp_prim_v2_m will positively affect comp_lowsec_v2_m. In region o
 
 -Continuous variable: comp_prim_v2_m
 -Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)
+
 
 
 ```{r}
@@ -669,6 +707,7 @@ ggplot(group_data, aes(x = region, y = mean_comp_lowsec_v2_m)) +
 vif(model1)
 ```
 
+
 ### Section 2.1.1: Model1 Formula
 Final Model1 Formula: 
 comp_lowsec_v2_m = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m
@@ -696,6 +735,7 @@ Expectation: The predictors of either comp_prim_1524_no or preschool_3_no will n
 -Continuous variable: comp_prim_1524_no, preschool_3_no
 -Categorical variable: wealth(by level 1-5), region(by continents)
 
+
 ```{r}
 Location_data <- merged_data %>%
   filter(category == 'Location & Sex & Wealth')
@@ -717,6 +757,7 @@ ggplot(group1_data, aes(x = region, y = mean_literacy_1524_no)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+
 ### Section 2.2.1: Model2 Formula
 Final Model2 Formula: 
 literacy_1524_no = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no
@@ -743,6 +784,7 @@ Hypothesis 3: In this logistic regression model, we made a dummy variable "is_af
 
 Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.
 
+
 ```{r}
 # Ensure that Location_data$region is a factor
 Location_data$region <- as.factor(Location_data$region)
@@ -755,7 +797,6 @@ Location_data$is_africa <- as.factor(Location_data$is_africa)
 
 ```
 
-
 ```{r}
 # Build the logistic regression model
 model <- glm(is_africa ~ literacy_1524_m + comp_lowsec_v2_m, data = Location_data, family = binomial())
@@ -764,6 +805,7 @@ model <- glm(is_africa ~ literacy_1524_m + comp_lowsec_v2_m, data = Location_dat
 summary(model)
 
 ```
+
 
 ### Section 2.3.1: Model3 Formula
 Final Model3 Formula:

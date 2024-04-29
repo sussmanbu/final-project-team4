@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -114,13 +148,37 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#section-1-analysis-of-education-statistics" id="toc-section-1-analysis-of-education-statistics" class="nav-link active" data-scroll-target="#section-1-analysis-of-education-statistics">Section 1: Analysis of Education Statistics</a></li>
+  <li><a href="#section-1-analysis-of-education-statistics" id="toc-section-1-analysis-of-education-statistics" class="nav-link active" data-scroll-target="#section-1-analysis-of-education-statistics">Section 1: Analysis of Education Statistics</a>
+  <ul class="collapse">
   <li><a href="#section-1.1-pisa-scores-and-literacy-rates" id="toc-section-1.1-pisa-scores-and-literacy-rates" class="nav-link" data-scroll-target="#section-1.1-pisa-scores-and-literacy-rates">Section 1.1: PISA Scores and Literacy Rates</a></li>
   <li><a href="#section-1.2-percentage-of-people-who-did-not-complete-primary-school" id="toc-section-1.2-percentage-of-people-who-did-not-complete-primary-school" class="nav-link" data-scroll-target="#section-1.2-percentage-of-people-who-did-not-complete-primary-school">Section 1.2: Percentage of People who did not Complete Primary School</a></li>
-  <li><a href="#section-1.3-mean-years-of-education" id="toc-section-1.3-mean-years-of-education" class="nav-link" data-scroll-target="#section-1.3-mean-years-of-education">Section 1.3: Mean Years of Education</a></li>
-  <li><a href="#section-1.4-rural-vs-urban" id="toc-section-1.4-rural-vs-urban" class="nav-link" data-scroll-target="#section-1.4-rural-vs-urban">Section 1.4: Rural vs Urban</a></li>
-  <li><a href="#section-1.5-male-vs.-female" id="toc-section-1.5-male-vs.-female" class="nav-link" data-scroll-target="#section-1.5-male-vs.-female">Section 1.5: Male vs.&nbsp;Female</a></li>
-  <li><a href="#section-2-modeling" id="toc-section-2-modeling" class="nav-link" data-scroll-target="#section-2-modeling">Section 2: Modeling</a></li>
+  <li><a href="#section-1.3-years-of-edcuation" id="toc-section-1.3-years-of-edcuation" class="nav-link" data-scroll-target="#section-1.3-years-of-edcuation">Section 1.3: Years of Edcuation</a></li>
+  <li><a href="#section-1.4-learning-achievment" id="toc-section-1.4-learning-achievment" class="nav-link" data-scroll-target="#section-1.4-learning-achievment">Section 1.4: Learning Achievment</a></li>
+  <li><a href="#section-1.5-college-attendance" id="toc-section-1.5-college-attendance" class="nav-link" data-scroll-target="#section-1.5-college-attendance">Section 1.5: College Attendance</a></li>
+  <li><a href="#section-1.6-top-countries-in-each-section" id="toc-section-1.6-top-countries-in-each-section" class="nav-link" data-scroll-target="#section-1.6-top-countries-in-each-section">Section 1.6: Top countries in each section</a></li>
+  <li><a href="#section-1.7-section-1-conclusion" id="toc-section-1.7-section-1-conclusion" class="nav-link" data-scroll-target="#section-1.7-section-1-conclusion">Section 1.7: Section 1 Conclusion</a></li>
+  </ul></li>
+  <li><a href="#section-2-modeling" id="toc-section-2-modeling" class="nav-link" data-scroll-target="#section-2-modeling">Section 2: Modeling</a>
+  <ul class="collapse">
+  <li><a href="#section-2.1-model1" id="toc-section-2.1-model1" class="nav-link" data-scroll-target="#section-2.1-model1">Section 2.1: Model1</a>
+  <ul class="collapse">
+  <li><a href="#section-2.1.1-model1-formula" id="toc-section-2.1.1-model1-formula" class="nav-link" data-scroll-target="#section-2.1.1-model1-formula">Section 2.1.1: Model1 Formula</a></li>
+  <li><a href="#section-2.1.2-model1-result-analysis" id="toc-section-2.1.2-model1-result-analysis" class="nav-link" data-scroll-target="#section-2.1.2-model1-result-analysis">Section 2.1.2: Model1 Result Analysis</a></li>
+  <li><a href="#section-2.1.3-model1-conclusion" id="toc-section-2.1.3-model1-conclusion" class="nav-link" data-scroll-target="#section-2.1.3-model1-conclusion">Section 2.1.3: Model1 Conclusion</a></li>
+  </ul></li>
+  <li><a href="#section-2.2-model2" id="toc-section-2.2-model2" class="nav-link" data-scroll-target="#section-2.2-model2">Section 2.2: Model2</a>
+  <ul class="collapse">
+  <li><a href="#section-2.2.1-model2-formula" id="toc-section-2.2.1-model2-formula" class="nav-link" data-scroll-target="#section-2.2.1-model2-formula">Section 2.2.1: Model2 Formula</a></li>
+  <li><a href="#section-2.2.2-model2-result-analysis" id="toc-section-2.2.2-model2-result-analysis" class="nav-link" data-scroll-target="#section-2.2.2-model2-result-analysis">Section 2.2.2: Model2 Result Analysis</a></li>
+  <li><a href="#section-2.2.3-model2-conclusion" id="toc-section-2.2.3-model2-conclusion" class="nav-link" data-scroll-target="#section-2.2.3-model2-conclusion">Section 2.2.3: Model2 Conclusion</a></li>
+  </ul></li>
+  <li><a href="#section-2.3-model3" id="toc-section-2.3-model3" class="nav-link" data-scroll-target="#section-2.3-model3">Section 2.3: Model3</a>
+  <ul class="collapse">
+  <li><a href="#section-2.3.1-model3-formula" id="toc-section-2.3.1-model3-formula" class="nav-link" data-scroll-target="#section-2.3.1-model3-formula">Section 2.3.1: Model3 Formula</a></li>
+  <li><a href="#section-2.3.2-model3-result-analysis" id="toc-section-2.3.2-model3-result-analysis" class="nav-link" data-scroll-target="#section-2.3.2-model3-result-analysis">Section 2.3.2: Model3 Result Analysis</a></li>
+  <li><a href="#section-2.3.3-conclusion-by-model3" id="toc-section-2.3.3-conclusion-by-model3" class="nav-link" data-scroll-target="#section-2.3.3-conclusion-by-model3">Section 2.3.3: Conclusion by Model3</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -150,48 +208,11 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p><img src="https://habitatbroward.org/wp-content/uploads/2020/01/10-Benefits-Showing-Why-Education-Is-Important-to-Our-Society.jpg" class="img-fluid"></p>
-<section id="section-1-analysis-of-education-statistics" class="level3">
-<h3 class="anchored" data-anchor-id="section-1-analysis-of-education-statistics">Section 1: Analysis of Education Statistics</h3>
+<section id="section-1-analysis-of-education-statistics" class="level1">
+<h1>Section 1: Analysis of Education Statistics</h1>
 <p>Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success.</p>
 <p>Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer <strong><em>why</em></strong> these country’s are the way they are.</p>
 <p>In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface</p>
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 212969 Columns: 86
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (14): iso_code, region_group, income_group, country, survey, level, cate...
-dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 249 Columns: 11
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (7): name, alpha-2, alpha-3, iso_3166-2, region, sub-region, intermediat...
-dbl (4): country-code, region-code, sub-region-code, intermediate-region-code
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 81 Columns: 6
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): country
-dbl (5): OverallPisaScore2022, PISAScoresMathScore2022, PISAScoresScienceSco...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 4955 Columns: 7
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (4): Region, Country, Age, Gender
-dbl (3): index, Year, Literacy rate
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-</section>
 <section id="section-1.1-pisa-scores-and-literacy-rates" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.1-pisa-scores-and-literacy-rates">Section 1.1: PISA Scores and Literacy Rates</h3>
 <p>The first step to understanding economic disparties is to get a general understanding of what parts of the world generally tend to have better education than others. There are multiple ways of measuring this, but reliable way to measure this is with PISA scores and literacy rates. Both of these metrics serve as standardized bench marks for the whole world!</p>
@@ -206,17 +227,6 @@ dbl (3): index, Year, Literacy rate
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Returning more (or less) than 1 row per `summarise()` group was deprecated in
-dplyr 1.1.0.
-ℹ Please use `reframe()` instead.
-ℹ When switching from `summarise()` to `reframe()`, remember that `reframe()`
-  always returns an ungrouped data frame and adjust accordingly.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'country'. You can override using the
-`.groups` argument.</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/pisa facet-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -227,165 +237,1017 @@ dplyr 1.1.0.
 <h3 class="anchored" data-anchor-id="section-1.2-percentage-of-people-who-did-not-complete-primary-school">Section 1.2: Percentage of People who did not Complete Primary School</h3>
 <p>The next step of analyzing education around the world was to simply look at the percentage of (i) children and young people aged 3-5 years above primary school graduation age and (ii) young people aged 15-24, who have completed primary school.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'region'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 9 rows containing missing values (`geom_line()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/priary school completion 3-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'region'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 27 rows containing missing values (`geom_line()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/primary school completion 20-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa.</p>
+<p>As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some intersting outcomes.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/north africa primary completion-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 3 rows containing missing values (`position_stack()`).</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/sub-saharan africa primary school completion-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.</p>
 <p>The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see.</p>
-<p>The next step is to analyze the mean years of education of each region</p>
+<p>The next step is to analyze the mean years of education of each region.</p>
 </section>
-<section id="section-1.3-mean-years-of-education" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.3-mean-years-of-education">Section 1.3: Mean Years of Education</h3>
-</section>
-<section id="section-1.4-rural-vs-urban" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.4-rural-vs-urban">Section 1.4: Rural vs Urban</h3>
+<section id="section-1.3-years-of-edcuation" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.3-years-of-edcuation">Section 1.3: Years of Edcuation</h3>
+<p>After just two sections, it seems that there is a trend: Europe tends to have the “best education” while Africa seems to have “the worst education.” We will now explore college attendane as another measure of education.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'region'. You can override using the
-`.groups` argument.</code></pre>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/mean years of education-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 2 rows containing missing values (`position_stack()`).</code></pre>
 </div>
+<p>This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs.&nbsp;mean years of education in urban areas, we see that Africa has the largest descrpency in this area.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/rural vs urban for mean years of education-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This large discrepency in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa’s urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.</p>
+<p>Additionally, if we again break Africa down by region, we can see that Northern Africa once again has a higher mean years of education when compared to the Sub-Saharan African region. This suggests that rural areas <strong>in</strong> Sub-Saharan Africa. Another important metric that will be explored in the next section is benchmark test scores.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/north africa vs subsaharan africa mean_educ-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="section-1.4-learning-achievment" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.4-learning-achievment">Section 1.4: Learning Achievment</h3>
+<p>In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/test scores 1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>It is clear from these graphs that Oceania and Europe have the highest test scores while Africa and South Ameirca by far have the lowest test scores. It is completely expected for test scores to drop as the level gets harder and harder (level 1-4), but what is concerning is that in level 4, both Africa and South America are almost at an average of 0. In levels 1-3, both Africa and South America are at least some what on par with the other continents, but in the fourth level, they are signfiicantly lower than every other continent. This suggests that both Africa and South America’s education gets worse when education gets to a higher level. This could be a key point of interest for these two continents.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ axis.text.x:List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0.5
+  ..$ vjust        : NULL
+  ..$ angle        : num 0
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi FALSE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ - attr(*, "class")= chr [1:2] "theme" "gg"
+ - attr(*, "complete")= logi FALSE
+ - attr(*, "validate")= logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/north africa vs subsaharan africa math score-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 1
+ $ axis.text.x:List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 0.5
+  ..$ vjust        : NULL
+  ..$ angle        : num 0
+  ..$ lineheight   : NULL
+  ..$ margin       : NULL
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi FALSE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ - attr(*, "class")= chr [1:2] "theme" "gg"
+ - attr(*, "complete")= logi FALSE
+ - attr(*, "validate")= logi TRUE</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/Latin America-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>These graphs give us a better breakdown as to why the scores appear the way they do. Opposite of what we have seen before, for passing the level 4 math test, it seems as though the region does not affect the continent’s performance dramatically. This implies that Africa and South America need better higher education systems all over the continent and not just in particular regions.</p>
+</section>
+<section id="section-1.5-college-attendance" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.5-college-attendance">Section 1.5: College Attendance</h3>
+<p>Another important metric of education is the percentage of students who are and are not in school. Regardless of academic outcome (GPA, test scores, etc.) It is incredibly important that younger people are even attending school to begin with. UNESCO provides data on attendance rates for primary school, lower secondary school, and upper secondary school.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$title
+[1] "Percentage of Young People Not in Primary School"
+
+$subtitle
+[1] "This data only includes data on young people"
+
+attr(,"class")
+[1] "labels"</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/per. of people not in prim school-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$title
+[1] "Percentage of YoungPeople Not in Lower Secondary School"
+
+$subtitle
+[1] "This data only includes data on young people"
+
+attr(,"class")
+[1] "labels"</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/per. of people not in lowsec school-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$title
+[1] "Percentage of Young People Not in Upper Secondary School"
+
+$subtitle
+[1] "This data only includes data on young people"
+
+attr(,"class")
+[1] "labels"</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/per. of people not in upsec school-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As you can see, Africa has the highest percentage of not attending school for all three categories, and Europe has the lowest. A suprising result in this metric is how South America has the second lowest non-attendane rate which is a good thing. While they ranked lower in other metrics such as their test scores, it is clear that at the very least, South America <strong><em>is</em></strong> doing a good job getting their students to at least attend school. Let’s breka this down further by looking at Rural vs.&nbsp;Urban areas.</p>
+<div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/rural vs urban-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This suggests that education should be focused more on Rural areas rather than non-rural areas</p>
-</section>
-<section id="section-1.5-male-vs.-female" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.5-male-vs.-female">Section 1.5: Male vs.&nbsp;Female</h3>
+<p>Similar to what we observed in section 1.3 the rural areas perform worse in this metric; however, it is worth noting that rural areas are performing even worse in this metric than the mean years of education section. For example, in North America and South America, the Rural non-attendance rate is almost half of non-attendance rate for urban areas. This implies that Rural areas need significantly more work than non-rural areas. Let’s now break it down by gender.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'sub_region'. You can override using the
-`.groups` argument.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 9 rows containing missing values (`position_stack()`).</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Position guide is perpendicular to the intended axis
-ℹ Did you mean to specify a different guide `position`?
-Position guide is perpendicular to the intended axis
-ℹ Did you mean to specify a different guide `position`?
-Position guide is perpendicular to the intended axis
-ℹ Did you mean to specify a different guide `position`?</code></pre>
-</div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/sub_region rural vs urban-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/gender-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Relatively even except for Africa where the males get more education. Surprisnly, females get more education except for in Africa.</p>
-</section>
-<section id="section-2-modeling" class="level3">
-<h3 class="anchored" data-anchor-id="section-2-modeling">Section 2: Modeling</h3>
+<p>It seems that The Americas and Europe do a good job keeping their kids in school, but North America’s rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their educaiton systems.</p>
 <div class="cell">
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/facet-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>When looking at discrepancies across each country in each continent, it is clear that every continent has multiple countries that have extremely high rates of not being in school as well as multiple countries that have extremely low rates. While some continents have more countries with higher rates than others, what is clear that every continent has countries with poor education.</p>
+</section>
+<section id="section-1.6-top-countries-in-each-section" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.6-top-countries-in-each-section">Section 1.6: Top countries in each section</h3>
+<p>We have analyzed continents as a whole, but now lets analyze each continent’s lowest performers in each category.</p>
+<p>Bottom 3 conntries in each continent with lowest primary school completion rate</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">complete_prim</th>
+<th style="text-align: right;">rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Liberia</td>
+<td style="text-align: right;">0.2291407</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Niger</td>
+<td style="text-align: right;">0.2348941</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Chad</td>
+<td style="text-align: right;">0.2350572</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">0.5104556</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Pakistan</td>
+<td style="text-align: right;">0.5843212</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Cambodia</td>
+<td style="text-align: right;">0.6162612</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Albania</td>
+<td style="text-align: right;">0.9742778</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Montenegro</td>
+<td style="text-align: right;">0.9898302</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Serbia</td>
+<td style="text-align: right;">0.9959805</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Haiti</td>
+<td style="text-align: right;">0.3944480</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Guatemala</td>
+<td style="text-align: right;">0.6732015</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Nicaragua</td>
+<td style="text-align: right;">0.6776326</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Vanuatu</td>
+<td style="text-align: right;">0.8169209</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Kiribati</td>
+<td style="text-align: right;">0.9467611</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Fiji</td>
+<td style="text-align: right;">0.9874556</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Suriname</td>
+<td style="text-align: right;">0.8031490</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">0.8113292</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Paraguay</td>
+<td style="text-align: right;">0.8799102</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Bottom 3 couries in each continent with lowest mean years of education</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">mean_years_educ</th>
+<th style="text-align: right;">rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Niger</td>
+<td style="text-align: right;">1.808006</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Burkina Faso</td>
+<td style="text-align: right;">2.347315</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Mali</td>
+<td style="text-align: right;">2.410002</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">4.547361</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Nepal</td>
+<td style="text-align: right;">5.895463</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Pakistan</td>
+<td style="text-align: right;">6.002957</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Albania</td>
+<td style="text-align: right;">10.390306</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Serbia</td>
+<td style="text-align: right;">13.655235</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Ukraine</td>
+<td style="text-align: right;">13.874593</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Guatemala</td>
+<td style="text-align: right;">6.572728</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Haiti</td>
+<td style="text-align: right;">6.812426</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Honduras</td>
+<td style="text-align: right;">6.991532</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Australia</td>
+<td style="text-align: right;">12.417176</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Fiji</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Kiribati</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Guyana</td>
+<td style="text-align: right;">9.512641</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">9.540023</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Colombia</td>
+<td style="text-align: right;">9.931102</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Top 3 countries in Each Continent of Lowest Passing rate of Level 1 Math Test</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">math_level1</th>
+<th style="text-align: right;">rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Ghana</td>
+<td style="text-align: right;">0.2213786</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">South Africa</td>
+<td style="text-align: right;">0.3452023</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Niger</td>
+<td style="text-align: right;">0.4072104</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Pakistan</td>
+<td style="text-align: right;">0.2856470</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Philippines</td>
+<td style="text-align: right;">0.3407591</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Kuwait</td>
+<td style="text-align: right;">0.4653052</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Montenegro</td>
+<td style="text-align: right;">0.7646212</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Romania</td>
+<td style="text-align: right;">0.7872241</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Bulgaria</td>
+<td style="text-align: right;">0.8001682</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Honduras</td>
+<td style="text-align: right;">0.3976985</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Panama</td>
+<td style="text-align: right;">0.4678184</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Mexico</td>
+<td style="text-align: right;">0.7002330</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">New Zealand</td>
+<td style="text-align: right;">0.8943537</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Australia</td>
+<td style="text-align: right;">0.9132463</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Fiji</td>
+<td style="text-align: right;">NaN</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Brazil</td>
+<td style="text-align: right;">0.5574790</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Peru</td>
+<td style="text-align: right;">0.5754379</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Argentina</td>
+<td style="text-align: right;">0.5956867</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Top 3 Countries in Each Continent of Percentage of People Not in Primary School</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">region</th>
+<th style="text-align: left;">country</th>
+<th style="text-align: right;">not_in_prim</th>
+<th style="text-align: right;">rank</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">South Sudan</td>
+<td style="text-align: right;">0.7504588</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Liberia</td>
+<td style="text-align: right;">0.6322090</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Africa</td>
+<td style="text-align: left;">Somalia</td>
+<td style="text-align: right;">0.5401778</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Afghanistan</td>
+<td style="text-align: right;">0.3667935</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Pakistan</td>
+<td style="text-align: right;">0.3079629</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">Timor-Leste</td>
+<td style="text-align: right;">0.2362871</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Belarus</td>
+<td style="text-align: right;">0.0826894</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Albania</td>
+<td style="text-align: right;">0.0667680</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">Ukraine</td>
+<td style="text-align: right;">0.0610106</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Haiti</td>
+<td style="text-align: right;">0.1998055</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Guatemala</td>
+<td style="text-align: right;">0.0967366</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North America</td>
+<td style="text-align: left;">Nicaragua</td>
+<td style="text-align: right;">0.0949205</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Vanuatu</td>
+<td style="text-align: right;">0.1354130</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Kiribati</td>
+<td style="text-align: right;">0.0316477</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oceania</td>
+<td style="text-align: left;">Tonga</td>
+<td style="text-align: right;">0.0274431</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Bolivia</td>
+<td style="text-align: right;">0.0621273</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Colombia</td>
+<td style="text-align: right;">0.0598511</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South America</td>
+<td style="text-align: left;">Peru</td>
+<td style="text-align: right;">0.0381532</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Some countries that appear more than 3 times on these 4 tables are Niger, Pakistan, Afganistan, Haiti… If these countries are appearng the lowest on all of these tables multiple times, these are clearly the countries that require the most help in terms of education.</p>
+</section>
+<section id="section-1.7-section-1-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.7-section-1-conclusion">Section 1.7: Section 1 Conclusion</h3>
+<p>Through this section, we have explored many different areas of education such as PISA scores, literacy rates, primary school completion rate, and many more metrics. Through all of our analysis there are some pretty clear conclusions:</p>
+<p>1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second.</p>
+<p>2.) Within Africa, Northern Africa is somewhat up to standard, but Sub-Saharan Africa is far behind.</p>
+<p>3.) Europe was consistently the highest performer in almost all of the metrics.</p>
+<p>4.) Urban education on average is much better than rural education</p>
+</section>
+</section>
+<section id="section-2-modeling" class="level1">
+<h1>Section 2: Modeling</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'car' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'carData' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'car'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:dplyr':
+
+    recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'caret' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lattice</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'caret'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:yardstick':
+
+    precision, recall, sensitivity, specificity</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    lift</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MLmetrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'MLmetrics' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'MLmetrics'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:caret':
+
+    MAE, RMSE</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:base':
+
+    Recall</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'GGally' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2</code></pre>
+</div>
+</div>
+<p>Thesis: African areas have poor educational resources compared with other regions in the World. Our investigation will delve into the factors contributing to poor educational resources, particularly in African regions, and will evaluate whether Africa indeed has the most challenging educational conditions compared to the rest of the world.</p>
+<section id="section-2.1-model1" class="level2">
+<h2 class="anchored" data-anchor-id="section-2.1-model1">Section 2.1: Model1</h2>
+<p>Hypothesis 1: Factors that will affect the lower secondary school completion rate: primary school completion rate_v2(young people who are 3-5 ages above the normal primary graduation age[prolly neagtively affect the lower secondary school completion rate]), big_region, wealth, gender, and Urbanicity</p>
+<p>Expectation: comp_prim_v2_m will positively affect comp_lowsec_v2_m. In region of Africa, the area of rural, the gender of female, or the quintile 1 in Wealth will negatively affect comp_lowsec_v2_m.</p>
+<p>-Continuous variable: comp_prim_v2_m</p>
+<p>-Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#group by wealth, Big region</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">####MODEL1</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp_lowsec_v2_m <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Location) <span class="sc">+</span> <span class="fu">as.factor</span>(Sex)  <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> comp_prim_v2_m, <span class="at">data =</span> Location_data)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>parsnip model object
-
-
+<pre><code>
 Call:
-stats::lm(formula = mean_primary_completion_rate ~ mean_educ_years_20_24, 
-    data = data)
+lm(formula = comp_lowsec_v2_m ~ as.factor(region) + as.factor(Location) + 
+    as.factor(Sex) + as.factor(Wealth) + comp_prim_v2_m, data = Location_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.67342 -0.07977  0.02010  0.09152  0.39425 
 
 Coefficients:
-          (Intercept)  mean_educ_years_20_24  
-              0.12733                0.07119  </code></pre>
+                                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                    -0.232695   0.007489 -31.070  &lt; 2e-16 ***
+as.factor(region)Asia           0.092947   0.006050  15.362  &lt; 2e-16 ***
+as.factor(region)Europe         0.198130   0.014221  13.933  &lt; 2e-16 ***
+as.factor(region)North America  0.011440   0.007802   1.466 0.142649    
+as.factor(region)Oceania        0.143052   0.037197   3.846 0.000122 ***
+as.factor(region)South America  0.140285   0.007011  20.010  &lt; 2e-16 ***
+as.factor(Location)Urban        0.020791   0.004415   4.710 2.57e-06 ***
+as.factor(Sex)Male              0.003602   0.004164   0.865 0.387033    
+as.factor(Wealth)Quintile 2     0.002351   0.007122   0.330 0.741322    
+as.factor(Wealth)Quintile 3     0.009989   0.007108   1.405 0.160043    
+as.factor(Wealth)Quintile 4     0.040039   0.007209   5.554 2.99e-08 ***
+as.factor(Wealth)Quintile 5     0.096784   0.007521  12.869  &lt; 2e-16 ***
+comp_prim_v2_m                  0.940660   0.010707  87.856  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1273 on 3726 degrees of freedom
+  (28612 observations deleted due to missingness)
+Multiple R-squared:  0.853, Adjusted R-squared:  0.8525 
+F-statistic:  1802 on 12 and 3726 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>group_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_comp_lowsec_v2_m =</span> <span class="fu">mean</span>(comp_lowsec_v2_m, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(comp_lowsec_v2_m)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_comp_lowsec_v2_m)) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average lower secondary school completion rate by Region"</span>,</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average lower secondary school completion rate"</span>) <span class="sc">+</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="analysis_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::glance(model1)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::augment(model1, new_data = grouped2)</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>             Length Class      Mode
-lvl           0     -none-     NULL
-spec          7     linear_reg list
-fit          13     lm         list
-preproc       1     -none-     list
-elapsed       1     -none-     list
-censor_probs  0     -none-     list</code></pre>
+<pre><code>                        GVIF Df GVIF^(1/(2*Df))
+as.factor(region)   1.683944  5        1.053496
+as.factor(Location) 1.124812  1        1.060572
+as.factor(Sex)      1.000401  1        1.000201
+as.factor(Wealth)   1.285657  4        1.031907
+comp_prim_v2_m      1.931383  1        1.389742</code></pre>
 </div>
 </div>
+<section id="section-2.1.1-model1-formula" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.1.1-model1-formula">Section 2.1.1: Model1 Formula</h3>
+<p>comp_lowsec_v2_m = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m</p>
+</section>
+<section id="section-2.1.2-model1-result-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.1.2-model1-result-analysis">Section 2.1.2: Model1 Result Analysis</h3>
+<p>Result Analysis:</p>
+<p>1) The model’s intercept is negative, suggesting that the baseline group for region, location, sex, and wealth has a negative association with the completion rate for lower secondary education.</p>
+<p>2) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.092947 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.092947 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.</p>
+<p>3) Urban locations have a positive coefficient, indicating that being in an urban location is associated with higher secondary completion rates compared to rural locations.</p>
+<p>4) Sex does not seem to be a significant predictor, as the coefficient for males is small and not statistically significant (p-value &gt; 0.05).</p>
+<p>5) Wealth shows a strong positive association with lower secondary completion. As wealth quintiles increase, there’s a corresponding significant increase in the completion rates, with the highest quintile (Quintile 5) having the largest coefficient.</p>
+<p>6) The comp_prim_v2_m variable has a large positive coefficient, indicating a strong association with higher rates of lower secondary completion.</p>
+<p>7) The adjusted R-squared is 0.8525, indicating a good fit even after adjusting for the number of predictors.</p>
+<p>8) The F-statistic is very high, and the associated p-value is less than 0.001, suggesting the model is statistically significant.</p>
+</section>
+<section id="section-2.1.3-model1-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.1.3-model1-conclusion">Section 2.1.3: Model1 Conclusion</h3>
+<p>The R-squared is 0.8525, and the vif shows that there is no collinearity between predictors. We will remove the predictor of gender from the mode because of insignificance indicated by p-value higher than 0.05. Finally, being in the region of Africa, being in the location of rural area, and staying in the lower wealth level will negatively influence the secondary education completion. And the high primary education completion will positively affect the secondary education completion rate.</p>
+</section>
+</section>
+<section id="section-2.2-model2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2.2-model2">Section 2.2: Model2</h2>
+<p>Hypothesis 2: Factors that will affect literacy_1524_m (Percentage of young people aged 15‐24 who can read a simple sentence): comp_prim_1524_no (# of young people aged 15-24 completed primary school), preschool_3_no (# of 3 to 4 year olds attending any type of pre–primary education programme), region, wealth.</p>
+<p>Expectation: The predictors of either comp_prim_1524_no or preschool_3_no will negatively affect literacy_1524_m. Urban region will increase literacy_1524_m, and higher level of wealth will postively affect the literacy_1524_m as well.</p>
+<p>-Continuous variable: comp_prim_1524_no, preschool_3_no</p>
+<p>-Categorical variable: wealth(by level 1-5), region(by continents)</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(literacy_1524_no <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> edu2_2024_no <span class="sc">+</span> preschool_3_no, <span class="at">data =</span> Location_data)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.730         0.727 0.128      233. 3.54e-26     1   56.8 -108. -100.
-# ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
+<pre><code>
+Call:
+lm(formula = literacy_1524_no ~ as.factor(region) + as.factor(Wealth) + 
+    edu2_2024_no + preschool_3_no, data = Location_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-1903.48  -298.65   -34.83   212.14  3111.19 
+
+Coefficients:
+                                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                    -176.8065    82.7822  -2.136 0.033193 *  
+as.factor(region)Asia           514.8999    62.2549   8.271 1.28e-15 ***
+as.factor(region)Europe         616.8468    78.5480   7.853 2.61e-14 ***
+as.factor(region)North America  253.9103   101.4412   2.503 0.012640 *  
+as.factor(region)South America   68.7070   107.2218   0.641 0.521958    
+as.factor(Wealth)Quintile 2      44.1101    83.1961   0.530 0.596219    
+as.factor(Wealth)Quintile 3     158.7777    83.1703   1.909 0.056841 .  
+as.factor(Wealth)Quintile 4     301.1526    85.1746   3.536 0.000446 ***
+as.factor(Wealth)Quintile 5     701.4635    90.5896   7.743 5.65e-14 ***
+edu2_2024_no                      2.2464     0.1267  17.728  &lt; 2e-16 ***
+preschool_3_no                    0.6760     0.1764   3.832 0.000144 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 559.2 on 487 degrees of freedom
+  (31853 observations deleted due to missingness)
+Multiple R-squared:  0.7265,    Adjusted R-squared:  0.7208 
+F-statistic: 129.3 on 10 and 487 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 177 × 7
-     .pred   .resid iso_code mean_primary_completion_rate mean_educ_years_20_24
-     &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                           &lt;dbl&gt;                 &lt;dbl&gt;
- 1   0.451   0.0594 AFG                             0.510                  4.55
- 2   0.579  -0.0591 AGO                             0.519                  6.34
- 3   0.867   0.107  ALB                             0.974                 10.4 
- 4 NaN     NaN      ARE                           NaN                    NaN   
- 5   0.939   0.0237 ARG                             0.963                 11.4 
- 6   0.895   0.0996 ARM                             0.994                 10.8 
- 7   1.01   -0.0179 AUS                             0.993                 12.4 
- 8 NaN     NaN      AUT                           NaN                    NaN   
- 9   0.897   0.0790 AZE                             0.975                 10.8 
-10   0.430  -0.0486 BDI                             0.382                  4.26
-# ℹ 167 more rows
-# ℹ 2 more variables: attend_higher_education &lt;dbl&gt;, count &lt;int&gt;</code></pre>
+<pre><code>                      GVIF Df GVIF^(1/(2*Df))
+as.factor(region) 1.261002  4        1.029413
+as.factor(Wealth) 1.214545  4        1.024594
+edu2_2024_no      2.415127  1        1.554068
+preschool_3_no    2.405951  1        1.551113</code></pre>
 </div>
-</div>
-<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>group1_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_literacy_1524_no =</span> <span class="fu">mean</span>(literacy_1524_no, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(literacy_1524_no)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group1_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_literacy_1524_no)) <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Education Years by Location and Region"</span>,</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average Education Years"</span>) <span class="sc">+</span></span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 89 rows containing non-finite values (`stat_smooth()`).</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 89 rows containing non-finite values (`stat_smooth()`).</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 89 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 1 rows containing missing values (`geom_bar()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/residual plot-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<section id="section-2.2.1-model2-formula" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.2.1-model2-formula">Section 2.2.1: Model2 Formula</h3>
+<p>literacy_1524_no = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no</p>
+</section>
+<section id="section-2.2.2-model2-result-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.2.2-model2-result-analysis">Section 2.2.2: Model2 Result Analysis</h3>
+<p>Result Analysis:</p>
+<p>1) For the region variable: Asia has a positive coefficient (514.8999), meaning that, compared to the Africa region, it is associated with an increase in the dependent variable. Europe has an even higher positive coefficient (616.8468), indicating a stronger association compared to the Africa region than Asia. North America and South America also have positive coefficients, but the impact is less compared to Asia and Europe. The coefficients for regions are statistically significant except for South America (p-value &gt; 0.05).</p>
+<p>2) Wealth quintiles show a gradient of increasing positive coefficients from Quintile 2 to Quintile 5, suggesting that as wealth increases, the dependent variable also increases. Quintile 5 has a particularly high coefficient, and the effects for Quintile 4 and Quintile 5 are statistically significant (p &lt; 0.01).</p>
+<p>3) The variable edu2_2024_no has a very high positive coefficient (2424.4635), indicating a strong and statistically significant association with the dependent variable.</p>
+<p>4) The preschool variable (preschool_3_no) has a small but statistically significant positive coefficient, indicating that an increase in this variable is associated with an increase in the dependent variable.</p>
+<p>5) The model has a relatively high R-squared value of 0.7265, meaning approximately 72.65% of the variance in the dependent variable is explained by the model, indicating a good fit.</p>
+<p>6) The F-statistic is very large, and the p-value is less than 0.001, suggesting that the model is highly statistically significant.</p>
+</section>
+<section id="section-2.2.3-model2-conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.2.3-model2-conclusion">Section 2.2.3: Model2 Conclusion</h3>
+<p>The R-squared is 0.7208, and the vif shows that there is no collinearity between predictors. We will remove the predictors that have the insignificance indicated by p-value higher than 0.05 from the model. In summary, being in the region of Africa and South America, or staying in the lower wealth level will negatively influence the secondary education completion. And the higher rate of attending pre-primary institution will positively affect the secondary education completion rate. However, an interetsing finding is that less than two years schooling can also increase the percentage of young people aged 15‐24 who can read a simple sentence. We could conduct further analysis on this relationship.</p>
+</section>
+</section>
+<section id="section-2.3-model3" class="level2">
+<h2 class="anchored" data-anchor-id="section-2.3-model3">Section 2.3: Model3</h2>
+<p>Hypothesis 3: In this logistic regression model, we made a dummy variable “<strong>is_africa</strong>” based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are <strong>literacy_1524_m</strong> (Percentage of young people aged 15‐24 who can read a simple sentence) and <strong>comp_lowsec_v2_m</strong> (young people who are 3-5 ages above the normal lower secondary school’s graduation age).</p>
+<p>Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that Location_data$region is a factor</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>region)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the is_africa column based on the region column</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Location_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Africa"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert is_africa to a factor</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>is_africa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the logistic regression model</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(is_africa <span class="sc">~</span> literacy_1524_m <span class="sc">+</span> comp_lowsec_v2_m, <span class="at">data =</span> Location_data, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = is_africa ~ literacy_1524_m + comp_lowsec_v2_m, 
+    family = binomial(), data = Location_data)
+
+Coefficients:
+                 Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)        2.4261     0.2300  10.546   &lt;2e-16 ***
+literacy_1524_m   -0.7148     0.3833  -1.865   0.0622 .  
+comp_lowsec_v2_m  -3.4087     0.3170 -10.753   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2049.4  on 1498  degrees of freedom
+Residual deviance: 1621.4  on 1496  degrees of freedom
+  (30852 observations deleted due to missingness)
+AIC: 1627.4
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<section id="section-2.3.1-model3-formula" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.3.1-model3-formula">Section 2.3.1: Model3 Formula</h3>
+<p>is_africa = b0 + b1 x comp_lowsec_v2_m</p>
+</section>
+<section id="section-2.3.2-model3-result-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.3.2-model3-result-analysis">Section 2.3.2: Model3 Result Analysis</h3>
+<p>Result Analysis:</p>
+<p>1) Literacy Rate in 1524 (literacy_1524_m, Estimate: -0.7148): A one unit increase in the literacy rate in 1524 is associated with a decrease in the log-odds of a location being in Africa by 0.7148, although this predictor is not statistically significant at conventional levels (p &gt; 0.05).</p>
+<p>2) Composite Measure of Lower Secondary Completion (comp_lowsec_v2_m, Estimate: -3.4087): A one unit increase in the composite measure is associated with a decrease in the log-odds of a location being in Africa by 3.4087. This effect is statistically significant (p &lt; 0.001).</p>
+</section>
+<section id="section-2.3.3-conclusion-by-model3" class="level3">
+<h3 class="anchored" data-anchor-id="section-2.3.3-conclusion-by-model3">Section 2.3.3: Conclusion by Model3</h3>
+<p>In conclusion, higher values of lower-secondary completion are associated with a lower probability of a location being in Africa. This relationship is statistically significant in the model.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->

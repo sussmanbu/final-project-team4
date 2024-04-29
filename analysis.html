@@ -929,13 +929,7 @@ attr(,"class")
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'car' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: carData</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'carData' was built under R version 4.3.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -951,10 +945,7 @@ Attaching package: 'car'</code></pre>
 
     some</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'caret' was built under R version 4.3.3</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: lattice</code></pre>
 </div>
@@ -972,13 +963,10 @@ Attaching package: 'caret'</code></pre>
 
     lift</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MLmetrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'MLmetrics' was built under R version 4.3.3</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MLmetrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'MLmetrics'</code></pre>
@@ -993,10 +981,7 @@ Attaching package: 'MLmetrics'</code></pre>
 
     Recall</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'GGally' was built under R version 4.3.3</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Registered S3 method overwritten by 'GGally':
   method from   
@@ -1011,14 +996,14 @@ Attaching package: 'MLmetrics'</code></pre>
 <p>-Continuous variable: comp_prim_v2_m</p>
 <p>-Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#group by wealth, Big region</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="do">####MODEL1</span></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp_lowsec_v2_m <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Location) <span class="sc">+</span> <span class="fu">as.factor</span>(Sex)  <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> comp_prim_v2_m, <span class="at">data =</span> Location_data)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#group by wealth, Big region</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">####MODEL1</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp_lowsec_v2_m <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Location) <span class="sc">+</span> <span class="fu">as.factor</span>(Sex)  <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> comp_prim_v2_m, <span class="at">data =</span> Location_data)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1052,23 +1037,23 @@ Residual standard error: 0.1273 on 3726 degrees of freedom
 Multiple R-squared:  0.853, Adjusted R-squared:  0.8525 
 F-statistic:  1802 on 12 and 3726 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>group_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_comp_lowsec_v2_m =</span> <span class="fu">mean</span>(comp_lowsec_v2_m, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(comp_lowsec_v2_m)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_comp_lowsec_v2_m)) <span class="sc">+</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average lower secondary school completion rate by Region"</span>,</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average lower secondary school completion rate"</span>) <span class="sc">+</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>group_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_comp_lowsec_v2_m =</span> <span class="fu">mean</span>(comp_lowsec_v2_m, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(comp_lowsec_v2_m)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_comp_lowsec_v2_m)) <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average lower secondary school completion rate by Region"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average lower secondary school completion rate"</span>) <span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::glance(model1)</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::augment(model1, new_data = grouped2)</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::glance(model1)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::augment(model1, new_data = grouped2)</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        GVIF Df GVIF^(1/(2*Df))
 as.factor(region)   1.683944  5        1.053496
@@ -1106,11 +1091,11 @@ comp_prim_v2_m      1.931383  1        1.389742</code></pre>
 <p>-Continuous variable: comp_prim_1524_no, preschool_3_no</p>
 <p>-Categorical variable: wealth(by level 1-5), region(by continents)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(literacy_1524_no <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> edu2_2024_no <span class="sc">+</span> preschool_3_no, <span class="at">data =</span> Location_data)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(literacy_1524_no <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> edu2_2024_no <span class="sc">+</span> preschool_3_no, <span class="at">data =</span> Location_data)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1142,7 +1127,7 @@ Residual standard error: 559.2 on 487 degrees of freedom
 Multiple R-squared:  0.7265,    Adjusted R-squared:  0.7208 
 F-statistic: 129.3 on 10 and 487 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      GVIF Df GVIF^(1/(2*Df))
 as.factor(region) 1.261002  4        1.029413
@@ -1150,17 +1135,17 @@ as.factor(Wealth) 1.214545  4        1.024594
 edu2_2024_no      2.415127  1        1.554068
 preschool_3_no    2.405951  1        1.551113</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>group1_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_literacy_1524_no =</span> <span class="fu">mean</span>(literacy_1524_no, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(literacy_1524_no)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group1_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_literacy_1524_no)) <span class="sc">+</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Education Years by Location and Region"</span>,</span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average Education Years"</span>) <span class="sc">+</span></span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>group1_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_literacy_1524_no =</span> <span class="fu">mean</span>(literacy_1524_no, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(literacy_1524_no)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group1_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_literacy_1524_no)) <span class="sc">+</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Education Years by Location and Region"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average Education Years"</span>) <span class="sc">+</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 rows containing missing values (`geom_bar()`).</code></pre>
 </div>
@@ -1192,26 +1177,30 @@ preschool_3_no    2.405951  1        1.551113</code></pre>
 <p>Hypothesis 3: In this logistic regression model, we made a dummy variable “<strong>is_africa</strong>” based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are <strong>literacy_1524_m</strong> (Percentage of young people aged 15‐24 who can read a simple sentence) and <strong>comp_lowsec_v2_m</strong> (young people who are 3-5 ages above the normal lower secondary school’s graduation age).</p>
 <p>Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that Location_data$region is a factor</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>region)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the is_africa column based on the region column</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Location_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Africa"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert is_africa to a factor</span></span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>is_africa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that Location_data$region is a factor</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>region)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the is_africa column based on the region column</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Location_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Africa"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert is_africa to a factor</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>is_africa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the logistic regression model</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(is_africa <span class="sc">~</span> literacy_1524_m <span class="sc">+</span> comp_lowsec_v2_m, <span class="at">data =</span> Location_data, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the logistic regression model</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(is_africa <span class="sc">~</span> literacy_1524_m <span class="sc">+</span> comp_lowsec_v2_m, <span class="at">data =</span> Location_data, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 glm(formula = is_africa ~ literacy_1524_m + comp_lowsec_v2_m, 
     family = binomial(), data = Location_data)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-2.2316  -0.8430   0.4719   0.8212   1.9050  
 
 Coefficients:
                  Estimate Std. Error z value Pr(&gt;|z|)    

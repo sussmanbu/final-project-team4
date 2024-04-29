@@ -7,9 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Team 4">
-<meta name="dcterms.date" content="2024-04-22">
+<meta name="dcterms.date" content="2024-03-03">
+<meta name="description" content="Three datasets">
 
-<title>MA [46]15 Final Project - Team 4 - Post 6</title>
+<title>MA [46]15 Final Project - Team 4 - Team 4 three datasets</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -110,8 +111,13 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post 6</h1>
-                      </div>
+      <h1 class="title">Team 4 three datasets</h1>
+                  <div>
+        <div class="description">
+          <p>Three datasets</p>
+        </div>
+      </div>
+                </div>
   </div>
     
   
@@ -127,14 +133,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 22, 2024</p>
+        <p class="date">March 3, 2024</p>
       </div>
     </div>
     
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">April 22, 2024</p>
+        <p class="date-modified">March 3, 2024</p>
       </div>
     </div>
       
@@ -151,27 +157,16 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="data-analysis">Data Analysis</h3>
-<p>By completing our Analysis page, after merging PISA data set we already noticed a significant trend of North America. However, there is some region that does not have the PISA scores. Therefore we decide to merge another Literacy Rate to generalize the visualization of test scores.</p>
-<p><img src="images/Screenshot 2024-04-22 at 4.57.51 PM.png" class="img-fluid"></p>
-<p>From our graph, we noticed that Africa overall has the lowest PISA and literacy rate.</p>
-</section>
-<section id="format-change" class="level3">
-<h3 class="anchored" data-anchor-id="format-change">Format change</h3>
-<p>From our feedback of data.qmd, professor suggested us to have a more consistent and clearer format, therefore taking that advice into our formatting we use brew function to make the tables clear and simple to track</p>
-<p><img src="images/Screenshot 2024-04-22 at 5.20.21 PM.png" class="img-fluid"></p>
-</section>
-<section id="tentative-thesis" class="level3">
-<h3 class="anchored" data-anchor-id="tentative-thesis"><strong>Tentative Thesis</strong></h3>
-<p>Global disparities in educational outcomes are profoundly influenced by economic factors, with sub-regional disparities indicating that targeted local interventions could be more effective than broad regional strategies. For instance, while general trends suggest higher educational attainment in Europe and lower in Africa, sub-regional analysis reveals that Northern Africa aligns more closely with global averages than Sub-Saharan Africa</p>
-</section>
-<section id="whats-next" class="level3">
-<h3 class="anchored" data-anchor-id="whats-next">What’s next</h3>
-<p>Data modeling: we are planning to perform a multivariate modelling for the Analysis.qmd as currently we just have a simple modeling just with one variable.</p>
+<p>Dataset 1:Weekly United States COVID-19 Racial Data By State, April 12, 2020 to March 7, 2021</p>
+<p>URL: https://datadryad.org/stash/dataset/doi:10.7272/Q6TT4P68</p>
+<p>The dataset contains 212,969 rows and 86 columns.The dataset in question originates from a joint effort by the COVID Tracking Project and Boston University’s Center for Antiracist Research. It has been actively compiled since April 12, 2020, with updates being made twice weekly. The data is sourced from the official public health websites of various states and territories, with the collection process being carried out by volunteers, whose names have been provided. The dataset comprises 54 columns and includes 5320 data points. One notable limitation of the dataset is the inconsistency in reporting the ethnicity data across different states, particularly regarding the categorization of Hispanic or Latino races—some states include this data while others do not. There are 13 columns dedicated to documenting COVID-19 cases across different ethnicities, but there are redundancies, such as the columns for Cases_Latinx and Cases_Ethnicity_Hispanic, which appear to contain similar, if not identical, data. Additionally, the dataset includes 13 columns each for deaths, hospitalizations, and total cases, all disaggregated by ethnicity. However, these sections have many missing entries, which could pose challenges for data cleaning and further analysis.</p>
+<p>Questions want to answer based on the dataset: -Does the hospitalizations rate affect the deaths rate? -Which ethnicity or group of ethnicities has the highest deaths rate? - Is there a correlation between the hospitalization rate and the death rate due to COVID-19, and if so, how strong is this relationship? -Does the hospitalization rate for COVID-19 differ significantly among ethnic groups, and what might this reveal about access to healthcare or disease severity? - How have hospitalization and death rates evolved over time for each ethnicity, and are there noticeable trends or patterns? - Are there regional variations in the death and hospitalization rates among different ethnicities, and what might this indicate about local public health policies?</p>
+<p>Dataset 2: Ethnicity disparities in school in United States URL: https://www.education-inequalities.org/countries/united-states The dataset provided by the World Inequality Database on Education (WIDE) tracks educational disparities across various countries, including the United States. From the 212,969 rows and 86 columns, it provides data on education outcomes differentiated by wealth, gender, ethnicity, and location, among other factors. This database can be significant for analyzing racial disparities in education. Meanwhile, the dataset provides numerous variables such as income, region, and completions of education which enable us to perform variable selection to find the best variable to show the correlation between racial disparities and education. We will likely face difficulties while cleaning the data since the dataset is relatively large with numerous outliers. Question want to answer based on the dataset: -How do educational outcomes vary by region and demographic groups in the USA?</p>
+<p>-How have educational outcomes been affected by race in the dataset?</p>
+<p>Dataset 3: US Police Shootings URL: https://www.kaggle.com/datasets/ahsen1330/us-police-shootings?resource=download There are 4896 rows and 15 columns for this dataset. This data was collected from Kaggle amidst the covid 19 pandemic when many hate crimes directed towards specific races were happening. The dataset is consisted of 4896 rows and 15 columns.One challenge that we may face with this dataset is that it is on the smaller side. 5,000 rows is not necessarily small, but it is definitely not large either. If we want to conduct a very reliable study, it may be worth considering finding a dataset with more rows. Another problem that we may run into is that it will be difficult to assess whether a police killing was justified or not if we do not have more description on the crime. For example, if there was a column that described how long the altercation lasted, it may provide more insight into whether or not the crime was justified.</p>
+<p>Questions want to answer based on the dataset: -Does race and age play a factor in who gets killed by the police? -How are the shooting crime related to the race and age group</p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

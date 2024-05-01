@@ -6,7 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Here we provide a detailed analysis using more sophisticated statistics techniques.">
+<meta name="description" content="In this page, we analyze our data in more depth using more sophisticated statistical techniques.">
 
 <title>MA [46]15 Final Project - Team 4 - Analysis</title>
 <style>
@@ -154,9 +154,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section-1.2-percentage-of-people-who-did-not-complete-primary-school" id="toc-section-1.2-percentage-of-people-who-did-not-complete-primary-school" class="nav-link" data-scroll-target="#section-1.2-percentage-of-people-who-did-not-complete-primary-school">Section 1.2: Percentage of People who did not Complete Primary School</a></li>
   <li><a href="#section-1.3-years-of-edcuation" id="toc-section-1.3-years-of-edcuation" class="nav-link" data-scroll-target="#section-1.3-years-of-edcuation">Section 1.3: Years of Edcuation</a></li>
   <li><a href="#section-1.4-learning-achievment" id="toc-section-1.4-learning-achievment" class="nav-link" data-scroll-target="#section-1.4-learning-achievment">Section 1.4: Learning Achievment</a></li>
-  <li><a href="#section-1.5-college-attendance" id="toc-section-1.5-college-attendance" class="nav-link" data-scroll-target="#section-1.5-college-attendance">Section 1.5: College Attendance</a></li>
+  <li><a href="#section-1.5-percent-of-students-not-in-school" id="toc-section-1.5-percent-of-students-not-in-school" class="nav-link" data-scroll-target="#section-1.5-percent-of-students-not-in-school">Section 1.5: Percent of Students not in School</a></li>
   <li><a href="#section-1.6-top-countries-in-each-section" id="toc-section-1.6-top-countries-in-each-section" class="nav-link" data-scroll-target="#section-1.6-top-countries-in-each-section">Section 1.6: Top countries in each section</a></li>
-  <li><a href="#section-1.7-section-1-conclusion" id="toc-section-1.7-section-1-conclusion" class="nav-link" data-scroll-target="#section-1.7-section-1-conclusion">Section 1.7: Section 1 Conclusion</a></li>
   </ul></li>
   <li><a href="#section-2-modeling" id="toc-section-2-modeling" class="nav-link" data-scroll-target="#section-2-modeling">Section 2: Modeling</a>
   <ul class="collapse">
@@ -192,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div>
   <div class="description">
-    Here we provide a detailed analysis using more sophisticated statistics techniques.
+    In this page, we analyze our data in more depth using more sophisticated statistical techniques.
   </div>
 </div>
 
@@ -211,8 +210,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="section-1-analysis-of-education-statistics" class="level1">
 <h1>Section 1: Analysis of Education Statistics</h1>
 <p>Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success.</p>
-<p>Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer <strong><em>why</em></strong> these country’s are the way they are.</p>
-<p>In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface</p>
+<p>Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer <strong><em>why</em></strong> these continents are the way they are by exploring different regions and countries within each continent.</p>
+<p>In section 2, we will model our data with different statistical models, and uncover insights that are harder to identify on the surface</p>
 <section id="section-1.1-pisa-scores-and-literacy-rates" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.1-pisa-scores-and-literacy-rates">Section 1.1: PISA Scores and Literacy Rates</h3>
 <p>The first step to understanding economic disparties is to get a general understanding of what parts of the world generally tend to have better education than others. There are multiple ways of measuring this, but reliable way to measure this is with PISA scores and literacy rates. Both of these metrics serve as standardized bench marks for the whole world!</p>
@@ -224,11 +223,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/literacy-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/pisa facet-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It is clear that in terms of PISA scores, Oceania and Europe perform the best, while Africa performed the worst, and in terms of literacy rate, all of the continents performed relatively equally while Africa performed the worst again. Now that you have a general understanding of where education is better and where education is worse, we can now get into more specific statistics.</p>
@@ -246,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="analysis_files/figure-html/primary school completion 20-24-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some intersting outcomes.</p>
+<p>As you can see, Europe consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some interesting outcomes.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/north africa primary completion-1.png" class="img-fluid" width="672"></p>
@@ -257,35 +251,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="analysis_files/figure-html/sub-saharan africa primary school completion-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.</p>
+<p>As you can see, when looking at the percentage of people who finish primary school, the percentages are significantly lower for the Sub-Saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.</p>
 <p>The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see.</p>
 <p>The next step is to analyze the mean years of education of each region.</p>
 </section>
 <section id="section-1.3-years-of-edcuation" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.3-years-of-edcuation">Section 1.3: Years of Edcuation</h3>
-<p>After just two sections, it seems that there is a trend: Europe tends to have the “best education” while Africa seems to have “the worst education.” We will now explore college attendane as another measure of education.</p>
+<p>After just two sections, it seems that there is a trend: Europe tends to have the “best education” while Africa seems to have “the worst education.” We will now explore average years of education as another measure of education.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/mean years of education-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs.&nbsp;mean years of education in urban areas, we see that Africa has the largest descrpency in this area.</p>
+<p>This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs.&nbsp;mean years of education in urban areas, we see that Africa has the largest discrepancy in this area.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/rural vs urban for mean years of education-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This large discrepency in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa’s urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.</p>
-<p>Additionally, if we again break Africa down by region, we can see that Northern Africa once again has a higher mean years of education when compared to the Sub-Saharan African region. This suggests that rural areas <strong>in</strong> Sub-Saharan Africa. Another important metric that will be explored in the next section is benchmark test scores.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/north africa vs subsaharan africa mean_educ-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+<p>This large discrepancy in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa’s urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.</p>
+<p>The next step is to look at learning achievements as a mesure of level of education.</p>
 </section>
 <section id="section-1.4-learning-achievment" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.4-learning-achievment">Section 1.4: Learning Achievment</h3>
-<p>In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult.</p>
+<p>In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult. The graphs below show the scores by continent for the different level math examx.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/test scores 1-1.png" class="img-fluid" width="672"></p>
@@ -293,57 +282,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>It is clear from these graphs that Oceania and Europe have the highest test scores while Africa and South Ameirca by far have the lowest test scores. It is completely expected for test scores to drop as the level gets harder and harder (level 1-4), but what is concerning is that in level 4, both Africa and South America are almost at an average of 0. In levels 1-3, both Africa and South America are at least some what on par with the other continents, but in the fourth level, they are signfiicantly lower than every other continent. This suggests that both Africa and South America’s education gets worse when education gets to a higher level. This could be a key point of interest for these two continents.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 1
- $ axis.text.x:List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0.5
-  ..$ vjust        : NULL
-  ..$ angle        : num 0
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- - attr(*, "class")= chr [1:2] "theme" "gg"
- - attr(*, "complete")= logi FALSE
- - attr(*, "validate")= logi TRUE</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/north africa vs subsaharan africa math score-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 1
- $ axis.text.x:List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0.5
-  ..$ vjust        : NULL
-  ..$ angle        : num 0
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- - attr(*, "class")= chr [1:2] "theme" "gg"
- - attr(*, "complete")= logi FALSE
- - attr(*, "validate")= logi TRUE</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/Latin America-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>These graphs give us a better breakdown as to why the scores appear the way they do. Opposite of what we have seen before, for passing the level 4 math test, it seems as though the region does not affect the continent’s performance dramatically. This implies that Africa and South America need better higher education systems all over the continent and not just in particular regions.</p>
 </section>
-<section id="section-1.5-college-attendance" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.5-college-attendance">Section 1.5: College Attendance</h3>
+<section id="section-1.5-percent-of-students-not-in-school" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.5-percent-of-students-not-in-school">Section 1.5: Percent of Students not in School</h3>
 <p>Another important metric of education is the percentage of students who are and are not in school. Regardless of academic outcome (GPA, test scores, etc.) It is incredibly important that younger people are even attending school to begin with. UNESCO provides data on attendance rates for primary school, lower secondary school, and upper secondary school.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -402,7 +353,7 @@ attr(,"class")
 <p><img src="analysis_files/figure-html/gender-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>It seems that The Americas and Europe do a good job keeping their kids in school, but North America’s rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their educaiton systems.</p>
+<p>It seems that The Americas and Europe do a good job keeping their kids in school, but North America’s rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their education systems.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/facet-1.png" class="img-fluid" width="672"></p>
@@ -413,7 +364,7 @@ attr(,"class")
 <section id="section-1.6-top-countries-in-each-section" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.6-top-countries-in-each-section">Section 1.6: Top countries in each section</h3>
 <p>We have analyzed continents as a whole, but now lets analyze each continent’s lowest performers in each category.</p>
-<p>Bottom 3 conntries in each continent with lowest primary school completion rate</p>
+<p>Bottom 3 countries in each continent with lowest primary school completion rate</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
@@ -915,21 +866,19 @@ attr(,"class")
 </div>
 <p>Some countries that appear more than 3 times on these 4 tables are Niger, Pakistan, Afganistan, Haiti… If these countries are appearng the lowest on all of these tables multiple times, these are clearly the countries that require the most help in terms of education.</p>
 </section>
-<section id="section-1.7-section-1-conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.7-section-1-conclusion">Section 1.7: Section 1 Conclusion</h3>
-<p>Through this section, we have explored many different areas of education such as PISA scores, literacy rates, primary school completion rate, and many more metrics. Through all of our analysis there are some pretty clear conclusions:</p>
-<p>1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second.</p>
-<p>2.) Within Africa, Northern Africa is somewhat up to standard, but Sub-Saharan Africa is far behind.</p>
-<p>3.) Europe was consistently the highest performer in almost all of the metrics.</p>
-<p>4.) Urban education on average is much better than rural education</p>
-</section>
 </section>
 <section id="section-2-modeling" class="level1">
 <h1>Section 2: Modeling</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'car' was built under R version 4.3.3</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'carData' was built under R version 4.3.3</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
@@ -947,6 +896,9 @@ Attaching package: 'car'</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'caret' was built under R version 4.3.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: lattice</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
@@ -963,10 +915,13 @@ Attaching package: 'caret'</code></pre>
 
     lift</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MLmetrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MLmetrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'MLmetrics' was built under R version 4.3.3</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'MLmetrics'</code></pre>
@@ -981,7 +936,10 @@ Attaching package: 'MLmetrics'</code></pre>
 
     Recall</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'GGally' was built under R version 4.3.3</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Registered S3 method overwritten by 'GGally':
   method from   
@@ -996,14 +954,14 @@ Attaching package: 'MLmetrics'</code></pre>
 <p>-Continuous variable: comp_prim_v2_m</p>
 <p>-Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#group by wealth, Big region</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="do">####MODEL1</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp_lowsec_v2_m <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Location) <span class="sc">+</span> <span class="fu">as.factor</span>(Sex)  <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> comp_prim_v2_m, <span class="at">data =</span> Location_data)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#group by wealth, Big region</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">####MODEL1</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(comp_lowsec_v2_m <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Location) <span class="sc">+</span> <span class="fu">as.factor</span>(Sex)  <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> comp_prim_v2_m, <span class="at">data =</span> Location_data)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1037,23 +995,23 @@ Residual standard error: 0.1273 on 3726 degrees of freedom
 Multiple R-squared:  0.853, Adjusted R-squared:  0.8525 
 F-statistic:  1802 on 12 and 3726 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>group_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_comp_lowsec_v2_m =</span> <span class="fu">mean</span>(comp_lowsec_v2_m, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(comp_lowsec_v2_m)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_comp_lowsec_v2_m)) <span class="sc">+</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average lower secondary school completion rate by Region"</span>,</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average lower secondary school completion rate"</span>) <span class="sc">+</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>group_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_comp_lowsec_v2_m =</span> <span class="fu">mean</span>(comp_lowsec_v2_m, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(comp_lowsec_v2_m)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_comp_lowsec_v2_m)) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average lower secondary school completion rate by Region"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average lower secondary school completion rate"</span>) <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::glance(model1)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::augment(model1, new_data = grouped2)</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::glance(model1)</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co">#broom::augment(model1, new_data = grouped2)</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                        GVIF Df GVIF^(1/(2*Df))
 as.factor(region)   1.683944  5        1.053496
@@ -1091,11 +1049,11 @@ comp_prim_v2_m      1.931383  1        1.389742</code></pre>
 <p>-Continuous variable: comp_prim_1524_no, preschool_3_no</p>
 <p>-Categorical variable: wealth(by level 1-5), region(by continents)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(literacy_1524_no <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> edu2_2024_no <span class="sc">+</span> preschool_3_no, <span class="at">data =</span> Location_data)</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Location_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(literacy_1524_no <span class="sc">~</span> <span class="fu">as.factor</span>(region) <span class="sc">+</span> <span class="fu">as.factor</span>(Wealth) <span class="sc">+</span> edu2_2024_no <span class="sc">+</span> preschool_3_no, <span class="at">data =</span> Location_data)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1127,7 +1085,7 @@ Residual standard error: 559.2 on 487 degrees of freedom
 Multiple R-squared:  0.7265,    Adjusted R-squared:  0.7208 
 F-statistic: 129.3 on 10 and 487 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                      GVIF Df GVIF^(1/(2*Df))
 as.factor(region) 1.261002  4        1.029413
@@ -1135,22 +1093,22 @@ as.factor(Wealth) 1.214545  4        1.024594
 edu2_2024_no      2.415127  1        1.554068
 preschool_3_no    2.405951  1        1.551113</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>group1_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_literacy_1524_no =</span> <span class="fu">mean</span>(literacy_1524_no, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(literacy_1524_no)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group1_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_literacy_1524_no)) <span class="sc">+</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Education Years by Location and Region"</span>,</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average Education Years"</span>) <span class="sc">+</span></span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Bar graph to show Africa's average literacy_1524</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>group1_data <span class="ot">&lt;-</span> merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">'Location &amp; Sex &amp; Wealth'</span>) <span class="sc">|&gt;</span> <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_literacy_1524_no =</span> <span class="fu">mean</span>(literacy_1524_no, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),<span class="at">count_non_missing =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(literacy_1524_no)), <span class="at">.groups =</span> <span class="st">'drop'</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(group1_data, <span class="fu">aes</span>(<span class="at">x =</span> region, <span class="at">y =</span> mean_literacy_1524_no)) <span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="fu">position_dodge</span>()) <span class="sc">+</span> </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Average Education Years by Location and Region"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Region"</span>, <span class="at">y =</span> <span class="st">"Average Education Years"</span>) <span class="sc">+</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 rows containing missing values (`geom_bar()`).</code></pre>
 </div>
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+<p><img src="analysis_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="section-2.2.1-model2-formula" class="level3">
@@ -1177,30 +1135,26 @@ preschool_3_no    2.405951  1        1.551113</code></pre>
 <p>Hypothesis 3: In this logistic regression model, we made a dummy variable “<strong>is_africa</strong>” based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are <strong>literacy_1524_m</strong> (Percentage of young people aged 15‐24 who can read a simple sentence) and <strong>comp_lowsec_v2_m</strong> (young people who are 3-5 ages above the normal lower secondary school’s graduation age).</p>
 <p>Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that Location_data$region is a factor</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>region)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the is_africa column based on the region column</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Location_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Africa"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert is_africa to a factor</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>is_africa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure that Location_data$region is a factor</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>region <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>region)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the is_africa column based on the region column</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(Location_data<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"Africa"</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert is_africa to a factor</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>Location_data<span class="sc">$</span>is_africa <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Location_data<span class="sc">$</span>is_africa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the logistic regression model</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(is_africa <span class="sc">~</span> literacy_1524_m <span class="sc">+</span> comp_lowsec_v2_m, <span class="at">data =</span> Location_data, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Build the logistic regression model</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(is_africa <span class="sc">~</span> literacy_1524_m <span class="sc">+</span> comp_lowsec_v2_m, <span class="at">data =</span> Location_data, <span class="at">family =</span> <span class="fu">binomial</span>())</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary of the model</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
 glm(formula = is_africa ~ literacy_1524_m + comp_lowsec_v2_m, 
     family = binomial(), data = Location_data)
-
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.2316  -0.8430   0.4719   0.8212   1.9050  
 
 Coefficients:
                  Estimate Std. Error z value Pr(&gt;|z|)    

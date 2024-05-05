@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.433">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Here we provide a detailed analysis using more sophisticated statistics techniques.">
+<meta name="description" content="In this page, we analyze our data in more depth using more sophisticated statistical techniques.">
 
 <title>MA [46]15 Final Project - Team 4 - Analysis</title>
 <style>
@@ -120,9 +120,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#section-1.2-percentage-of-people-who-did-not-complete-primary-school" id="toc-section-1.2-percentage-of-people-who-did-not-complete-primary-school" class="nav-link" data-scroll-target="#section-1.2-percentage-of-people-who-did-not-complete-primary-school">Section 1.2: Percentage of People who did not Complete Primary School</a></li>
   <li><a href="#section-1.3-years-of-edcuation" id="toc-section-1.3-years-of-edcuation" class="nav-link" data-scroll-target="#section-1.3-years-of-edcuation">Section 1.3: Years of Edcuation</a></li>
   <li><a href="#section-1.4-learning-achievment" id="toc-section-1.4-learning-achievment" class="nav-link" data-scroll-target="#section-1.4-learning-achievment">Section 1.4: Learning Achievment</a></li>
-  <li><a href="#section-1.5-college-attendance" id="toc-section-1.5-college-attendance" class="nav-link" data-scroll-target="#section-1.5-college-attendance">Section 1.5: College Attendance</a></li>
+  <li><a href="#section-1.5-percent-of-students-not-in-school" id="toc-section-1.5-percent-of-students-not-in-school" class="nav-link" data-scroll-target="#section-1.5-percent-of-students-not-in-school">Section 1.5: Percent of Students not in School</a></li>
   <li><a href="#section-1.6-top-countries-in-each-section" id="toc-section-1.6-top-countries-in-each-section" class="nav-link" data-scroll-target="#section-1.6-top-countries-in-each-section">Section 1.6: Top countries in each section</a></li>
-  <li><a href="#section-1.7-section-1-conclusion" id="toc-section-1.7-section-1-conclusion" class="nav-link" data-scroll-target="#section-1.7-section-1-conclusion">Section 1.7: Section 1 Conclusion</a></li>
   </ul></li>
   <li><a href="#section-2-modeling" id="toc-section-2-modeling" class="nav-link" data-scroll-target="#section-2-modeling">Section 2: Modeling</a>
   <ul class="collapse">
@@ -152,7 +151,7 @@ ul.task-list li input[type="checkbox"] {
 
 <div>
   <div class="description">
-    Here we provide a detailed analysis using more sophisticated statistics techniques.
+    In this page, we analyze our data in more depth using more sophisticated statistical techniques.
   </div>
 </div>
 
@@ -171,24 +170,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="section-1-analysis-of-education-statistics" class="level1">
 <h1>Section 1: Analysis of Education Statistics</h1>
 <p>Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success.</p>
-<p>Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer <strong><em>why</em></strong> these country’s are the way they are.</p>
-<p>In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface</p>
+<p>Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer <strong><em>why</em></strong> these continents are the way they are by exploring different regions and countries within each continent.</p>
+<p>In section 2, we will model our data with different statistical models, and uncover insights that are harder to identify on the surface</p>
 <section id="section-1.1-pisa-scores-and-literacy-rates" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.1-pisa-scores-and-literacy-rates">Section 1.1: PISA Scores and Literacy Rates</h3>
 <p>The first step to understanding economic disparties is to get a general understanding of what parts of the world generally tend to have better education than others. There are multiple ways of measuring this, but reliable way to measure this is with PISA scores and literacy rates. Both of these metrics serve as standardized bench marks for the whole world!</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="analysis_files/figure-html/PISA-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
 <p><img src="analysis_files/figure-html/literacy-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/pisa facet-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>It is clear that in terms of PISA scores, Oceania and Europe perform the best, while Africa performed the worst, and in terms of literacy rate, all of the continents performed relatively equally while Africa performed the worst again. Now that you have a general understanding of where education is better and where education is worse, we can now get into more specific statistics.</p>
@@ -201,12 +190,7 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="analysis_files/figure-html/priary school completion 3-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/primary school completion 20-24-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p>As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some intersting outcomes.</p>
+<p>As you can see, Europe consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some interesting outcomes.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/north africa primary completion-1.png" class="img-fluid" width="672"></p>
@@ -217,35 +201,30 @@ ul.task-list li input[type="checkbox"] {
 <p><img src="analysis_files/figure-html/sub-saharan africa primary school completion-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.</p>
+<p>As you can see, when looking at the percentage of people who finish primary school, the percentages are significantly lower for the Sub-Saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.</p>
 <p>The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see.</p>
 <p>The next step is to analyze the mean years of education of each region.</p>
 </section>
 <section id="section-1.3-years-of-edcuation" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.3-years-of-edcuation">Section 1.3: Years of Edcuation</h3>
-<p>After just two sections, it seems that there is a trend: Europe tends to have the “best education” while Africa seems to have “the worst education.” We will now explore college attendane as another measure of education.</p>
+<p>After just two sections, it seems that there is a trend: Europe tends to have the “best education” while Africa seems to have “the worst education.” We will now explore average years of education as another measure of education.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/mean years of education-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs.&nbsp;mean years of education in urban areas, we see that Africa has the largest descrpency in this area.</p>
+<p>This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs.&nbsp;mean years of education in urban areas, we see that Africa has the largest discrepancy in this area.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/rural vs urban for mean years of education-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>This large discrepency in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa’s urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.</p>
-<p>Additionally, if we again break Africa down by region, we can see that Northern Africa once again has a higher mean years of education when compared to the Sub-Saharan African region. This suggests that rural areas <strong>in</strong> Sub-Saharan Africa. Another important metric that will be explored in the next section is benchmark test scores.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/north africa vs subsaharan africa mean_educ-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
+<p>This large discrepancy in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa’s urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.</p>
+<p>The next step is to look at learning achievements as a mesure of level of education.</p>
 </section>
 <section id="section-1.4-learning-achievment" class="level3">
 <h3 class="anchored" data-anchor-id="section-1.4-learning-achievment">Section 1.4: Learning Achievment</h3>
-<p>In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult.</p>
+<p>In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult. The graphs below show the scores by continent for the different level math examx.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/test scores 1-1.png" class="img-fluid" width="672"></p>
@@ -253,101 +232,23 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>It is clear from these graphs that Oceania and Europe have the highest test scores while Africa and South Ameirca by far have the lowest test scores. It is completely expected for test scores to drop as the level gets harder and harder (level 1-4), but what is concerning is that in level 4, both Africa and South America are almost at an average of 0. In levels 1-3, both Africa and South America are at least some what on par with the other continents, but in the fourth level, they are signfiicantly lower than every other continent. This suggests that both Africa and South America’s education gets worse when education gets to a higher level. This could be a key point of interest for these two continents.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 1
- $ axis.text.x:List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0.5
-  ..$ vjust        : NULL
-  ..$ angle        : num 0
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- - attr(*, "class")= chr [1:2] "theme" "gg"
- - attr(*, "complete")= logi FALSE
- - attr(*, "validate")= logi TRUE</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/north africa vs subsaharan africa math score-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>List of 1
- $ axis.text.x:List of 11
-  ..$ family       : NULL
-  ..$ face         : NULL
-  ..$ colour       : NULL
-  ..$ size         : NULL
-  ..$ hjust        : num 0.5
-  ..$ vjust        : NULL
-  ..$ angle        : num 0
-  ..$ lineheight   : NULL
-  ..$ margin       : NULL
-  ..$ debug        : NULL
-  ..$ inherit.blank: logi FALSE
-  ..- attr(*, "class")= chr [1:2] "element_text" "element"
- - attr(*, "class")= chr [1:2] "theme" "gg"
- - attr(*, "complete")= logi FALSE
- - attr(*, "validate")= logi TRUE</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/Latin America-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>These graphs give us a better breakdown as to why the scores appear the way they do. Opposite of what we have seen before, for passing the level 4 math test, it seems as though the region does not affect the continent’s performance dramatically. This implies that Africa and South America need better higher education systems all over the continent and not just in particular regions.</p>
 </section>
-<section id="section-1.5-college-attendance" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.5-college-attendance">Section 1.5: College Attendance</h3>
+<section id="section-1.5-percent-of-students-not-in-school" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.5-percent-of-students-not-in-school">Section 1.5: Percent of Students not in School</h3>
 <p>Another important metric of education is the percentage of students who are and are not in school. Regardless of academic outcome (GPA, test scores, etc.) It is incredibly important that younger people are even attending school to begin with. UNESCO provides data on attendance rates for primary school, lower secondary school, and upper secondary school.</p>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>$title
-[1] "Percentage of Young People Not in Primary School"
-
-$subtitle
-[1] "This data only includes data on young people"
-
-attr(,"class")
-[1] "labels"</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/per. of people not in prim school-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>$title
-[1] "Percentage of YoungPeople Not in Lower Secondary School"
-
-$subtitle
-[1] "This data only includes data on young people"
-
-attr(,"class")
-[1] "labels"</code></pre>
-</div>
 <div class="cell-output-display">
 <p><img src="analysis_files/figure-html/per. of people not in lowsec school-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>$title
-[1] "Percentage of Young People Not in Upper Secondary School"
-
-$subtitle
-[1] "This data only includes data on young people"
-
-attr(,"class")
-[1] "labels"</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="analysis_files/figure-html/per. of people not in upsec school-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>As you can see, Africa has the highest percentage of not attending school for all three categories, and Europe has the lowest. A suprising result in this metric is how South America has the second lowest non-attendane rate which is a good thing. While they ranked lower in other metrics such as their test scores, it is clear that at the very least, South America <strong><em>is</em></strong> doing a good job getting their students to at least attend school. Let’s breka this down further by looking at Rural vs.&nbsp;Urban areas.</p>
@@ -873,15 +774,7 @@ attr(,"class")
 </table>
 </div>
 </div>
-<p>Some countries that appear more than 3 times on these 4 tables are Niger, Pakistan, Afganistan, Haiti… If these countries are appearng the lowest on all of these tables multiple times, these are clearly the countries that require the most help in terms of education.</p>
-</section>
-<section id="section-1.7-section-1-conclusion" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.7-section-1-conclusion">Section 1.7: Section 1 Conclusion</h3>
-<p>Through this section, we have explored many different areas of education such as PISA scores, literacy rates, primary school completion rate, and many more metrics. Through all of our analysis there are some pretty clear conclusions:</p>
-<p>1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second.</p>
-<p>2.) Within Africa, Northern Africa is somewhat up to standard, but Sub-Saharan Africa is far behind.</p>
-<p>3.) Europe was consistently the highest performer in almost all of the metrics.</p>
-<p>4.) Urban education on average is much better than rural education</p>
+<p>Some countries that appear 3 or more times on these 4 tables are Niger, Pakistan, Afghanistan, and Haiti.</p>
 </section>
 </section>
 <section id="section-2-modeling" class="level1">

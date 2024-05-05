@@ -23,6 +23,8 @@ This comes from the file `about.qmd`
 This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
 The members of this team are below.
 
+Jacob Park:
+Hi everyone, I'm Jacob and I am currently a junior stuyding applied mathematics with minors in economics and computer science.
 
 ### About this Template.
 

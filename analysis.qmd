@@ -1,6 +1,6 @@
 ---
 title: Analysis
-description: Here we provide a detailed analysis using more sophisticated statistics techniques.
+description: In this page, we analyze our data in more depth using more sophisticated statistical techniques.
 toc: true
 draft: false
 ---
@@ -11,9 +11,9 @@ draft: false
 
 Driven by the increasing interest in global education disparities, our team has decided to explore the educational landscape across various countries around the world. Education is a cornerstone of societal development, and by examining comprehensive datasets (please see the data tab to read more about our datasets), we aim to uncover the factors that contribute to education outcomes and identify disparities that may hinder equitable access to quality education. Our project seeks to provide insights that not can potentially inform policymakers, educators, and stakeholders about the key elements influencing educational success.
 
-Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer ***why*** these country's are the way they are.
+Our project begins with section 1, where we will identify educational trends by the continent and attempt to answer ***why*** these continents are the way they are by exploring different regions and countries within each continent.
 
-In section 2, we will model our data with a linear regression model and uncover insights that are harder to identify on the surface
+In section 2, we will model our data with different statistical models, and uncover insights that are harder to identify on the surface
 
 ```{r}
 #| label: libraries
@@ -25,13 +25,14 @@ suppressPackageStartupMessages(library(broom))
 suppressPackageStartupMessages(library(scales)) # for the label_comma() function
 suppressPackageStartupMessages(library(patchwork))
 suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(stringr))
 ```
 
 ```{r}
 #| label: data import
 #| echo: false
 #| warning: false
-
+library(knitr)
 data <- read_csv('dataset/educ.csv', show_col_types = FALSE)
 continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
 pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FALSE)
@@ -92,9 +93,14 @@ The first step to understanding economic disparties is to get a general understa
 continent_pisa <- merged_data2 |>
   group_by(region) |>
   summarise(overallpisa2022 = mean(OverallPisaScore2022, na.rm = TRUE)) |>
-  ggplot(aes(x = region, y = overallpisa2022, fill = region)) + geom_col()
-
-continent_pisa
+  ggplot(aes(x = region, y = overallpisa2022, fill = region)) + 
+  geom_col() + 
+  labs(
+    title = "Overall Pisa Scores",
+    y = "Overall Pisa Score (mean of math, science, and reading)",
+    x = "Continent"
+  ) + 
+  theme(legend.position = "none", axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
 ```{r}
@@ -105,43 +111,18 @@ continent_literacy <- merged_data3 |>
   filter(region != "Americas") |>
   group_by(region) |>
   summarise(literacy = mean(mean_literacy_rate, na.rm = TRUE)) |>
-  ggplot(aes(x = region, y = literacy, fill = region)) + geom_col()
+  ggplot(aes(x = region, y = literacy, fill = region)) + 
+  geom_col() + 
+  labs(
+    title = "Literacy Rate",
+    y = "Literacy Rate",
+    x = "Continent"
+  ) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 30, hjust = 1))
 
-continent_literacy
-```
 
-```{r}
-#| label: pisa facet
-#| echo: false
-#| warning: false
-americas_pisa_long <- merged_data2 %>%
-  group_by(country) %>%
-  summarise(
-    pisa_overall_mean = mean(OverallPisaScore2022, na.rm = TRUE),
-    pisa_math_mean = mean(PISAScoresMathScore2022, na.rm = TRUE), # Assuming you meant Math Score here
-    pisa_science_mean = mean(PISAScoresScienceScore2022, na.rm = TRUE),
-    pisa_reading_mean = mean(PISAScoresReadingScore2022, na.rm = TRUE),
-    region = region
-  ) %>%
-  pivot_longer(
-    cols = starts_with("pisa_"),
-    names_to = "score_type",
-    values_to = "score"
-  ) %>%
-  mutate(score_type = factor(score_type, levels = c("pisa_overall_mean", "pisa_math_mean", "pisa_science_mean", "pisa_reading_mean")))
-
-# Creating the plot
-americas_pisa_plot <- americas_pisa_long %>%
-  ggplot(aes(x = country, y = score, fill = score_type)) + 
-  geom_col(position = "dodge") + 
-  scale_y_continuous(labels = label_comma()) + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 7)) +
-  labs(y = "PISA Score", x = "Country", fill = "Score Type") +
-  scale_fill_brewer(palette = "Pastel1") +
-  facet_wrap(~ region, scales = "free_x") 
-
-americas_pisa_plot
-
+s = continent_pisa + continent_literacy
+s
 ```
 
 It is clear that in terms of PISA scores, Oceania and Europe perform the best, while Africa performed the worst, and in terms of literacy rate, all of the continents performed relatively equally while Africa performed the worst again. Now that you have a general understanding of where education is better and where education is worse, we can now get into more specific statistics.
@@ -156,35 +137,21 @@ The next step of analyzing education around the world was to simply look at the 
 #| warning: false
 
 continent_pisa2 <- merged_data |>
+  filter(region != 'Oceania') |>
   group_by(region, year) |>
   summarise(complete_prim = mean(comp_prim_v2_m, na.rm = TRUE)) |>
   ggplot(aes(x = year, y = complete_prim, color = region)) +
   geom_smooth(method = "loess", se = FALSE) +
   labs(
-    title = "Primary School Completion Rate for People aged 3-5 years above primary school"
-  )
-
+    title = "Primary School Completion Rate for People aged 3-5 years above primary school",
+    x = "Year",
+    y = "Primary School Completion Rate"
+  ) + 
+  theme(legend.position = "none", axis.text.x = element_text(angle = 30, hjust = 1)) 
 continent_pisa2
 ```
 
-```{r}
-#| label: primary school completion 20-24
-#| echo: false
-#| warning: false
-
-continent_pisa2 <- merged_data |>
-  group_by(region, year) |>
-  summarise(complete_prim = mean(comp_prim_1524_m, na.rm = TRUE)) |>
-  ggplot(aes(x = year, y = complete_prim, color = region)) +
-  geom_smooth(method = "loess", se = FALSE) +
-  labs(
-    title = "Primary School Completion Rate for ages 15-24"
-  )
-
-continent_pisa2
-```
-
-As you can see, Europe (while it has a lot of missing data), consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some intersting outcomes.
+As you can see, Europe consistently ranks significantly higher than all of the other continents, while North America, South America, and Asia rank below Europe but higher than Africa. However, if we take a deeper look into the sub regions of Africa, we find some interesting outcomes.
 
 ```{r}
 #| label: north africa primary completion
@@ -202,7 +169,15 @@ northern_africa_mean_completion <- merged_data |>
             count = n()
             ) |>
   ggplot(aes(x = iso_code, y = mean_primary_completion_rate, fill = iso_code)) +
-    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+  geom_col() +
+  ylim(c(0,1)) + 
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  labs(
+    title = "Primary School Completion Rate by Country in Northern Africa",
+    x = "Primary School Completion Rate",
+    y = "Country"
+  )
+
 northern_africa_mean_completion
 ```
 
@@ -222,11 +197,19 @@ subsaharan_africa_mean_completion <- merged_data |>
             count = n()
             ) |>
   ggplot(aes(x = iso_code, y = mean_primary_completion_rate)) +
-    geom_col() +ylim(c(0,1)) + theme(axis.text.x = element_text(angle = 60, hjust = 1))
+  geom_col() +
+  ylim(c(0,1)) + 
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  labs(
+    title = "Primary School Completion Rate by Country in Sub-Saharan Africa",
+    x = "Primary School Completion Rate",
+    y = "Country"
+  )
+
 subsaharan_africa_mean_completion
 ```
 
-As you can see, when looking at the % of people who finish primary school, the percentages are significantly lower for the sub-saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.
+As you can see, when looking at the percentage of people who finish primary school, the percentages are significantly lower for the Sub-Saharan African countries compared to the Northern African countries. It seems like Sub-Saharan Africa may be the reason Africa shows up so low in many of the plots in the first section. In fact, Northern Africa seems to be on par in terms of primary school completion rate when compared to the rest of the continents in the world, but Sub-Sahara Africa does not seem to be on par. This difference in regions suggests that much attention should actually be directed towards Sub-Saharan Africa rather than Africa as a whole.
 
 The good news is that all countries seem to have a slow yet steady increase in their primary school completion rate which is great to see.
 
@@ -234,7 +217,7 @@ The next step is to analyze the mean years of education of each region.
 
 ### Section 1.3: Years of Edcuation
 
-After just two sections, it seems that there is a trend: Europe tends to have the "best education" while Africa seems to have "the worst education." We will now explore college attendane as another measure of education.
+After just two sections, it seems that there is a trend: Europe tends to have the "best education" while Africa seems to have "the worst education." We will now explore average years of education as another measure of education.
 
 ```{r}
 #| label: mean years of education
@@ -247,13 +230,15 @@ mean_educ <- merged_data |>
   ggplot(aes(x = year, y = mean_educ_years_20_24, color = region)) +
   geom_smooth(method = "loess", se = FALSE) +
   labs(
-    title = "Mean Years of Education for 20-24 Year Olds"
+    title = "Mean Years of Education for 20-24 Year Olds",
+    y = "Years of Education",
+    x = "Year"
   )
 
 mean_educ
 ```
 
-This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs. mean years of education in urban areas, we see that Africa has the largest descrpency in this area.
+This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs. mean years of education in urban areas, we see that Africa has the largest discrepancy in this area. 
 
 ```{r}
 #| label: rural vs urban for mean years of education
@@ -268,37 +253,25 @@ grouped7 <- merged_data |>
   ) |>
   ggplot(
     aes(x = Location, y = mean_educ_years_20_24, fill = Location) 
-  )+geom_col() +
-  facet_wrap(~ region, scales = "free_x") 
+  ) + 
+  geom_col() +
+  facet_wrap(~ region, scales = "free_x") +
+  labs(
+    title = "Rural vs. Urban Mean Years of Education by Continent",
+    y = "Years of Education",
+    x = "Location"
+  )
 
 grouped7
 ```
 
-This large discrepency in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa's urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.
+This large discrepancy in specifically Africa is so large that it could be bringing Africa down in total mean years of education. However, it is certainly worth noting that Africa's urban mean years of education is still not to par with most other regions in the world, meaning Africa as a whole needs improvement in their education system.
 
-Additionally, if we again break Africa down by region, we can see that Northern Africa once again has a higher mean years of education when compared to the Sub-Saharan African region. This suggests that rural areas **in** Sub-Saharan Africa. Another important metric that will be explored in the next section is benchmark test scores.
-
-```{r}
-#| label: north africa vs subsaharan africa mean_educ
-#| echo: false
-#| warning: false
-
-africa_mean_educ <- merged_data |>
-  filter(sub_region %in% c('Northern Africa', 'Sub-Saharan Africa')) |>
-  group_by(sub_region) |>
-  summarise(
-            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
-            ) |>
-  ggplot(aes(x = sub_region, y = mean_educ_years_20_24, fill = sub_region)) +
-  geom_col() + 
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
-
-africa_mean_educ
-```
+The next step is to look at learning achievements as a mesure of level of education.
 
 ### Section 1.4: Learning Achievment
 
-In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult.
+In Section 1.1, we explored PISA scores around the world, but the UNESCO dataset also offers a benchmark standardized test that we can explore. There are three subjects (math, science, and reading), and there are 4 levels for each one, with each level getting increasingly difficult. The graphs below show the scores by continent for the different level math examx.
 
 ```{r}
 #| label: test scores 1
@@ -312,7 +285,14 @@ learning1 <- merged_data |>
       math_level1 = mean(mlevel1_m, na.rm = TRUE),
       count = n()
   ) |>
-  ggplot(aes(x = region, y = math_level1)) + geom_col() +ylim(c(0,1))
+  ggplot(aes(x = region, y = math_level1, fill = region)) + 
+  geom_col() +
+  ylim(c(0,1)) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(
+    x = "Continent",
+    y = "Math Level 1 Pass Rate"
+  )
 
 learning2 <- merged_data |>
   filter(year %in% c(2012,2013,2014,2015,2016,2017,2018)) |>
@@ -321,8 +301,14 @@ learning2 <- merged_data |>
       math_level2 = mean(mlevel2_m, na.rm = TRUE),
       count = n()
   ) |>
-  ggplot(aes(x = region, y = math_level2)) + geom_col()+ylim(c(0,1))
-
+  ggplot(aes(x = region, y = math_level2, fill = region)) + 
+  geom_col() + 
+  ylim(c(0,1)) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(
+    x = "Continent",
+    y = "Math Level 2 Pass Rate"
+  )
 
 learning3 <- merged_data |>
   filter(year %in% c(2012,2013,2014,2015,2016,2017,2018)) |>
@@ -331,8 +317,14 @@ learning3 <- merged_data |>
       math_level3 = mean(mlevel3_m, na.rm = TRUE),
       count = n()
   ) |>
-  ggplot(aes(x = region, y = math_level3)) + geom_col()+ylim(c(0,1))
-
+  ggplot(aes(x = region, y = math_level3, fill = region)) + 
+  geom_col() + 
+  ylim(c(0,1)) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(
+    x = "Continent",
+    y = "Math Level 3 Pass Rate"
+  )
 
 learning4 <- merged_data |>
   filter(year %in% c(2012,2013,2014,2015,2016,2017,2018)) |>
@@ -341,10 +333,19 @@ learning4 <- merged_data |>
       math_level4 = mean(mlevel4_m, na.rm = TRUE),
       count = n()
   ) |>
-  ggplot(aes(x = region, y = math_level4)) + geom_col()+ylim(c(0,1))
+  ggplot(aes(x = region, y = math_level4, fill = region)) +
+  geom_col() + 
+  ylim(c(0,1)) +
+  theme(axis.text.x = element_text(angle = 30, hjust = 1)) +
+  labs(
+    x = "Continent",
+    y = "Math Level 4 Pass Rate"
+  )
 
-s <- learning1 + learning2 + learning3 + learning4
 
+s <- learning1 + learning2 + learning3 + learning4 +
+     plot_layout(guides = 'collect') + 
+     plot_annotation(title = 'Math Test Passing Rate (2012-2018)')
 s
 ```
 
@@ -362,8 +363,14 @@ africa_mean_math <- merged_data |>
             math = mean(mlevel4_m, na.rm = TRUE),
             ) |>
   ggplot(aes(x = sub_region, y = math, fill = sub_region)) +
-  geom_col() +ylim(c(0,1))
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+  geom_col() + 
+  ylim(c(0,1)) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) + 
+  labs(
+    title = "Math Level 4 Exam by Region in Africa",
+    x = "Region in Africa",
+    y = "Math Level 4 Score"
+  )
 
 africa_mean_math
 ```
@@ -380,15 +387,21 @@ southamerica_mean_math <- merged_data2 |>
             math = mean(mlevel4_m, na.rm = TRUE),
             ) |>
   ggplot(aes(x = country, y = math, fill = country)) +
-  geom_col() +ylim(c(0,1))
-  theme(axis.text.x = element_text(angle = 0, hjust = 0.5))
+  geom_col() +
+  ylim(c(0,1)) +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  labs(
+    title = "Math Level 4 Exam by Region in South America",
+    x = "Region in South America",
+    y = "Math Level 4 Score"
+  )
 
 southamerica_mean_math
 ```
 
 These graphs give us a better breakdown as to why the scores appear the way they do. Opposite of what we have seen before, for passing the level 4 math test, it seems as though the region does not affect the continent's performance dramatically. This implies that Africa and South America need better higher education systems all over the continent and not just in particular regions.
 
-### Section 1.5: College Attendance
+### Section 1.5: Percent of Students not in School
 
 Another important metric of education is the percentage of students who are and are not in school. Regardless of academic outcome (GPA, test scores, etc.) It is incredibly important that younger people are even attending school to begin with. UNESCO provides data on attendance rates for primary school, lower secondary school, and upper secondary school.
 
@@ -402,32 +415,12 @@ prim <- merged_data |>
   group_by(region) |>
   summarise(prim = mean(eduout_prim_m, na.rm = TRUE)) |>
   ggplot(aes(x = region, y = prim, fill = region)) +
-    geom_col()+ ylim(c(0,1))
+  geom_col()+ 
+  ylim(c(0,1)) +
   labs(
-    title = "Percentage of Young People Not in Primary School",
-    subtitle = "This data only includes data on young people"
-  )
-
-prim
-```
-
-```{r}
-#| label: per. of people not in lowsec school
-#| echo: false
-#| warning: false
-
-lowsec <- merged_data |>
-  #filter(year %in% c(2014, 2015, 2016, 2017, 2018)) |>
-  group_by(region) |>
-  summarise(lowsec = mean(eduout_lowsec_m, na.rm = TRUE)) |>
-  ggplot(aes(x = region, y = lowsec, fill = region)) +
-    geom_col() + ylim(c(0,1))
-  labs(
-    title = "Percentage of YoungPeople Not in Lower Secondary School",
-    subtitle = "This data only includes data on young people"
-  )
-
-lowsec
+    y = "Primary School"
+    )+ 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
 ```
 
 ```{r}
@@ -440,13 +433,36 @@ upsec <- merged_data |>
   group_by(region) |>
   summarise(upsec = mean(eduout_upsec_m, na.rm = TRUE)) |>
   ggplot(aes(x = region, y = upsec, fill = region)) +
-    geom_col() + ylim(c(0,1))
+  geom_col() + 
+  ylim(c(0,1)) +
   labs(
-    title = "Percentage of Young People Not in Upper Secondary School",
-    subtitle = "This data only includes data on young people"
-  )
+    y = "Lower Secondary School"
+    )+ 
+  theme(axis.text.x = element_text(angle = 30, hjust = 1))
 
-upsec
+```
+
+```{r}
+#| label: per. of people not in lowsec school
+#| echo: false
+#| warning: false
+
+lowsec <- merged_data |>
+  #filter(year %in% c(2014, 2015, 2016, 2017, 2018)) |>
+  group_by(region) |>
+  summarise(lowsec = mean(eduout_lowsec_m, na.rm = TRUE)) |>
+  ggplot(aes(x = region, y = lowsec, fill = region)) +
+  geom_col() + 
+  ylim(c(0,1)) +
+  labs(
+    y = "Upper Secondary School"
+  ) + 
+  theme(legend.position = "none", axis.text.x = element_text(angle = 30, hjust = 1))
+
+g = prim + lowsec + upsec + plot_layout(guides = 'collect', ncol = 2) +
+  plot_annotation(title = str_wrap('Percentage of Young People Not in Primary, Lower Secondary, and Upper Secondary School', width = 80))
+g
+
 ```
 
 As you can see, Africa has the highest percentage of not attending school for all three categories, and Europe has the lowest. A suprising result in this metric is how South America has the second lowest non-attendane rate which is a good thing. While they ranked lower in other metrics such as their test scores, it is clear that at the very least, South America ***is*** doing a good job getting their students to at least attend school. Let's breka this down further by looking at Rural vs. Urban areas.
@@ -462,7 +478,12 @@ grouped7 <- merged_data |>
   ggplot(
     aes(x = Location, y = upsec, fill = Location) 
   )+geom_col() +
-  facet_wrap(~ region, scales = "free_x") 
+  facet_wrap(~ region, scales = "free_x")  + 
+  labs(
+    title = "Percentage of Young People Not in Upper Secondary School by Location (Rural vs. Urban)",
+    y = "Percetage Of People Upper Secondary School age Not in School", 
+  ) + 
+  theme(legend.position = "none")
 
 grouped7
 ```
@@ -481,12 +502,17 @@ grouped7 <- merged_data |>
     aes(x = Sex, y = upsec, fill = Sex) 
   ) +
   geom_col() +
-  facet_wrap(~ region, scales = "free_x") 
+  facet_wrap(~ region, scales = "free_x") +
+  labs(
+    title = "Percentage of Young People Not in Upper Secondary School by Gender",
+    y = "Percetage Of People Upper Secondary School age Not in School", 
+  ) + 
+  theme(legend.position = "none")
 
 grouped7
 ```
 
-It seems that The Americas and Europe do a good job keeping their kids in school, but North America's rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their educaiton systems.
+It seems that The Americas and Europe do a good job keeping their kids in school, but North America's rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their education systems.
 
 ```{r}
 #| label: facet
@@ -501,7 +527,12 @@ grouped7 <- merged_data |>
   ) +
   geom_col() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 5)) +
-  facet_wrap(~region, scales = "free_x")
+  facet_wrap(~region, scales = "free_x") + 
+  labs(
+    title = "Percentage of Young People Not in Upper Secondary School by Country",
+    y = "Percetage Of People Upper Secondary School age Not in School", 
+  ) + 
+  theme(legend.position = "none")
 
 grouped7
 ```
@@ -512,7 +543,7 @@ When looking at discrepancies across each country in each continent, it is clear
 
 We have analyzed continents as a whole, but now lets analyze each continent's lowest performers in each category.
 
-Bottom 3 conntries in each continent with lowest primary school completion rate
+Bottom 3 countries in each continent with lowest primary school completion rate
 
 ```{r}
 #| label: primary school completion by continent
@@ -604,23 +635,15 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
-Some countries that appear more than 3 times on these 4 tables are Niger, Pakistan, Afganistan, Haiti... If these countries are appearng the lowest on all of these tables multiple times, these are clearly the countries that require the most help in terms of education.
-
-### Section 1.7: Section 1 Conclusion
-
-Through this section, we have explored many different areas of education such as PISA scores, literacy rates, primary school completion rate, and many more metrics. Through all of our analysis there are some pretty clear conclusions:
-
-1.) Africa was consistently the lowest performer in basically all of the metrics, with South America being a distant second.
-
-2.) Within Africa, Northern Africa is somewhat up to standard, but Sub-Saharan Africa is far behind.
-
-3.) Europe was consistently the highest performer in almost all of the metrics.
-
-4.) Urban education on average is much better than rural education
+Some countries that appear 3 or more times on these 4 tables are Niger, Pakistan, Afghanistan, and Haiti. 
 
 # Section 2: Modeling
 
 ```{r}
+#| label: library
+#| echo: false
+#| warning: false
+
 library(car)
 library(caret)
 library(ggplot2)
@@ -642,7 +665,13 @@ Expectation: comp_prim_v2_m will positively affect comp_lowsec_v2_m. In region o
 
 -Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)
 
+#### Original Model1
+
 ```{r}
+#| label: original model 1
+#| echo: false
+#| warning: false
+
 library(car)
 #group by wealth, Big region
 Location_data <- merged_data %>%
@@ -667,11 +696,116 @@ ggplot(group_data, aes(x = region, y = mean_comp_lowsec_v2_m)) +
 #broom::glance(model1)
 #broom::augment(model1, new_data = grouped2)
 vif(model1)
+
+
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(model1),
+  Residuals = resid(model1)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(model1)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(model1),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
 ```
+The residuals plot does not seem randomly distributed, so we decide to do some transformations on the variables to meet the assumptions of normality.
+
+#### Normality and Transformation
+
+```{r}
+#| label: made Arcsine Square Root transformation on the response variable "comp_lowsec_v2_m"
+#| echo: false
+#| warning: false
+
+# Set up the plotting area to have 1 row and 2 columns
+par(mfrow = c(1, 2))
+
+# Plot the first histogram of the original data
+hist(Location_data$comp_lowsec_v2_m, main = "Histogram of comp_lowsec_v2_m", xlab = "comp_lowsec_v2_m", col = "blue")
+
+# Plot the second histogram of the transformed data
+# Ensure all values are within (0,1) before applying asin(sqrt(.))
+# Adjusting values if necessary
+Location_data$comp_lowsec_v2_m_adj <- pmin(pmax(Location_data$comp_lowsec_v2_m, 1e-4), 1 - 1e-4)
+hist(asin(sqrt(Location_data$comp_lowsec_v2_m_adj)), main = "Histogram of Transformed comp_lowsec_v2_m", xlab = "asin(sqrt(comp_lowsec_v2_m))", col = "green")
+
+# Reset the plotting layout to default
+par(mfrow = c(1, 1))
+```
+
+We have tried to make the transformation on the response variable which does not seem normally distributed because, based on the left plot, the distribution left skewed severely. After different trials on the response variable, we finally applied the square root arcsine transformation, and we got the approximately normal histogram, shown by the right side of the plot.
+
+#### Model after Transformation
+
+```{r}
+#| label: model 1 after transformation
+#| echo: false
+#| warning: false
+
+Transformedmodel1 <- lm(asin(sqrt(Location_data$comp_lowsec_v2_m)) ~ as.factor(region) + as.factor(Location)  + as.factor(Wealth) + as.factor(Sex) + comp_prim_v2_m, data = Location_data)
+summary(Transformedmodel1)
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel1),
+  Residuals = resid(Transformedmodel1)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(Transformedmodel1)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel1),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
+```
+
+After applying **Arcsine Square Root transformation** on the model, we made the square root of the standardized residuals plot to see if it met the assumption of homoscedasticity, which indeed improved a lot.
 
 ### Section 2.1.1: Model1 Formula
 
-comp_lowsec_v2_m = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m
+asin(sqrt(Location_data\$comp_lowsec_v2_m)) = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m
 
 ### Section 2.1.2: Model1 Result Analysis
 
@@ -679,7 +813,7 @@ Result Analysis:
 
 1\) The model's intercept is negative, suggesting that the baseline group for region, location, sex, and wealth has a negative association with the completion rate for lower secondary education.
 
-2\) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.092947 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.092947 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.
+2\) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.123 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.123 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.
 
 3\) Urban locations have a positive coefficient, indicating that being in an urban location is associated with higher secondary completion rates compared to rural locations.
 
@@ -689,13 +823,13 @@ Result Analysis:
 
 6\) The comp_prim_v2_m variable has a large positive coefficient, indicating a strong association with higher rates of lower secondary completion.
 
-7\) The adjusted R-squared is 0.8525, indicating a good fit even after adjusting for the number of predictors.
+7\) The adjusted R-squared is 0.8509, indicating a good fit even after adjusting for the number of predictors.
 
 8\) The F-statistic is very high, and the associated p-value is less than 0.001, suggesting the model is statistically significant.
 
 ### Section 2.1.3: Model1 Conclusion
 
-The R-squared is 0.8525, and the vif shows that there is no collinearity between predictors. We will remove the predictor of gender from the mode because of insignificance indicated by p-value higher than 0.05. Finally, being in the region of Africa, being in the location of rural area, and staying in the lower wealth level will negatively influence the secondary education completion. And the high primary education completion will positively affect the secondary education completion rate.
+The R-squared is 0.8509, and the vif shows that there is no collinearity between predictors. We will remove the predictor of "sex" from the mode because of insignificance indicated by p-value higher than 0.05. Finally, being in the region of Africa, being in the location of rural area, and staying in the lower wealth level will negatively influence the secondary education completion. And the high primary education completion will positively affect the secondary education completion rate.
 
 ## Section 2.2: Model2
 
@@ -707,7 +841,13 @@ Expectation: The predictors of either comp_prim_1524_no or preschool_3_no will n
 
 -Categorical variable: wealth(by level 1-5), region(by continents)
 
+#### Original Model 2
+
 ```{r}
+#| label: original model 2
+#| echo: false
+#| warning: false
+
 Location_data <- merged_data %>%
   filter(category == 'Location & Sex & Wealth')
 
@@ -727,11 +867,115 @@ ggplot(group1_data, aes(x = region, y = mean_literacy_1524_no)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(model2),
+  Residuals = resid(model2)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(model2)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(model2),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
+
 ```
+
+#### Normality and Transformation
+
+```{r}
+#| label: normality check
+#| echo: false
+#| warning: false
+
+####plot histogram
+# Adjust plotting area to have 1 row and 2 columns
+par(mfrow=c(1, 2))
+
+# Histogram of the original data
+hist(Location_data$literacy_1524_no, main="Histogram of literacy_1524_no", xlab="Literacy Rate", col="blue")
+
+# Compute log of literacy_1524_no, ensure no non-positive values
+log_literacy <- log(Location_data$literacy_1524_no[Location_data$literacy_1524_no > 0])
+
+# Histogram of the logarithm of the data
+hist(log_literacy, main="Histogram of log(literacy_1524_no)", xlab="Log of Literacy Rate", col="green")
+
+# Reset to default single plotting layout (optional)
+par(mfrow=c(1, 1))
+```
+
+#### Model 2 After Log Transformation
+
+```{r}
+#| label: Model 2 After Log Transformation
+#| echo: false
+#| warning: false
+
+Transformedmodel2 <- lm(log(literacy_1524_no) ~ as.factor(region) + as.factor(Wealth) + edu2_2024_no + preschool_3_no, data = Location_data)
+summary(model2)
+vif(model2)
+
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel2),
+  Residuals = resid(Transformedmodel2)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(Transformedmodel2)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel2),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
+```
+
+After Log Transformation on the y variable, the residual plots are more randomly distributed. And there is no multicollinearity. Thus, we will use this model as our final model.
 
 ### Section 2.2.1: Model2 Formula
 
-literacy_1524_no = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no
+log (literacy_1524_no) = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no
 
 ### Section 2.2.2: Model2 Result Analysis
 
@@ -752,46 +996,3 @@ Result Analysis:
 ### Section 2.2.3: Model2 Conclusion
 
 The R-squared is 0.7208, and the vif shows that there is no collinearity between predictors. We will remove the predictors that have the insignificance indicated by p-value higher than 0.05 from the model. In summary, being in the region of Africa and South America, or staying in the lower wealth level will negatively influence the secondary education completion. And the higher rate of attending pre-primary institution will positively affect the secondary education completion rate. However, an interetsing finding is that less than two years schooling can also increase the percentage of young people aged 15‐24 who can read a simple sentence. We could conduct further analysis on this relationship.
-
-## Section 2.3: Model3
-
-Hypothesis 3: In this logistic regression model, we made a dummy variable "**is_africa**" based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are **literacy_1524_m** (Percentage of young people aged 15‐24 who can read a simple sentence) and **comp_lowsec_v2_m** (young people who are 3-5 ages above the normal lower secondary school's graduation age).
-
-Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.
-
-```{r}
-# Ensure that Location_data$region is a factor
-Location_data$region <- as.factor(Location_data$region)
-
-# Create the is_africa column based on the region column
-Location_data$is_africa <- ifelse(Location_data$region == "Africa", 1, 0)
-
-# Convert is_africa to a factor
-Location_data$is_africa <- as.factor(Location_data$is_africa)
-
-```
-
-```{r}
-# Build the logistic regression model
-model <- glm(is_africa ~ literacy_1524_m + comp_lowsec_v2_m, data = Location_data, family = binomial())
-
-# Summary of the model
-summary(model)
-
-```
-
-### Section 2.3.1: Model3 Formula
-
-is_africa = b0 + b1 x comp_lowsec_v2_m
-
-### Section 2.3.2: Model3 Result Analysis
-
-Result Analysis:
-
-1\) Literacy Rate in 1524 (literacy_1524_m, Estimate: -0.7148): A one unit increase in the literacy rate in 1524 is associated with a decrease in the log-odds of a location being in Africa by 0.7148, although this predictor is not statistically significant at conventional levels (p \> 0.05).
-
-2\) Composite Measure of Lower Secondary Completion (comp_lowsec_v2_m, Estimate: -3.4087): A one unit increase in the composite measure is associated with a decrease in the log-odds of a location being in Africa by 3.4087. This effect is statistically significant (p \< 0.001).
-
-### Section 2.3.3: Conclusion by Model3
-
-In conclusion, higher values of lower-secondary completion are associated with a lower probability of a location being in Africa. This relationship is statistically significant in the model.

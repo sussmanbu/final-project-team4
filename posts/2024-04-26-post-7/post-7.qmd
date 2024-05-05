@@ -1,10 +1,54 @@
 ---
 title: "Post 7"
 description:  |
-  ppp
 author: "Team 4"
 date: "2024-04-26"
 date-modified: "2024-04-26"
 draft: FALSE
 ---
 
+### **Advanced Statistical Analysis**
+
+We began by collecting a variety of datasets that included PISA scores, literacy rates, and educational completion statistics from multiple sources. The data cleaning process involved handling missing values, standardizing measurement scales, and merging multiple data sources for comprehensive analysis. The R code below illustrates a part of our data cleaning process:
+
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(broom)
+literacy <- read_csv('dataset/literacy.csv', show_col_types = FALSE)
+literacy_clean <- literacy |>
+  filter(Age == '15+', Gender == 'total') |>
+  group_by(Country) |>
+  summarize(mean_literacy_rate = mean(`Literacy rate`, na.rm = TRUE))
+```
+
+
+Exploratory Data Analysis (EDA) With the cleaned data, we conducted an exploratory analysis to understand the distribution and variance within our data. This included visualizations like histograms and box plots to capture the spread and outliers of literacy rates and educational attainment across continents.
+
+```{r}
+
+ggplot(literacy_clean, aes(x = continent, y = mean_literacy_rate)) +
+  geom_boxplot()
+```
+
+
+Trend Identification Using statistical models, we identified trends in the data, such as the correlation between literacy rates and GDP per capita. We employed linear regression models to understand these relationships, adjusting for potential confounders like urbanization and public education spending.
+
+
+model <- lm(literacy_rate ~ GDP_per_capita + Urbanization, data = dataset)
+summary(model)
+
+
+Deep Analysis Using Regression Techniques To delve deeper, we used multiple regression techniques to parse out the effects of various socio-economic indicators on educational outcomes. This allowed us to pinpoint the specific factors that most significantly impact education levels.
+
+
+complex_model <- lm(education_outcome ~ GDP_per_capita + Government_spending + Urbanization, data = dataset)
+summary(complex_model)
+
+
+### **Key Findings Our analysis revealed several key insights:**
+
+Regional Variance: There is significant variance in educational outcomes between continents, with factors like economic stability and government policy playing crucial roles.
+
+Socio-economic Impact: Higher GDP per capita and increased urbanization are strongly correlated with better educational outcomes.

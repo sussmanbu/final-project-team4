@@ -7,8 +7,6 @@ draft: FALSE
 
 ![](https://www.voicesofyouth.org/sites/voy/files/images/2022-03/educ.jpg)
 
-
-
 # Behind the Numbers: Uncovering Educational Shortcomings Around the World
 
 ```{r}
@@ -86,7 +84,7 @@ Education stands as a cornerstone of societal development and individual opportu
 
 ### Africa was the worst perfromer by almost every metric
 
-We looked at many metrics that all aim to measure the education level of a country in some capacity. This includes PISA scores, literacy rates, primary school completion rate, mean years of education, etc. What we noticed in essentially all of these metrics that Africa was the worst performer in every category. However, the concerning part is that it was not even close. Africa consistently lagged behind the rest of the continents. 
+We looked at many metrics that all aim to measure the education level of a country in some capacity. This includes PISA scores, literacy rates, primary school completion rate, mean years of education, etc. What we noticed in essentially all of these metrics that Africa was the worst performer in every category. However, the concerning part is that it was not even close. Africa consistently lagged behind the rest of the continents.
 
 ### While Africa is the worst performer, Nortern Africa is performing a lot better than Sub-Saharan Africa.
 
@@ -148,12 +146,11 @@ subsaharan_africa_mean_completion <- merged_data |>
 subsaharan_africa_mean_completion
 ```
 
-***So what does this mean?***
-Common perception tells us that Africa as a continent is behind in education, but that statement is only partially correct. When breaking down these metrics by region rather than continent, we can tell that This is more of a Sub-Saharan African issue rather than an African issue. Many countries in Africa, such as Nauru (NER), Chad (TCD), and  Libera (LBR), have less than 25% of their kids complete primary school, which is a shockingly low number. Rather than labeling Africa continent that is behind in terms of quality education, we should be more-so focusing on Sub-Saharan Africa as a region that needs better education.
+***So what does this mean?*** Common perception tells us that Africa as a continent is behind in education, but that statement is only partially correct. When breaking down these metrics by region rather than continent, we can tell that This is more of a Sub-Saharan African issue rather than an African issue. Many countries in Africa, such as Nauru (NER), Chad (TCD), and Libera (LBR), have less than 25% of their kids complete primary school, which is a shockingly low number. Rather than labeling Africa continent that is behind in terms of quality education, we should be more-so focusing on Sub-Saharan Africa as a region that needs better education.
 
 ### Keep your kids in school at all costs
 
-Much of our analysis was focused on metrics involved with staying in school. Metrics such as primary school completion rate, mean years of education, percentage of people not in school, etc, all fall into this category. We have also analyzed benchmark metrics such as academic achievement, literacy rates, and PISA scores. Our analysis makes it clear that *there is an extremely strong correlation* between these schooling metrics such as primary school completion rate and mean years of education, and the benchmark metrics such as PISA scores and literacy rates. 
+Much of our analysis was focused on metrics involved with staying in school. Metrics such as primary school completion rate, mean years of education, percentage of people not in school, etc, all fall into this category. We have also analyzed benchmark metrics such as academic achievement, literacy rates, and PISA scores. Our analysis makes it clear that *there is an extremely strong correlation* between these schooling metrics such as primary school completion rate and mean years of education, and the benchmark metrics such as PISA scores and literacy rates.
 
 ```{r}
 #| label: lin reg
@@ -182,12 +179,10 @@ ggplot(edu, aes(x = mean_year_educ, y = literacy)) +
   )
 ```
 
-***So what does this mean?*** This plot tells us that how long you stay in school is directly correlated with a benchmark metric such as literacy rate. The number one most important thing when it comes to school is that you are at least attending school. Of course doing well and getting good grades should be a big goal too, but attending school in the first place is extremely important. 
-
+***So what does this mean?*** This plot tells us that how long you stay in school is directly correlated with a benchmark metric such as literacy rate. The number one most important thing when it comes to school is that you are at least attending school. Of course doing well and getting good grades should be a big goal too, but attending school in the first place is extremely important.
 
 ### Europe is doing a great job and the world should model after them
 
 On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countires. In section 1.6 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
 
-***So what does this mean?*** This tells us that the world could benefit form modeling its education systems after Europe. European education systems typically receive substantial government funding, which ensures high quality teaching and resources. 
-
+***So what does this mean?*** This tells us that the world could benefit form modeling its education systems after Europe. European education systems typically receive substantial government funding, which ensures high quality teaching and resources.

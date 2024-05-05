@@ -735,27 +735,6 @@ The residuals plot does not seem randomly distributed, so we decide to do some t
 
 #### Normality and Transformation
 
-```{r}
-#| label: made Arcsine Square Root transformation on the response variable "comp_lowsec_v2_m"
-#| echo: false
-#| warning: false
-
-# Set up the plotting area to have 1 row and 2 columns
-par(mfrow = c(1, 2))
-
-# Plot the first histogram of the original data
-hist(Location_data$comp_lowsec_v2_m, main = "Histogram of comp_lowsec_v2_m", xlab = "comp_lowsec_v2_m", col = "blue")
-
-# Plot the second histogram of the transformed data
-# Ensure all values are within (0,1) before applying asin(sqrt(.))
-# Adjusting values if necessary
-Location_data$comp_lowsec_v2_m_adj <- pmin(pmax(Location_data$comp_lowsec_v2_m, 1e-4), 1 - 1e-4)
-hist(asin(sqrt(Location_data$comp_lowsec_v2_m_adj)), main = "Histogram of Transformed comp_lowsec_v2_m", xlab = "asin(sqrt(comp_lowsec_v2_m))", col = "green")
-
-# Reset the plotting layout to default
-par(mfrow = c(1, 1))
-```
-
 We have tried to make the transformation on the response variable which does not seem normally distributed because, based on the left plot, the distribution left skewed severely. After different trials on the response variable, we finally applied the square root arcsine transformation, and we got the approximately normal histogram, shown by the right side of the plot.
 
 #### Model after Transformation

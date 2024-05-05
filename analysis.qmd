@@ -31,7 +31,7 @@ suppressPackageStartupMessages(library(knitr))
 #| label: data import
 #| echo: false
 #| warning: false
-
+library(knitr)
 data <- read_csv('dataset/educ.csv', show_col_types = FALSE)
 continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
 pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FALSE)
@@ -486,7 +486,7 @@ grouped7 <- merged_data |>
 grouped7
 ```
 
-It seems that The Americas and Europe do a good job keeping their kids in school, but North America's rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their educaiton systems.
+It seems that The Americas and Europe do a good job keeping their kids in school, but North America's rate is high in general. It seems like it has the second highest average rate out of all the continents which is a bit concerning. While they are doing a good job being equal among sex, they are not doing a great job keeping kids in school in general. On the other hand, Africa, Asia, and Oceania have a considerable discrepancy in rate sex. This suggests that these continents may have some sexism in their education systems.
 
 ```{r}
 #| label: facet
@@ -512,7 +512,7 @@ When looking at discrepancies across each country in each continent, it is clear
 
 We have analyzed continents as a whole, but now lets analyze each continent's lowest performers in each category.
 
-Bottom 3 conntries in each continent with lowest primary school completion rate
+Bottom 3 countries in each continent with lowest primary school completion rate
 
 ```{r}
 #| label: primary school completion by continent
@@ -621,6 +621,10 @@ Through this section, we have explored many different areas of education such as
 # Section 2: Modeling
 
 ```{r}
+#| label: library
+#| echo: false
+#| warning: false
+
 library(car)
 library(caret)
 library(ggplot2)
@@ -642,7 +646,13 @@ Expectation: comp_prim_v2_m will positively affect comp_lowsec_v2_m. In region o
 
 -Categorical variable: wealth(by level 1-5), sex(female/male), region(by continents), Location(=urbanicity by rural/urban)
 
+#### Original Model1
+
 ```{r}
+#| label: original model 1
+#| echo: false
+#| warning: false
+
 library(car)
 #group by wealth, Big region
 Location_data <- merged_data %>%
@@ -667,11 +677,116 @@ ggplot(group_data, aes(x = region, y = mean_comp_lowsec_v2_m)) +
 #broom::glance(model1)
 #broom::augment(model1, new_data = grouped2)
 vif(model1)
+
+
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(model1),
+  Residuals = resid(model1)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(model1)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(model1),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
 ```
+The residuals plot does not seem randomly distributed, so we decide to do some transformations on the variables to meet the assumptions of normality.
+
+#### Normality and Transformation
+
+```{r}
+#| label: made Arcsine Square Root transformation on the response variable "comp_lowsec_v2_m"
+#| echo: false
+#| warning: false
+
+# Set up the plotting area to have 1 row and 2 columns
+par(mfrow = c(1, 2))
+
+# Plot the first histogram of the original data
+hist(Location_data$comp_lowsec_v2_m, main = "Histogram of comp_lowsec_v2_m", xlab = "comp_lowsec_v2_m", col = "blue")
+
+# Plot the second histogram of the transformed data
+# Ensure all values are within (0,1) before applying asin(sqrt(.))
+# Adjusting values if necessary
+Location_data$comp_lowsec_v2_m_adj <- pmin(pmax(Location_data$comp_lowsec_v2_m, 1e-4), 1 - 1e-4)
+hist(asin(sqrt(Location_data$comp_lowsec_v2_m_adj)), main = "Histogram of Transformed comp_lowsec_v2_m", xlab = "asin(sqrt(comp_lowsec_v2_m))", col = "green")
+
+# Reset the plotting layout to default
+par(mfrow = c(1, 1))
+```
+
+We have tried to make the transformation on the response variable which does not seem normally distributed because, based on the left plot, the distribution left skewed severely. After different trials on the response variable, we finally applied the square root arcsine transformation, and we got the approximately normal histogram, shown by the right side of the plot.
+
+#### Model after Transformation
+
+```{r}
+#| label: model 1 after transformation
+#| echo: false
+#| warning: false
+
+Transformedmodel1 <- lm(asin(sqrt(Location_data$comp_lowsec_v2_m)) ~ as.factor(region) + as.factor(Location)  + as.factor(Wealth) + as.factor(Sex) + comp_prim_v2_m, data = Location_data)
+summary(Transformedmodel1)
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel1),
+  Residuals = resid(Transformedmodel1)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(Transformedmodel1)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel1),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
+```
+
+After applying **Arcsine Square Root transformation** on the model, we made the square root of the standardized residuals plot to see if it met the assumption of homoscedasticity, which indeed improved a lot.
 
 ### Section 2.1.1: Model1 Formula
 
-comp_lowsec_v2_m = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m
+asin(sqrt(Location_data\$comp_lowsec_v2_m)) = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs Oceania) + b3 x region(Africa vs South America) + b4 x Location(urban vs rural) + b5 x Wealth(Quintile 1 vs Quintile 4) + b6 x Wealth(Quintile 1 vs Quintile 5) + b7 x comp_prim_v2_m
 
 ### Section 2.1.2: Model1 Result Analysis
 
@@ -679,7 +794,7 @@ Result Analysis:
 
 1\) The model's intercept is negative, suggesting that the baseline group for region, location, sex, and wealth has a negative association with the completion rate for lower secondary education.
 
-2\) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.092947 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.092947 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.
+2\) The region variable has several levels. Compared to the baseline of Africa as the reference category, all other regions (Asia, Europe, North America, Oceania, South America) show a positive association with lower secondary completion rates. To explain the association toward the response variable, I will provide an example. For the coefficient of 0.123 for Asia: This means that, compared to Africa, being in the region of Asia is associated with an average increase in the lower secondary completion rates by 0.123 units. Since the region of Africa is the baseline, and its association with all other region is positive, so we can conclude that being in Africa will have the lowest lower-secondary completion rate compared to other regions. And the significance is indicated by the p-value that is smaller than 0.05.
 
 3\) Urban locations have a positive coefficient, indicating that being in an urban location is associated with higher secondary completion rates compared to rural locations.
 
@@ -689,13 +804,13 @@ Result Analysis:
 
 6\) The comp_prim_v2_m variable has a large positive coefficient, indicating a strong association with higher rates of lower secondary completion.
 
-7\) The adjusted R-squared is 0.8525, indicating a good fit even after adjusting for the number of predictors.
+7\) The adjusted R-squared is 0.8509, indicating a good fit even after adjusting for the number of predictors.
 
 8\) The F-statistic is very high, and the associated p-value is less than 0.001, suggesting the model is statistically significant.
 
 ### Section 2.1.3: Model1 Conclusion
 
-The R-squared is 0.8525, and the vif shows that there is no collinearity between predictors. We will remove the predictor of gender from the mode because of insignificance indicated by p-value higher than 0.05. Finally, being in the region of Africa, being in the location of rural area, and staying in the lower wealth level will negatively influence the secondary education completion. And the high primary education completion will positively affect the secondary education completion rate.
+The R-squared is 0.8509, and the vif shows that there is no collinearity between predictors. We will remove the predictor of "sex" from the mode because of insignificance indicated by p-value higher than 0.05. Finally, being in the region of Africa, being in the location of rural area, and staying in the lower wealth level will negatively influence the secondary education completion. And the high primary education completion will positively affect the secondary education completion rate.
 
 ## Section 2.2: Model2
 
@@ -707,7 +822,13 @@ Expectation: The predictors of either comp_prim_1524_no or preschool_3_no will n
 
 -Categorical variable: wealth(by level 1-5), region(by continents)
 
+#### Original Model 2
+
 ```{r}
+#| label: original model 2
+#| echo: false
+#| warning: false
+
 Location_data <- merged_data %>%
   filter(category == 'Location & Sex & Wealth')
 
@@ -727,11 +848,115 @@ ggplot(group1_data, aes(x = region, y = mean_literacy_1524_no)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(model2),
+  Residuals = resid(model2)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(model2)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(model2),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
+
 ```
+
+#### Normality and Transformation
+
+```{r}
+#| label: normality check
+#| echo: false
+#| warning: false
+
+####plot histogram
+# Adjust plotting area to have 1 row and 2 columns
+par(mfrow=c(1, 2))
+
+# Histogram of the original data
+hist(Location_data$literacy_1524_no, main="Histogram of literacy_1524_no", xlab="Literacy Rate", col="blue")
+
+# Compute log of literacy_1524_no, ensure no non-positive values
+log_literacy <- log(Location_data$literacy_1524_no[Location_data$literacy_1524_no > 0])
+
+# Histogram of the logarithm of the data
+hist(log_literacy, main="Histogram of log(literacy_1524_no)", xlab="Log of Literacy Rate", col="green")
+
+# Reset to default single plotting layout (optional)
+par(mfrow=c(1, 1))
+```
+
+#### Model 2 After Log Transformation
+
+```{r}
+#| label: Model 2 After Log Transformation
+#| echo: false
+#| warning: false
+
+Transformedmodel2 <- lm(log(literacy_1524_no) ~ as.factor(region) + as.factor(Wealth) + edu2_2024_no + preschool_3_no, data = Location_data)
+summary(model2)
+vif(model2)
+
+
+# Create a dataframe of residuals and fitted values
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel2),
+  Residuals = resid(Transformedmodel2)
+)
+
+# Plot residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
+
+##standardized residual plot
+
+# Compute standardized residuals
+standardized_resid <- rstandard(Transformedmodel2)
+
+# Create a dataframe of fitted values and standardized residuals
+residuals_data <- data.frame(
+  Fitted = fitted(Transformedmodel2),
+  Std_Residuals = standardized_resid
+)
+
+# Load ggplot2 for plotting
+library(ggplot2)
+
+# Plot standardized residuals vs fitted values
+ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
+  geom_point() +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
+```
+
+After Log Transformation on the y variable, the residual plots are more randomly distributed. And there is no multicollinearity. Thus, we will use this model as our final model.
 
 ### Section 2.2.1: Model2 Formula
 
-literacy_1524_no = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no
+log (literacy_1524_no) = b0 + b1 x region(Africa vs Asia) + b2 x region(Africa vs Europe) + b3 x region(Africa vs North America) + b4 x Wealth(Quintile 1 vs Quintile 4) + b5 x Wealth(Quintile 1 vs Quintile 5) + b6 x edu2_2024_no + b7 x preschool_3_no
 
 ### Section 2.2.2: Model2 Result Analysis
 
@@ -752,46 +977,3 @@ Result Analysis:
 ### Section 2.2.3: Model2 Conclusion
 
 The R-squared is 0.7208, and the vif shows that there is no collinearity between predictors. We will remove the predictors that have the insignificance indicated by p-value higher than 0.05 from the model. In summary, being in the region of Africa and South America, or staying in the lower wealth level will negatively influence the secondary education completion. And the higher rate of attending pre-primary institution will positively affect the secondary education completion rate. However, an interetsing finding is that less than two years schooling can also increase the percentage of young people aged 15‐24 who can read a simple sentence. We could conduct further analysis on this relationship.
-
-## Section 2.3: Model3
-
-Hypothesis 3: In this logistic regression model, we made a dummy variable "**is_africa**" based on the variable region. If the region is Africa, then value of is_africa is 1, and 0 otherwise. The predictors are **literacy_1524_m** (Percentage of young people aged 15‐24 who can read a simple sentence) and **comp_lowsec_v2_m** (young people who are 3-5 ages above the normal lower secondary school's graduation age).
-
-Expectation: the two predictors are associated with a lower likelihood of the is_africa variable being equal to 1. In other words, as literacy rates and the completion of lower secondary school increase, the odds of a region being classified as Africa are expected to decrease.
-
-```{r}
-# Ensure that Location_data$region is a factor
-Location_data$region <- as.factor(Location_data$region)
-
-# Create the is_africa column based on the region column
-Location_data$is_africa <- ifelse(Location_data$region == "Africa", 1, 0)
-
-# Convert is_africa to a factor
-Location_data$is_africa <- as.factor(Location_data$is_africa)
-
-```
-
-```{r}
-# Build the logistic regression model
-model <- glm(is_africa ~ literacy_1524_m + comp_lowsec_v2_m, data = Location_data, family = binomial())
-
-# Summary of the model
-summary(model)
-
-```
-
-### Section 2.3.1: Model3 Formula
-
-is_africa = b0 + b1 x comp_lowsec_v2_m
-
-### Section 2.3.2: Model3 Result Analysis
-
-Result Analysis:
-
-1\) Literacy Rate in 1524 (literacy_1524_m, Estimate: -0.7148): A one unit increase in the literacy rate in 1524 is associated with a decrease in the log-odds of a location being in Africa by 0.7148, although this predictor is not statistically significant at conventional levels (p \> 0.05).
-
-2\) Composite Measure of Lower Secondary Completion (comp_lowsec_v2_m, Estimate: -3.4087): A one unit increase in the composite measure is associated with a decrease in the log-odds of a location being in Africa by 3.4087. This effect is statistically significant (p \< 0.001).
-
-### Section 2.3.3: Conclusion by Model3
-
-In conclusion, higher values of lower-secondary completion are associated with a lower probability of a location being in Africa. This relationship is statistically significant in the model.

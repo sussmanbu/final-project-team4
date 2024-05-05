@@ -5,61 +5,189 @@ toc: true
 draft: FALSE
 ---
 
-![](images/The_Big_Picture_2.jpeg)
-
-This comes from the file `big_picture.Rmd`.
-
-Think of this page as your 538/Upshot style article. This means that you should try to tell a story through the data and your analysis. Read articles from those sites and similar sites to get a feeling for what they are like. Try to write in the style of a news or popular article. Importantly, this pge should be geared towards the general public. You shouldn't assume the reader understands how to interpret a linear regression. Focus on interpretation and visualizations.
-
----
-
-## Rubric: On this page
-
-You will
-
-* Title
-  * Your big picture page should have a creative/click-bait-y title/headline that provides a hint about your thesis.
-* Clarity of Explanation
-  * You should have a clear thesis/goal for this page. What are you trying to show? Make sure that you explain your analysis in detail but don't go into top much mathematics or statistics. The audience for this page is the general public (to the extent possible). Your thesis should be a statement, not a question.
-  * Each figure should be very polished and also not too complicated. There should be a clear interpretation of the figure so the figure has a clear purpose. Even something like a histogram can be difficult to interpret for non-experts.
-* Creativity
-  * Do your best to make things interesting. Think of a story. Think of how each part of your analysis supports the previous part or provides a different perspective.
-* This page should be self-contained.
-  
-**Note**: This page should have no code visible, i.e. use `#| echo: FALSE`.  
-
----
-
-## Rubric: Other components
-
-### Interactive
-
-You will also be required to make an interactive dashboard like [this one](/flex/flex.html).
-
-Your Big Data page should include a link to an interactive dashboard. The dashboard should be created either using Shiny or FlexDashboard (or another tool with professor's approval). This interactive component should in some way support your thesis from your big picture page. Good interactives often provide both high-level understanding of the data while allowing a user to investigate specific scenarios, observations, subgroups, etc.
-
-* Quality and ease of use of the interactive components.
-Is it clear what can be explored using your interactive components?
-Does it enhance and reinforce your conclusions from the Big Picture?
-Plotly with default hover text will get no credit. Be creative!
+![](https://www.voicesofyouth.org/sites/voy/files/images/2022-03/educ.jpg)
 
 
-### Video Recording
 
-Make a video recording (probably using Zoom) demonstrating your interactive components.
-You should provide a quick explanation of your data and demonstrate some of the conclusions from your EDA.
-This video should be no longer than 4 minutes.
-Include a link to your video (and password if needed) in your README.md file on your Github repository. You are not required to provide a link on the website.
-This can be presented by any subset of the team members.
+# Behind the Numbers: Uncovering Educational Shortcomings Around the World
+
+```{r}
+#| label: libraries
+#| echo: false
+#| warning: false
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(tidymodels))
+suppressPackageStartupMessages(library(broom))
+suppressPackageStartupMessages(library(scales)) # for the label_comma() function
+suppressPackageStartupMessages(library(patchwork))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(stringr))
+```
+
+```{r}
+#| label: data import
+#| echo: false
+#| warning: false
+
+data <- read_csv('dataset/educ.csv', show_col_types = FALSE)
+continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
+pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FALSE)
+literacy <- read_csv('dataset/literacy.csv', show_col_types = FALSE)
+```
+
+```{r}
+#| label: data cleaning
+#| echo: false
+#| warning: false
+
+# clean literacy
+literacy_clean <- literacy |>
+  filter(Age == '15+', Gender == 'total') |>
+  group_by(Country) |>
+  summarize(mean_literacy_rate = mean(`Literacy rate`, na.rm = TRUE))
+
+literacy_clean <- literacy_clean |>
+  rename(
+    country = Country
+  )
+
+```
+
+```{r}
+#| label: data cleaning2
+#| echo: false
+#| warning: false
+
+# rename columns to make it easier to merge
+continent <- continent |>
+  rename(
+    country = name,
+    sub_region = `sub-region`
+  )
+```
+
+```{r}
+#| label: data merging
+#| echo: false
+#| warning: false
+
+# merge the data
+merged_data <- merge(data, continent, by = "country")
+merged_data2 <- merge(merged_data, pisa, by = "country", all.x = TRUE)
+merged_data3 <- merge(continent, literacy_clean, by = "country")
+merged_data4 <- merge(merged_data, literacy_clean, by = 'country')
+```
+
+Education stands as a cornerstone of societal development and individual opportunity, yet across the globe, disparities in access and quality paint a troubling picture. Our extensive data analysis reveals interesting insights about where these educational disparities are, and why they may occur
+
+*Thesis:* By analyzing extensive education data, we will be able to identify where educational disparties are, and answer the question of why these disparities exist. On top of answering these quesitons, we will use the power of this dataset to create actionable insights that have have the power to make a change.
+
+## What did we find?
+
+### Africa was the worst perfromer by almost every metric
+
+We looked at many metrics that all aim to measure the education level of a country in some capacity. This includes PISA scores, literacy rates, primary school completion rate, mean years of education, etc. What we noticed in essentially all of these metrics that Africa was the worst performer in every category. However, the concerning part is that it was not even close. Africa consistently lagged behind the rest of the continents. 
+
+### While Africa is the worst performer, Nortern Africa is performing a lot better than Sub-Saharan Africa.
+
+When analyzing the primary school completion rate for Africa as a continent, we found that as the worst performer by far. But when we took a deeper dive, we found that Northern Africa was actually on par with the rest of the world in terms of this metric, where as Sub-Saharan Africa significantly lagged behind the rest of the world. This is true for many other metrics as well.
+
+```{r}
+#| label: north africa primary completion
+#| echo: false
+#| warning: false
+
+northern_africa_mean_completion <- merged_data |>
+  filter(sub_region %in% c('Northern Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = mean_primary_completion_rate, fill = iso_code)) +
+  geom_col() +
+  ylim(c(0,1)) + 
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5)) +
+  labs(
+    title = "Primary School Completion Rate by Country in Northern Africa",
+    x = "Primary School Completion Rate",
+    y = "Country"
+  )
+
+northern_africa_mean_completion
+```
+
+```{r}
+#| label: sub-saharan africa primary school completion
+#| echo: false
+#| warning: false
+
+subsaharan_africa_mean_completion <- merged_data |>
+  filter(sub_region %in% c('Sub-Saharan Africa')) |>
+  group_by(iso_code) |>
+  summarise(mean_primary_completion_rate = mean(comp_prim_v2_m, na.rm = TRUE),
+            percent_people_not_in_primary_school = mean(eduout_upsec_m, na.rm = TRUE),
+            mean_educ_years_20_24 = mean(eduyears_2024_m, na.rm = TRUE),
+            attend_higher_education = mean(attend_higher_1822_m, na.rm = TRUE),
+            number_complete_prim_1524 = mean(comp_prim_1524_no, na.rm = TRUE),
+            count = n()
+            ) |>
+  ggplot(aes(x = iso_code, y = mean_primary_completion_rate)) +
+  geom_col() +
+  ylim(c(0,1)) + 
+  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  labs(
+    title = "Primary School Completion Rate by Country in Sub-Saharan Africa",
+    x = "Primary School Completion Rate",
+    y = "Country"
+  )
+
+subsaharan_africa_mean_completion
+```
+
+***So what does this mean?***
+Common perception tells us that Africa as a continent is behind in education, but that statement is only partially correct. When breaking down these metrics by region rather than continent, we can tell that This is more of a Sub-Saharan African issue rather than an African issue. Many countries in Africa, such as Nauru (NER), Chad (TCD), and  Libera (LBR), have less than 25% of their kids complete primary school, which is a shockingly low number. Rather than labeling Africa continent that is behind in terms of quality education, we should be more-so focusing on Sub-Saharan Africa as a region that needs better education.
+
+### Keep your kids in school at all costs
+
+Much of our analysis was focused on metrics involved with staying in school. Metrics such as primary school completion rate, mean years of education, percentage of people not in school, etc, all fall into this category. We have also analyzed benchmark metrics such as academic achievement, literacy rates, and PISA scores. Our analysis makes it clear that *there is an extremely strong correlation* between these schooling metrics such as primary school completion rate and mean years of education, and the benchmark metrics such as PISA scores and literacy rates. 
+
+```{r}
+#| label: lin reg
+#| echo: false
+#| warning: false
+
+countries_to_label <- c("India", "Chile", "Niger", "Chad", "China")
+
+edu <- merged_data4 |>
+  group_by(country) |>
+  summarise(mean_year_educ = mean(eduyears_2024_m, na.rm = TRUE),
+            literacy = mean_literacy_rate) 
+
+label_data <- edu %>%
+  filter(country %in% countries_to_label)
+
+ggplot(edu, aes(x = mean_year_educ, y = literacy)) + 
+  geom_point() +
+  geom_smooth(method = "lm") +
+  geom_text(data = label_data, aes(label = country), vjust = -0.5, hjust = 0.5) +  
+  labs(
+    x = "Mean Years of Education",
+    y = "Literacy Rate",
+    title = "Mean Years of Education vs. Literacy Rate",
+    subtitle = "Each point represents a country"
+  )
+```
+
+***So what does this mean?*** This plot tells us that how long you stay in school is directly correlated with a benchmark metric such as literacy rate. The number one most important thing when it comes to school is that you are at least attending school. Of course doing well and getting good grades should be a big goal too, but attending school in the first place is extremely important. 
 
 
-### Rest of the Site
+### Europe is doing a great job and the world should model after them
 
-Finally, here are important things to keep in mind for the rest of the site. 
+On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countires. In section 1.6 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
 
-The main title of your page is informative.
-Each post has an author/description/informative title.
-All lab required posts are present.
-Each page (including the home page) has a nice featured image associated with it.
-Your about page is up to date and clean.
-You have removed the generic posts from the initial site template.
+***So what does this mean?*** This tells us that the world could benefit form modeling its education systems after Europe. European education systems typically receive substantial government funding, which ensures high quality teaching and resources. 
+

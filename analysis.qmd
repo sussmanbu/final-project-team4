@@ -146,7 +146,7 @@ continent_pisa2 <- merged_data |>
   ggplot(aes(x = year, y = complete_prim, color = region)) +
   geom_smooth(method = "loess", se = FALSE) +
   labs(
-    title = "Primary School Completion Rate for People aged 3-5 years above primary school",
+    title = str_wrap("Primary School Completion Rate for People aged 3-5 years above primary school", width = 75),
     x = "Year",
     y = "Primary School Completion Rate"
   ) + 
@@ -487,13 +487,9 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
-<<<<<<< HEAD
 Some countries that appear multiple times on these tables are Niger, Pakistan, Afghanistan, and Haiti. 
-=======
-Some countries that appear 3 or more times on these 4 tables are Niger, Pakistan, Afghanistan, and Haiti.
->>>>>>> 38c4e4804986f082584acfef807b6c1cf5008016
 
-# Section 2: Modeling
+# Section 2: Statistical Modeling
 
 ```{r}
 #| label: library

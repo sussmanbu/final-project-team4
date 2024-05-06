@@ -7,7 +7,7 @@ draft: FALSE
 
 ![](https://www.voicesofyouth.org/sites/voy/files/images/2022-03/educ.jpg)
 
-# Behind the Numbers: Uncovering Educational Shortcomings Around the World
+# Unmasking the Reality of Educational Shortcomings Across Continents
 
 ```{r}
 #| label: libraries
@@ -183,6 +183,6 @@ ggplot(edu, aes(x = mean_year_educ, y = literacy)) +
 
 ### Europe is doing a great job and the world should model after them
 
-On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countires. In section 1.6 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
+On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countries. In section 1.6 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
 
 ***So what does this mean?*** This tells us that the world could benefit form modeling its education systems after Europe. European education systems typically receive substantial government funding, which ensures high quality teaching and resources.

@@ -1,5 +1,5 @@
 ---
-title: "Post 2"
+title: "Blog Post 2: Data Background"
 description:  |
 author: "Team 4"
 date: "2024-03-24"
@@ -18,8 +18,6 @@ The organization assists international governments in investing in science and t
 ## Data Loading and Cleaning:
 
 To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the 'region' column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner. To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the 'region' column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner.
-
-![](images/00001b.png)
 
 ## Data for Equity:
 

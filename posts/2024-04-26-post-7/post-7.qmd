@@ -1,5 +1,5 @@
 ---
-title: "Post 7"
+title: "Blog Post 7: Statistical Modeling"
 description:  |
 author: "Team 4"
 date: "2024-04-26"

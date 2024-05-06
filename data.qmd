@@ -44,37 +44,31 @@ Our dataset is a massive dataset with tens of thousands of rows of data which al
 
 The following are the relevant variables for the chosen dataset.
 
-name: Names of the country. 
+-**name:** Names of the country. 
 
-region: The continent in which the country is located.
+-**region:** The continent in which the country is located.
 
-sub-region: The specific region of the continent in which the country is located. 
+-**sub-region:** The specific region of the continent in which the country is located. 
 
-OverallPisaScore2022: Total Pisa scores of the country in 2022.
+-**OverallPisaScore2022:** Total Pisa scores of the country in 2022.
 
-PISAScoresMathScore2022: The Pisa scores in math of the country in 2022.
+-**PISAScoresMathScore2022:** The Pisa scores in math of the country in 2022.
 
-PISAScoresScienceScore2022: The Pisa scores in science of the country in 2022.
+-**PISAScoresScienceScore2022:** The Pisa scores in science of the country in 2022.
 
-PISAScoresReadingScore2022: The Pisa scores in reading of the country in 2022.
+-**PISAScoresReadingScore2022:** The Pisa scores in reading of the country in 2022.
 
-literacy_1524_no: Percentage of young people aged 15‐24 who can read a simple sentence.
+-**literacy_1524_no:** Percentage of young people aged 15‐24 who can read a simple sentence.
 
-comp_prim_v2_m: Percentage of (i) children and young people aged 3‐5 years above primary school graduation age and (ii) young  people aged 15‐24 years, who have completed primary school. 
+-**comp_prim_v2_m:** Percentage of (i) children and young people aged 3‐5 years above primary school graduation age and (ii) young  people aged 15‐24 years, who have completed primary school. 
 
-mlevel1_m : Passing rate of Level 1 Math Test.
+-**eduyears_2024_m:** Average number of years of schooling attained for the age group 20–24 years.
 
-mlevel2_m: Passing rate of Level 2 Math Test.
+-**eduout_prim_m:** Percentage of children of primary school age who are not in school. 
 
-mlevel3_m: Passing rate of Level 3 Math Test.
+-**comp_lowsec_v2_m:** Percentage of (i) young people aged 3‐5 years above lower secondary school graduation age and (ii) young  people aged 15‐24 years, who have completed lower secondary school.
 
-eduyears_2024_m: Average number of years of schooling attained for the age group 20–24 years.
-
-eduout_prim_m: Percentage of children of primary school age who are not in school. 
-
-comp_lowsec_v2_m: Percentage of (i) young people aged 3‐5 years above lower secondary school graduation age and (ii) young  people aged 15‐24 years, who have completed lower secondary school.
-
-preschool_3_no: Percentage of 3 to 4 year olds attending any type of pre–primary education programme. 
+-**preschool_3_no:** Percentage of 3 to 4 year olds attending any type of pre–primary education programm. 
 
 ### Section 2: Data Cleaning and Merging
 
@@ -88,21 +82,21 @@ The second dataset that we are merging with is a PISA dataset that contains PISA
 
 The libraries we use:
 
-**tidyverse** - A collection of packages for data manipulation and visualization.
+-**tidyverse** - A collection of packages for data manipulation and visualization.
 
-**tidymodels** - A suite for modern and tidy statistical modeling.
+-**tidymodels** - A suite for modern and tidy statistical modeling.
 
-**broom** - Converts statistical analysis objects into tidy format.
+-**broom** - Converts statistical analysis objects into tidy format.
 
-**scales** - # For formatting and manipulating axis labels and color scales in plots.
+-**scales** - # For formatting and manipulating axis labels and color scales in plots.
 
-**patchwork** - Facilitates the combination of multiple ggplot2 plots into one.
+-**patchwork** - Facilitates the combination of multiple ggplot2 plots into one.
 
-**knitr** - Enables dynamic report generation integrating R code with text.
+-**knitr** - Enables dynamic report generation integrating R code with text.
 
-**stringr** - Provides easy-to-use functions for string operations.
+-**stringr** - Provides easy-to-use functions for string operations.
 
-**car** - Offers tools for regression diagnostics and other statistical tests.
+-**car** - Offers tools for regression diagnostics and other statistical tests.
 
-**caret** - Focuses on training and tuning machine learning models.
+-**caret** - Focuses on training and tuning machine learning models.
 

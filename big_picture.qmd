@@ -7,11 +7,7 @@ draft: FALSE
 
 ![](https://www.voicesofyouth.org/sites/voy/files/images/2022-03/educ.jpg)
 
-<<<<<<< HEAD
 # Unmasking the Reality of Educational Shortcomings Across Continents
-=======
-# Behind the Numbers: Uncovering Educational Shortcomings Around the World
->>>>>>> 060b249ec1d420b8a3f556f8ed9523e43ad481fb
 
 ```{r}
 #| label: libraries
@@ -187,20 +183,14 @@ ggplot(edu, aes(x = mean_year_educ, y = literacy)) +
 
 ### Europe is doing a great job and the world should model after them
 
-<<<<<<< HEAD
-On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countries. In section 1.6 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
-
-***So what does this mean?*** This tells us that the world could benefit form modeling its education systems after Europe. European education systems typically receive substantial government funding, which ensures high quality teaching and resources.
-=======
-On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countires. In section 1.6 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
+On the other side of things, we noticed that Europe was the best performing continent in almost every metric. The suprising part is that Europe Europe does not really have any countries that are significantly behind any other countries. In section 1.5 of our analysis, we looked at the worst 3 countries in each continent for each metric, and Europe's "worst" countries still outperformed the average countries in other continents. For example, when analyzing the primary school completion rate, the country with the lowest completion rate in Europe, Albania, still had a rate of 0.97, which is significantly higher than every other country in that table.
 
 ***So what does this mean?*** This tells us that the world could benefit form modeling its education systems after Europe. European education systems typically receive substantial government funding, which ensures high quality teaching and resources.
 
-### **Impact of Geographic and Socioeconomic Factors on Secondary Education Completion**
+### Impact of Geographic and Socioeconomic Factors on Secondary Education Completion
 
 Our have revealed critical insights into the factors influencing secondary education completion rates, particularly in the regions of Africa and South America. Findings indicate that residing in rural areas, being in lower wealth brackets, and being located in Africa significantly hinder secondary education achievement. Conversely, high rates of primary education completion have been shown to positively impact secondary education success.
 
 Furthermore, the attendance at pre-primary institutions also boosts secondary education completion rates, demonstrating the importance of early childhood education. Interestingly, a surprising trend was observed where less than two years of schooling could still enhance literacy among youth aged 15-24, enabling them to read simple sentences. This intriguing correlation suggests that even minimal education can contribute to basic literacy skills, though further research is needed to fully understand this phenomenon.
 
 These insights are crucial for policymakers and educational organizations aiming to improve education systems and tailor interventions that support educational attainment across varying socioeconomic and geographic landscapes.
->>>>>>> 060b249ec1d420b8a3f556f8ed9523e43ad481fb

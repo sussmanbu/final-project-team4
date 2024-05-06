@@ -3,7 +3,7 @@ title: Data
 description: We describe the sources of our data and the cleaning process.
 ---
 
-![](https://habitatbroward.org/wp-content/uploads/2020/01/10-Benefits-Showing-Why-Education-Is-Important-to-Our-Society.jpg)
+![](https://media.istockphoto.com/id/1476976242/photo/graduation-day-a-mortarboard-and-graduation-scroll-on-stack-of-books-with-pencils-color-in-a.webp?b=1&s=170667a&w=0&k=20&c=syztrFCa2aVPP5_Y1IxRue6LE99wD5JWix-y6mHZeTg=)
 
 ```{r}
 #| label: library
@@ -79,11 +79,15 @@ The following are the relevant variables for the chosen dataset.
 
 [clean_script](/scripts/load_and_clean_data.R)
 
+***Data Cleaning***
+
+Our data cleaning mostly consisted of renaming column names so that it is easier for our data to merge. 
+
 ***Data Merging***
 
 The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries.
 
-The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries.
+The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from a lot African countries.
 
 ### Section 3: R Libraries
 
@@ -95,7 +99,7 @@ The libraries we use:
 
 \-**broom** - Converts statistical analysis objects into tidy format.
 
-\-**scales** - \# For formatting and manipulating axis labels and color scales in plots.
+\-**scales** -  For formatting and manipulating axis labels and color scales in plots.
 
 \-**patchwork** - Facilitates the combination of multiple ggplot2 plots into one.
 

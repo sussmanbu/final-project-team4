@@ -1,5 +1,5 @@
 ---
-title: "Post 4"
+title: "Blog Post 4: Mean Education Years"
 description:  |
   POST 4
 author: "Team 4"
@@ -13,10 +13,6 @@ draft: FALSE
 After regrouping our data set, we want to take a deeper understanding of all the variables to make sure we can make correct decision when we perform variable selection. In our previous posts, we have only use simply region and elementary education level and building simple regression just to see whether the data make sense to us. After verifying the potential answer we will get, we also want to add our variable to help building the regression.
 
 Our analysis sought to reveal the mean years of education across different categorizations such as location (urban vs. rural), sex (male vs. female), and more. Utilizing ggplot2, we visualized these differences, which unveiled significant disparities. For instance, urban areas consistently showed higher educational attainment than rural counterparts, with Europe leading in educational years and Africa lagging behind.
-
-![](Screenshot 2024-04-08 at 6.32.17 PM-02)
-
-![](images/Screenshot 2024-04-08 at 6.32.17 PM-02)
 
 ## **Insights and Implications**
 

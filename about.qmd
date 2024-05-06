@@ -1,5 +1,5 @@
 ---
-title: "MA415_team4"
+title: "MA415 Team 4"
 # image: profile.jpg
 about:
   template: jolla
@@ -21,7 +21,7 @@ editor:
 This is a website for the final project for MA\[46\]15 Data Science with
 R by Team 4. The members of this team are below.
 
-**Jacob Park:** Hi everyone, I'm Jacob and I am currently a junior stuyding
+**Jacob Park:** Hi everyone, I'm Jacob and I am currently a junior studying
 applied mathematics with minors in economics and computer science.
 
 **Yibo Ye:** Hello, my name is Yibo Ye. I am a senior

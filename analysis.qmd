@@ -238,7 +238,7 @@ mean_educ <- merged_data |>
 mean_educ
 ```
 
-This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs. mean years of education in urban areas, we see that Africa has the largest discrepancy in this area. 
+This graph shows a similar result to the other graphs: Africa again ranks as the lowest. However, there are many reasons why this may be the case. For example, if we look mean years of education in rural areas vs. mean years of education in urban areas, we see that Africa has the largest discrepancy in this area.
 
 ```{r}
 #| label: rural vs urban for mean years of education
@@ -635,7 +635,7 @@ top_3_by_continent <- top_3_by_continent |>
 kable(top_3_by_continent, format = "markdown")
 ```
 
-Some countries that appear 3 or more times on these 4 tables are Niger, Pakistan, Afghanistan, and Haiti. 
+Some countries that appear 3 or more times on these 4 tables are Niger, Pakistan, Afghanistan, and Haiti.
 
 # Section 2: Modeling
 
@@ -681,18 +681,6 @@ Location_data <- merged_data %>%
 model1 <- lm(comp_lowsec_v2_m ~ as.factor(region) + as.factor(Location) + as.factor(Sex)  + as.factor(Wealth) + comp_prim_v2_m, data = Location_data)
 summary(model1)
 
-###Bar graph to show Africa's average literacy_1524
-group_data <- merged_data %>%
-  filter(category == 'Location & Sex & Wealth') |> group_by(region) %>%
-  summarise(mean_comp_lowsec_v2_m = mean(comp_lowsec_v2_m, na.rm = TRUE),count_non_missing = sum(!is.na(comp_lowsec_v2_m)), .groups = 'drop')
-
-ggplot(group_data, aes(x = region, y = mean_comp_lowsec_v2_m)) +
-  geom_bar(stat = "identity", position = position_dodge()) + 
-  labs(title = "Average lower secondary school completion rate by Region",
-       x = "Region", y = "Average lower secondary school completion rate") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
 #broom::glance(model1)
 #broom::augment(model1, new_data = grouped2)
 vif(model1)
@@ -731,11 +719,12 @@ ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
   labs(title = "Standardized Residuals vs Fitted", x = "Fitted Values", y = "Standardized Residuals")
 ```
+
 The residuals plot does not seem randomly distributed, so we decide to do some transformations on the variables to meet the assumptions of normality.
 
 #### Normality and Transformation
 
-We have tried to make the transformation on the response variable which does not seem normally distributed because, based on the left plot, the distribution left skewed severely. After different trials on the response variable, we finally applied the square root arcsine transformation, and we got the approximately normal histogram, shown by the right side of the plot.
+We have tried to make the transformation on the response variable which does not seem normally distributed because, based on the left plot, the distribution left skewed severely. After different trials on the response variable, we finally applied the **square root arcsine transformation**, and we got the approximately normal histogram, shown by the right side of the plot.
 
 #### Model after Transformation
 
@@ -834,18 +823,6 @@ model2 <- lm(literacy_1524_no ~ as.factor(region) + as.factor(Wealth) + edu2_202
 summary(model2)
 vif(model2)
 
-###Bar graph to show Africa's average literacy_1524
-group1_data <- merged_data %>%
-  filter(category == 'Location & Sex & Wealth') |> group_by(region) %>%
-  summarise(mean_literacy_1524_no = mean(literacy_1524_no, na.rm = TRUE),count_non_missing = sum(!is.na(literacy_1524_no)), .groups = 'drop')
-
-ggplot(group1_data, aes(x = region, y = mean_literacy_1524_no)) +
-  geom_bar(stat = "identity", position = position_dodge()) + 
-  labs(title = "Average Education Years by Location and Region",
-       x = "Region", y = "Average Education Years") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
 
 # Create a dataframe of residuals and fitted values
 residuals_data <- data.frame(
@@ -870,9 +847,6 @@ residuals_data <- data.frame(
   Std_Residuals = standardized_resid
 )
 
-# Load ggplot2 for plotting
-library(ggplot2)
-
 # Plot standardized residuals vs fitted values
 ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
   geom_point() +
@@ -887,23 +861,14 @@ ggplot(residuals_data, aes(x = Fitted, y = sqrt(Std_Residuals))) +
 #| label: normality check
 #| echo: false
 #| warning: false
-
-####plot histogram
-# Adjust plotting area to have 1 row and 2 columns
 par(mfrow=c(1, 2))
-
-# Histogram of the original data
 hist(Location_data$literacy_1524_no, main="Histogram of literacy_1524_no", xlab="Literacy Rate", col="blue")
-
-# Compute log of literacy_1524_no, ensure no non-positive values
 log_literacy <- log(Location_data$literacy_1524_no[Location_data$literacy_1524_no > 0])
-
-# Histogram of the logarithm of the data
 hist(log_literacy, main="Histogram of log(literacy_1524_no)", xlab="Log of Literacy Rate", col="green")
-
-# Reset to default single plotting layout (optional)
 par(mfrow=c(1, 1))
 ```
+
+We decided to apply a logarithmic transformation to the response variable to achieve a more normal distribution in the histogram. This transformation significantly improved the original distribution, which was severely right-skewed. After the transformation, the data exhibited a more normal distribution, as evidenced by the more evenly distributed frequencies.
 
 #### Model 2 After Log Transformation
 
@@ -916,13 +881,11 @@ Transformedmodel2 <- lm(log(literacy_1524_no) ~ as.factor(region) + as.factor(We
 summary(model2)
 vif(model2)
 
-
 # Create a dataframe of residuals and fitted values
 residuals_data <- data.frame(
   Fitted = fitted(Transformedmodel2),
   Residuals = resid(Transformedmodel2)
 )
-
 # Plot residuals vs fitted values
 ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
   geom_point() +
@@ -930,7 +893,6 @@ ggplot(residuals_data, aes(x = Fitted, y = Residuals)) +
   labs(title = "Residuals vs Fitted", x = "Fitted Values", y = "Residuals")
 
 ##standardized residual plot
-
 # Compute standardized residuals
 standardized_resid <- rstandard(Transformedmodel2)
 
@@ -975,3 +937,7 @@ Result Analysis:
 ### Section 2.2.3: Model2 Conclusion
 
 The R-squared is 0.7208, and the vif shows that there is no collinearity between predictors. We will remove the predictors that have the insignificance indicated by p-value higher than 0.05 from the model. In summary, being in the region of Africa and South America, or staying in the lower wealth level will negatively influence the secondary education completion. And the higher rate of attending pre-primary institution will positively affect the secondary education completion rate. However, an interetsing finding is that less than two years schooling can also increase the percentage of young people aged 15‐24 who can read a simple sentence. We could conduct further analysis on this relationship.
+
+# Section 3: Limitations
+
+The dataset used in our project is extensive, resulting in a significant number of missing values despite rigorous efforts to filter them out. Additionally, our model has improved by thoroughly verifying the assumptions of normality, linearity, and homoscedasticity for all variables, and we did some transformations on the variable, such as arcsine square root transformation, which helped to meet the assumptions, but it makes the interpretation hard. Notably, our initial findings suggest that even less than two years of schooling can increase the percentage of young people who can read simple sentences. We may do extension project to explore the underlying factors and implications for this unexpected outcome.

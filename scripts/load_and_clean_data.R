@@ -14,7 +14,7 @@ pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FAL
 ```
 
 
-# data cleanig
+# data cleaning
 
 # rename columns to make it easier to merge
 continent <- continent |>

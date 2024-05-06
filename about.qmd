@@ -17,13 +17,20 @@ about:
 ---
 
 
-This comes from the file `about.qmd`.
-
-This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
+This is a website for the final project for MA[46]15 Data Science with R by Team T4.
 The members of this team are below.
 
 Jacob Park:
 Hi everyone, I'm Jacob and I am currently a junior stuyding applied mathematics with minors in economics and computer science.
+
+Yibo Ye:
+Hello, my name is Yibo Ye. I am a senior student at Boston University majoring in Statistics and Computer Science.
+
+Sitong May Liu:
+Hell, my name is Siton May Liu and I am currently a senior majoring in Statistics and Computer Science
+
+Yujie Liu:
+Hello, my name is EJ Liu, and I am currently a senior at Boston University majoring in Economics.
 
 <!-- Please leave in the information below -->
 

@@ -136,8 +136,11 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p><img src="https://media.istockphoto.com/id/1476976242/photo/graduation-day-a-mortarboard-and-graduation-scroll-on-stack-of-books-with-pencils-color-in-a.webp?b=1&amp;s=170667a&amp;w=0&amp;k=20&amp;c=syztrFCa2aVPP5_Y1IxRue6LE99wD5JWix-y6mHZeTg=" class="img-fluid"></p>
-<section id="section-1.1-data-background" class="level3">
-<h3 class="anchored" data-anchor-id="section-1.1-data-background">Section 1.1: Data Background</h3>
+<section id="section-1-data-background" class="level1">
+<h1>Section 1: Data Background</h1>
+<p>In this section, we will explain where our data came from, why it was collected, and what we will do with it. We will also explain the variables as well as potential limitations.</p>
+<section id="section-1.1-data-sourcing" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.1-data-sourcing">Section 1.1: Data Sourcing</h3>
 <p>Our team utilized three main datasets for our analysis:</p>
 <p>World Inequality Database on Education (WIDE): Available at the World Inequality Database on Education, the WIDE database compiles data from various reliable surveys and assessments, offering insights into the impact of different inequality factors on educational outcomes. Its goal is to highlight significant educational disparities across and within countries to aid in policy-making and public discourse. This dataset was found from this link: https://www.education-inequalities.org/about.</p>
 <p>Country Mapping - ISO, Continent, Region: This dataset was obtained from Kaggle, a platform offering a wide range of free data resources. It was created for mapping countries in the dataset creator’s analysis, and she permits its free use. The variables in this dataset are straightforward, naming countries with their ISO codes and categorizing them into different continents, regions, and sub-regions. For instance, Afghanistan is represented as AFG - Asia - Southern Asia. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.</p>
@@ -167,8 +170,9 @@ ul.task-list li input[type="checkbox"] {
 <p>-<strong>PISAScoresScienceScore2022:</strong> The Pisa scores in science of the country in 2022.</p>
 <p>-<strong>PISAScoresReadingScore2022:</strong> The Pisa scores in reading of the country in 2022.</p>
 </section>
-<section id="section-2-data-cleaning-and-merging" class="level3">
-<h3 class="anchored" data-anchor-id="section-2-data-cleaning-and-merging">Section 2: Data Cleaning and Merging</h3>
+</section>
+<section id="section-2-data-cleaning-and-merging" class="level1">
+<h1>Section 2: Data Cleaning and Merging</h1>
 <p><a href="./scripts/load_and_clean_data.R">clean_script</a></p>
 <p><strong><em>Data Cleaning</em></strong></p>
 <p>Our data cleaning mostly consisted of renaming column names so that it is easier for our data to merge.</p>
@@ -176,8 +180,8 @@ ul.task-list li input[type="checkbox"] {
 <p>The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries.</p>
 <p>The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country’s overall score, as well as each country’s math, science, and reading score. The downside of this dataset is that it does not contain scores from a lot African countries.</p>
 </section>
-<section id="section-3-r-libraries" class="level3">
-<h3 class="anchored" data-anchor-id="section-3-r-libraries">Section 3: R Libraries</h3>
+<section id="section-3-r-libraries" class="level1">
+<h1>Section 3: R Libraries</h1>
 <p>The libraries we use:</p>
 <p>-<strong>tidyverse</strong> - A collection of packages for data manipulation and visualization.</p>
 <p>-<strong>tidymodels</strong> - A suite for modern and tidy statistical modeling.</p>

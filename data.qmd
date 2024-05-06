@@ -1,8 +1,7 @@
 ---
 title: Data
 description: We describe the sources of our data and the cleaning process.
-toc: true
-draft: false
+
 ---
 
 ![](images/data-import-cheatsheet-thumbs.png)

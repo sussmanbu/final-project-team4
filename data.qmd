@@ -25,7 +25,11 @@ library(stringr)
 library(car)
 ```
 
-### Section 1.1: Data Background
+# Section 1: Data Background
+
+In this section, we will explain where our data came from, why it was collected, and what we will do with it. We will also explain the variables as well as potential limitations.
+
+### Section 1.1: Data Sourcing
 
 Our team utilized three main datasets for our analysis:
 
@@ -75,7 +79,7 @@ The following are the relevant variables for the chosen dataset.
 
 \-**PISAScoresReadingScore2022:** The Pisa scores in reading of the country in 2022.
 
-### Section 2: Data Cleaning and Merging
+# Section 2: Data Cleaning and Merging
 
 [clean_script](/scripts/load_and_clean_data.R)
 
@@ -89,7 +93,7 @@ The first data set that we are merging with is a dataset that includes more spec
 
 The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from a lot African countries.
 
-### Section 3: R Libraries
+# Section 3: R Libraries
 
 The libraries we use:
 

@@ -4,9 +4,29 @@ description: We describe the sources of our data and the cleaning process.
 
 ---
 
-![](images/data-import-cheatsheet-thumbs.png)
 
-### Data Background
+```{r}
+#| label: library
+#| echo: false
+#| warning: false
+library(tidyverse)
+library(tidymodels)
+#A A suite for modern and tidy statistical modeling.
+library(broom) 
+#Converts statistical analysis objects into tidy format.
+library(scales) 
+# For formatting and manipulating axis labels and color scales in plots.
+library(patchwork) 
+#Facilitates the combination of multiple ggplot2 plots into one.
+library(knitr) 
+#Enables dynamic report generation integrating R code with text.
+library(stringr)
+#Provides easy-to-use functions for string operations.
+library(car)
+```
+
+
+### Section 1.1: Data Background
 
 Our team utilized three main datasets for our analysis:
 
@@ -16,7 +36,14 @@ Country Mapping - ISO, Continent, Region: This dataset was obtained from Kaggle,
 
 PISA Scores by Country 2024: Sourced from the World Population Review, this dataset is part of the Programme for International Student Assessment (PISA), coordinated by the Organisation for Economic Co-operation and Development (OECD). PISA assesses the educational performance of 15-year-old students across approximately 80 countries through a two-hour test focused on science, reading, and mathematics. The dataset provides average scores in these subjects, reflecting the educational standards and economic success indicators of the participating countries.
 
+### Section 1.2: Potential Limitations
+
+Our dataset is a massive dataset with tens of thousands of rows of data which allows for a comprehensive analysis, but the data also has a lot of missing data. This missing data may leave holes in our analysis, or limit what is possible for us.
+
+### Section 1.3: Relevant Variables
+
 The following are the relevant variables for the chosen dataset.
+
 name: Names of the country. 
 
 region: The continent in which the country is located.
@@ -49,50 +76,33 @@ comp_lowsec_v2_m: Percentage of (i) young people aged 3‐5 years above lower se
 
 preschool_3_no: Percentage of 3 to 4 year olds attending any type of pre–primary education programme. 
 
+### Section 2: Data Cleaning and Merging
 
-### Data loading and grouping
+The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.
+
+The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries. This dataset was found from this link: https://www.oecd.org/pisa/data/.
 
 [clean_script](/scripts/load_and_clean_data.R%60)
 
+### Section 3: R Libraries
+
 The libraries we use:
 
-```{r}
-library(tidyverse)
-#A collection of packages for data manipulation and visualization.
-library(tidymodels)
-#A A suite for modern and tidy statistical modeling.
-library(broom) 
-#Converts statistical analysis objects into tidy format.
-library(scales) 
-# For formatting and manipulating axis labels and color scales in plots.
-library(patchwork) 
-#Facilitates the combination of multiple ggplot2 plots into one.
-library(knitr) 
-#Enables dynamic report generation integrating R code with text.
-library(stringr)
-#Provides easy-to-use functions for string operations.
-library(car)
-# Offers tools for regression diagnostics and other statistical tests.
-library(caret)
-# Focuses on training and tuning machine learning models.
-library(ggplot2)
-# Implements a grammar of graphics for creating plots.
-library(dplyr)
-#Streamlines data manipulation tasks.
-library(readxl)
-#Allows for reading Excel files into R.
-library(MLmetrics)
-# Contains functions for computing machine learning metrics.
-library(GGally)
-#Extends ggplot2 for creating complex visualizations easily.
-```
+**tidyverse** - A collection of packages for data manipulation and visualization.
 
-To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the 'region' column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner. To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the 'region' column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner.
+**tidymodels** - A suite for modern and tidy statistical modeling.
 
-```{r}
-data <- read_csv('dataset/educ.csv')
-continent <- read_csv('dataset/continents2.csv')
-pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FALSE)
-```
+**broom** - Converts statistical analysis objects into tidy format.
 
-We try to merge PISA and region dataset, so it can allow us for exploring how educational outcomes vary across different regions, and we can analyse  the influence of regional contexts on educational difference with data.
+**scales** - # For formatting and manipulating axis labels and color scales in plots.
+
+**patchwork** - Facilitates the combination of multiple ggplot2 plots into one.
+
+**knitr** - Enables dynamic report generation integrating R code with text.
+
+**stringr** - Provides easy-to-use functions for string operations.
+
+**car** - Offers tools for regression diagnostics and other statistical tests.
+
+**caret** - Focuses on training and tuning machine learning models.
+

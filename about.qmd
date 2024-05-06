@@ -13,38 +13,33 @@ about:
     - icon: github
       text: Github
       href: https://github.com/sussmanbu/
-
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
+This is a website for the final project for MA\[46\]15 Data Science with
+R by Team T4. This comes from the file `about.qmd`.
 
-<<<<<<< HEAD
-This is a website for the final project for MA[46]15 Data Science with R by Team T4.
-=======
-This comes from the file `about.qmd`
-.
+This is a website for the final project for MA\[46\]15 Data Science with
+R by Team TEAMNAME. The members of this team are below.
 
-This is a website for the final project for MA[46]15 Data Science with R by Team TEAMNAME.
->>>>>>> 38c4e4804986f082584acfef807b6c1cf5008016
-The members of this team are below.
+Jacob Park: Hi everyone, I'm Jacob and I am currently a junior stuyding
+applied mathematics with minors in economics and computer science.
 
-Jacob Park:
-Hi everyone, I'm Jacob and I am currently a junior stuyding applied mathematics with minors in economics and computer science.
+Yibo Ye: Hello, my name is Yibo Ye. I am a senior
+student at Boston University majoring in Statistics and Computer
+Science.
 
-<<<<<<< HEAD
-Yibo Ye:
-Hello, my name is Yibo Ye. I am a senior student at Boston University majoring in Statistics and Computer Science.
+Sitong May Liu: Hell, my name is Siton May Liu and I am currently a
+senior majoring in Statistics and Computer Science
 
-Sitong May Liu:
-Hell, my name is Siton May Liu and I am currently a senior majoring in Statistics and Computer Science
-
-Yujie Liu:
-Hello, my name is EJ Liu, and I am currently a senior at Boston University majoring in Economics.
+Yujie Liu: Hello, my name is EJ Liu, and I am currently a senior at
+Boston University majoring in Economics.
 
 <!-- Please leave in the information below -->
 
-=======
->>>>>>> 38c4e4804986f082584acfef807b6c1cf5008016
 ### About this Template.
 
-This is based off of the standard Quarto website template from RStudio (2023.09.0 Build 463)
-
+This is based off of the standard Quarto website template from RStudio
+(2023.09.0 Build 463)

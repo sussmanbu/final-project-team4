@@ -26,11 +26,11 @@ literacy_clean <- literacy |>
 
 Exploratory Data Analysis (EDA) With the cleaned data, we conducted an exploratory analysis to understand the distribution and variance within our data. This included visualizations like histograms and box plots to capture the spread and outliers of literacy rates and educational attainment across continents.
 
-```{r}
+
 
 ggplot(literacy_clean, aes(x = continent, y = mean_literacy_rate)) +
   geom_boxplot()
-```
+
 
 
 Trend Identification Using statistical models, we identified trends in the data, such as the correlation between literacy rates and GDP per capita. We employed linear regression models to understand these relationships, adjusting for potential confounders like urbanization and public education spending.

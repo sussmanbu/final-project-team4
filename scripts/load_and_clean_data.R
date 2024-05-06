@@ -12,8 +12,6 @@ data <- read_csv('dataset/educ.csv', show_col_types = FALSE)
 continent <- read_csv('dataset/continents2.csv', show_col_types = FALSE)
 pisa <- read_csv('dataset/pisa-scores-by-country-2024.csv', show_col_types = FALSE)
 ```
-
-
 # data cleaning
 
 # rename columns to make it easier to merge

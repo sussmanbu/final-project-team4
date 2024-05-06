@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Team 4">
-<meta name="dcterms.date" content="2024-04-22">
+<meta name="dcterms.date" content="2024-04-26">
 
-<title>MA [46]15 Final Project - Team 4 - Post 6</title>
+<title>MA [46]15 Final Project - Team 4 - Post 7</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -110,7 +144,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Post 6</h1>
+      <h1 class="title">Post 7</h1>
                       </div>
   </div>
     
@@ -127,14 +161,14 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">April 22, 2024</p>
+        <p class="date">April 26, 2024</p>
       </div>
     </div>
     
       <div>
       <div class="quarto-title-meta-heading">Modified</div>
       <div class="quarto-title-meta-contents">
-        <p class="date-modified">April 22, 2024</p>
+        <p class="date-modified">April 26, 2024</p>
       </div>
     </div>
       
@@ -151,24 +185,59 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="data-analysis">Data Analysis</h3>
-<p>By completing our Analysis page, after merging PISA data set we already noticed a significant trend of North America. However, there is some region that does not have the PISA scores. Therefore we decide to merge another Literacy Rate to generalize the visualization of test scores.</p>
-<p><img src="images/Screenshot 2024-04-22 at 4.57.51 PM.png" class="img-fluid"></p>
-<p>From our graph, we noticed that Africa overall has the lowest PISA and literacy rate.</p>
+<section id="advanced-statistical-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="advanced-statistical-analysis"><strong>Advanced Statistical Analysis</strong></h3>
+<p>We began by collecting a variety of datasets that included PISA scores, literacy rates, and educational completion statistics from multiple sources. The data cleaning process involved handling missing values, standardizing measurement scales, and merging multiple data sources for comprehensive analysis. The R code below illustrates a part of our data cleaning process:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.1.1 ──
+✔ broom        1.0.5     ✔ rsample      1.2.0
+✔ dials        1.2.0     ✔ tune         1.1.2
+✔ infer        1.0.5     ✔ workflows    1.1.3
+✔ modeldata    1.2.0     ✔ workflowsets 1.0.1
+✔ parsnip      1.1.1     ✔ yardstick    1.2.0
+✔ recipes      1.0.9     
+── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ scales::discard() masks purrr::discard()
+✖ dplyr::filter()   masks stats::filter()
+✖ recipes::fixed()  masks stringr::fixed()
+✖ dplyr::lag()      masks stats::lag()
+✖ yardstick::spec() masks readr::spec()
+✖ recipes::step()   masks stats::step()
+• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>literacy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'dataset/literacy.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>literacy_clean <span class="ot">&lt;-</span> literacy <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Age <span class="sc">==</span> <span class="st">'15+'</span>, Gender <span class="sc">==</span> <span class="st">'total'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_literacy_rate =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Literacy rate</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Exploratory Data Analysis (EDA) With the cleaned data, we conducted an exploratory analysis to understand the distribution and variance within our data. This included visualizations like histograms and box plots to capture the spread and outliers of literacy rates and educational attainment across continents.</p>
+<p>ggplot(literacy_clean, aes(x = continent, y = mean_literacy_rate)) + geom_boxplot()</p>
+<p>Trend Identification Using statistical models, we identified trends in the data, such as the correlation between literacy rates and GDP per capita. We employed linear regression models to understand these relationships, adjusting for potential confounders like urbanization and public education spending.</p>
+<p>model &lt;- lm(literacy_rate ~ GDP_per_capita + Urbanization, data = dataset) summary(model)</p>
+<p>Deep Analysis Using Regression Techniques To delve deeper, we used multiple regression techniques to parse out the effects of various socio-economic indicators on educational outcomes. This allowed us to pinpoint the specific factors that most significantly impact education levels.</p>
+<p>complex_model &lt;- lm(education_outcome ~ GDP_per_capita + Government_spending + Urbanization, data = dataset) summary(complex_model)</p>
 </section>
-<section id="format-change" class="level3">
-<h3 class="anchored" data-anchor-id="format-change">Format change</h3>
-<p>From our feedback of data.qmd, professor suggested us to have a more consistent and clearer format, therefore taking that advice into our formatting we use brew function to make the tables clear and simple to track</p>
-<p><img src="images/Screenshot 2024-04-22 at 5.20.21 PM.png" class="img-fluid"></p>
-</section>
-<section id="tentative-thesis" class="level3">
-<h3 class="anchored" data-anchor-id="tentative-thesis"><strong>Tentative Thesis</strong></h3>
-<p>Global disparities in educational outcomes are profoundly influenced by economic factors, with sub-regional disparities indicating that targeted local interventions could be more effective than broad regional strategies. For instance, while general trends suggest higher educational attainment in Europe and lower in Africa, sub-regional analysis reveals that Northern Africa aligns more closely with global averages than Sub-Saharan Africa</p>
-</section>
-<section id="whats-next" class="level3">
-<h3 class="anchored" data-anchor-id="whats-next">What’s next</h3>
-<p>Data modeling: we are planning to perform a multivariate modelling for the Analysis.qmd as currently we just have a simple modeling just with one variable.</p>
+<section id="key-findings-our-analysis-revealed-several-key-insights" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings-our-analysis-revealed-several-key-insights"><strong>Key Findings Our analysis revealed several key insights:</strong></h3>
+<p>Regional Variance: There is significant variance in educational outcomes between continents, with factors like economic stability and government policy playing crucial roles.</p>
+<p>Socio-economic Impact: Higher GDP per capita and increased urbanization are strongly correlated with better educational outcomes.</p>
 
 
 </section>

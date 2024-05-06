@@ -21,40 +21,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -169,263 +135,59 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><img src="images/data-import-cheatsheet-thumbs.png" class="img-fluid"></p>
-<p>This comes from the file <code>data.qmd</code>.</p>
-<p>Your first steps in this project will be to find data to work on.</p>
-<p>I recommend trying to find data that interests you and that you are knowledgeable about. A bad example would be if you have no interest in video games but your data set is about video games. I also recommend finding data that is related to current events, social justice, and other areas that have an impact.</p>
-<p>Initially, you will study <em>one dataset</em> but later you will need to combine that data with another dataset. For this reason, I recommend finding data that has some date and/or location components. These types of data are conducive to interesting visualizations and analysis and you can also combine this data with other data that also has a date or location variable. Data from the census, weather data, economic data, are all relatively easy to combine with other data with time/location components.</p>
-<section id="what-makes-a-good-data-set" class="level2">
-<h2 class="anchored" data-anchor-id="what-makes-a-good-data-set">What makes a good data set?</h2>
-<ul>
-<li>Data you are interested in and care about.</li>
-<li>Data where there are a lot of potential questions that you can explore.</li>
-<li>A data set that isn’t completely cleaned already.</li>
-<li>Multiple sources for data that you can combine.</li>
-<li>Some type of time and/or location component.</li>
-</ul>
+<p><img src="https://habitatbroward.org/wp-content/uploads/2020/01/10-Benefits-Showing-Why-Education-Is-Important-to-Our-Society.jpg" class="img-fluid"></p>
+<section id="section-1.1-data-background" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.1-data-background">Section 1.1: Data Background</h3>
+<p>Our team utilized three main datasets for our analysis:</p>
+<p>World Inequality Database on Education (WIDE): Available at the World Inequality Database on Education, the WIDE database compiles data from various reliable surveys and assessments, offering insights into the impact of different inequality factors on educational outcomes. Its goal is to highlight significant educational disparities across and within countries to aid in policy-making and public discourse. This dataset was found from this link: https://www.education-inequalities.org/about.</p>
+<p>Country Mapping - ISO, Continent, Region: This dataset was obtained from Kaggle, a platform offering a wide range of free data resources. It was created for mapping countries in the dataset creator’s analysis, and she permits its free use. The variables in this dataset are straightforward, naming countries with their ISO codes and categorizing them into different continents, regions, and sub-regions. For instance, Afghanistan is represented as AFG - Asia - Southern Asia. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.</p>
+<p>PISA Scores by Country 2024: Sourced from the World Population Review, this dataset is part of the Programme for International Student Assessment (PISA), coordinated by the Organisation for Economic Co-operation and Development (OECD). PISA assesses the educational performance of 15-year-old students across approximately 80 countries through a two-hour test focused on science, reading, and mathematics. The dataset provides average scores in these subjects, reflecting the educational standards and economic success indicators of the participating countries. This dataset was found from this link: https://www.oecd.org/pisa/data/.</p>
 </section>
-<section id="where-to-keep-data" class="level2">
-<h2 class="anchored" data-anchor-id="where-to-keep-data">Where to keep data?</h2>
-<p>Below 50mb: In <code>dataset</code> folder</p>
-<p>Above 50mb: In <code>dataset_ignore</code> folder. This folder will be ignored by <code>git</code> so you’ll have to manually sync these files across your team.</p>
-<section id="sharing-your-data" class="level3">
-<h3 class="anchored" data-anchor-id="sharing-your-data">Sharing your data</h3>
-<p>For small datasets (&lt;50mb), you can use the <code>dataset</code> folder that is tracked by github. Add the files just like you would any other file.</p>
-<p>If you create a folder named <code>data</code> this will cause problems.</p>
-<p>For larger datasets, you’ll need to create a new folder in the project root directory named <code>dataset-ignore</code>. This will be ignored by git (based off the <code>.gitignore</code> file in the project root directory) which will help you avoid issues with Github’s size limits. Your team will have to manually make sure the data files in <code>dataset-ignore</code> are synced across team members.</p>
-<p>Your <a href="./scripts/load_and_clean_data.R">load_and_clean_data.R</a> file is how you will load and clean your data. Here is a an example of a very simple one.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"scripts/load_and_clean_data.R"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">echo =</span> <span class="cn">FALSE</span> <span class="co"># Use echo=FALSE or omit it to avoid code output  </span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-── Attaching packages ────────────────────────────────────── tidymodels 1.1.1 ──
-
-✔ broom        1.0.5     ✔ rsample      1.2.0
-✔ dials        1.2.0     ✔ tune         1.1.2
-✔ infer        1.0.5     ✔ workflows    1.1.3
-✔ modeldata    1.2.0     ✔ workflowsets 1.0.1
-✔ parsnip      1.1.1     ✔ yardstick    1.2.0
-✔ recipes      1.0.9     
-
-── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
-✖ scales::discard() masks purrr::discard()
-✖ dplyr::filter()   masks stats::filter()
-✖ recipes::fixed()  masks stringr::fixed()
-✖ dplyr::lag()      masks stats::lag()
-✖ yardstick::spec() masks readr::spec()
-✖ recipes::step()   masks stats::step()
-• Use tidymodels_prefer() to resolve common conflicts.
-
-Rows: 212969 Columns: 86
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (14): iso_code, region_group, income_group, country, survey, level, cate...
-dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 249 Columns: 11
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (7): name, alpha-2, alpha-3, iso_3166-2, region, sub-region, intermediat...
-dbl (4): country-code, region-code, sub-region-code, intermediate-region-code
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-`summarise()` has grouped output by 'iso_code'. You can override using the `.groups` argument.
-`summarise()` has grouped output by 'sub_region'. You can override using the `.groups` argument.
-`summarise()` has grouped output by 'sub_region'. You can override using the `.groups` argument.
-`summarise()` has grouped output by 'region'. You can override using the `.groups` argument.
-`summarise()` has grouped output by 'sub_region'. You can override using the `.groups` argument.
-`summarise()` has grouped output by 'sub_region'. You can override using the `.groups` argument.</code></pre>
-</div>
-</div>
-<p>You should never use absolute paths (eg. <code>/Users/danielsussman/path/to/project/</code> or <code>C:\MA415\\Final_Project\</code>).</p>
-<p>You might consider using the <code>here</code> function from the <a href="https://here.r-lib.org/articles/here.html"><code>here</code> package</a> to avoid path problems.</p>
+<section id="section-1.2-potential-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.2-potential-limitations">Section 1.2: Potential Limitations</h3>
+<p>Our dataset is a massive dataset with tens of thousands of rows of data which allows for a comprehensive analysis, but the data also has a lot of missing data. This missing data may leave holes in our analysis, or limit what is possible for us.</p>
 </section>
-<section id="load-and-clean-data-script" class="level3">
-<h3 class="anchored" data-anchor-id="load-and-clean-data-script">Load and clean data script</h3>
-<p>The idea behind this file is that someone coming to your website could largely replicate your analyses after running this script on the original data sets to clean them. This file might create a derivative data set that you then use for your subsequent analysis. Note that you don’t need to run this script from every post/page. Instead, you can load in the results of this script, which could be plain text files or <code>.RData</code> files. In your data page you’ll describe how these results were created. If you have a very large data set, you might save smaller data sets that you can use for exploration purposes. To link to this file, you can use <code>[cleaning script](/scripts/load_and_clean_data.R)</code> wich appears as <a href="./scripts/load_and_clean_data.R">cleaning script</a>.</p>
-<hr>
+<section id="section-1.3-relevant-variables" class="level3">
+<h3 class="anchored" data-anchor-id="section-1.3-relevant-variables">Section 1.3: Relevant Variables</h3>
+<p>The following are the relevant variables for the chosen dataset.</p>
+<p><strong><em>WIDE dataset:</em></strong></p>
+<p>-<strong>literacy_1524_no:</strong> Percentage of young people aged 15‐24 who can read a simple sentence.</p>
+<p>-<strong>comp_prim_v2_m:</strong> Percentage of (i) children and young people aged 3‐5 years above primary school graduation age and (ii) young people aged 15‐24 years, who have completed primary school.</p>
+<p>-<strong>eduyears_2024_m:</strong> Average number of years of schooling attained for the age group 20–24 years.</p>
+<p>-<strong>eduout_prim_m:</strong> Percentage of children of primary school age who are not in school.</p>
+<p>-<strong>comp_lowsec_v2_m:</strong> Percentage of (i) young people aged 3‐5 years above lower secondary school graduation age and (ii) young people aged 15‐24 years, who have completed lower secondary school.</p>
+<p>-<strong>preschool_3_no:</strong> Percentage of 3 to 4 year olds attending any type of pre–primary education programm.</p>
+<p><strong><em>Country Mapping Dataset:</em></strong></p>
+<p>-<strong>name:</strong> Names of the country.</p>
+<p>-<strong>region:</strong> The continent in which the country is located.</p>
+<p>-<strong>sub-region:</strong> The specific region of the continent in which the country is located.</p>
+<p><strong><em>PISA Dataset</em></strong></p>
+<p>-<strong>OverallPisaScore2022:</strong> Total Pisa scores of the country in 2022.</p>
+<p>-<strong>PISAScoresMathScore2022:</strong> The Pisa scores in math of the country in 2022.</p>
+<p>-<strong>PISAScoresScienceScore2022:</strong> The Pisa scores in science of the country in 2022.</p>
+<p>-<strong>PISAScoresReadingScore2022:</strong> The Pisa scores in reading of the country in 2022.</p>
 </section>
+<section id="section-2-data-cleaning-and-merging" class="level3">
+<h3 class="anchored" data-anchor-id="section-2-data-cleaning-and-merging">Section 2: Data Cleaning and Merging</h3>
+<p><a href="./scripts/load_and_clean_data.R">clean_script</a></p>
+<p><strong><em>Data Merging</em></strong></p>
+<p>The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries.</p>
+<p>The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country’s overall score, as well as each country’s math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries.</p>
 </section>
-<section id="rubric-on-this-page" class="level2">
-<h2 class="anchored" data-anchor-id="rubric-on-this-page">Rubric: On this page</h2>
-<p>You will</p>
-<ul>
-<li>Describe where/how to find data.
-<ul>
-<li>You must include a link to the original data source(s). Make sure to provide attribution to those who collected the data.</li>
-<li>Why was the data collected/curated? Who put it together? (This is important, if you don’t know why it was collected then that might not be a good dataset to look at.</li>
-</ul></li>
-<li>Describe the different data files used and what each variable means.
-<ul>
-<li>If you have many variables then only describe the most relevant ones and summarize the rest.</li>
-</ul></li>
-<li>Describe any cleaning you had to do for your data.
-<ul>
-<li>You <em>must</em> include a link to your <code>load_and_clean_data.R</code> file.</li>
-<li>Rrename variables and recode factors to make data more clear.</li>
-<li>Also, describe any additional R packages you used outside of those covered in class.</li>
-<li>Describe and show code for how you combined multiple data files and any cleaning that was necessary for that.</li>
-<li>Some repetition of what you do in your <code>load_and_clean_data.R</code> file is fine and encouraged if it helps explain what you did.</li>
-</ul></li>
-<li>Organization, clarity, cleanliness of the page
-<ul>
-<li>Make sure to remove excessive warnings, use clean easy-to-read code (without side scrolling), organize with sections, use bullets and other organization tools, etc.</li>
-<li>This page should be self-contained.</li>
-</ul></li>
-</ul>
-<section id="data-background" class="level3">
-<h3 class="anchored" data-anchor-id="data-background">Data Background</h3>
-<p>Our team utilized three main datasets for our analysis: Country Mapping - ISO, Continent, Region: This dataset was obtained from Kaggle, a platform offering a wide range of free data resources. It was created for mapping countries in the dataset creator’s analysis, and she permits its free use. The variables in this dataset are straightforward, naming countries with their ISO codes and categorizing them into different continents, regions, and sub-regions. For instance, Afghanistan is represented as AFG - Asia - Southern Asia. PISA Scores by Country 2024: Sourced from the World Population Review, this dataset is part of the Programme for International Student Assessment (PISA), coordinated by the Organisation for Economic Co-operation and Development (OECD). PISA assesses the educational performance of 15-year-old students across approximately 80 countries through a two-hour test focused on science, reading, and mathematics. The dataset provides average scores in these subjects, reflecting the educational standards and economic success indicators of the participating countries. World Inequality Database on Education (WIDE): Available at the World Inequality Database on Education, the WIDE database compiles data from various reliable surveys and assessments, offering insights into the impact of different inequality factors on educational outcomes. Its goal is to highlight significant educational disparities across and within countries to aid in policy-making and public discourse.</p>
-<p>The following are the relevant variables for the chosen dataset. name: Names of the country.</p>
-<p>region: The continent in which the country is located.</p>
-<p>sub-region: The specific region of the continent in which the country is located.</p>
-<p>OverallPisaScore2022: Total Pisa scores of the country in 2022.</p>
-<p>PISAScoresMathScore2022: The Pisa scores in math of the country in 2022.</p>
-<p>PISAScoresScienceScore2022: The Pisa scores in science of the country in 2022.</p>
-<p>PISAScoresReadingScore2022: The Pisa scores in reading of the country in 2022.</p>
-<p>literacy_1524_no: Percentage of young people aged 15‐24 who can read a simple sentence.</p>
-<p>comp_prim_v2_m: Percentage of (i) children and young people aged 3‐5 years above primary school graduation age and (ii) young people aged 15‐24 years, who have completed primary school.</p>
-<p>mlevel1_m : Passing rate of Level 1 Math Test.</p>
-<p>mlevel2_m: Passing rate of Level 2 Math Test.</p>
-<p>mlevel3_m: Passing rate of Level 3 Math Test.</p>
-<p>eduyears_2024_m: Average number of years of schooling attained for the age group 20–24 years.</p>
-<p>eduout_prim_m: Percentage of children of primary school age who are not in school.</p>
-<p>comp_lowsec_v2_m: Percentage of (i) young people aged 3‐5 years above lower secondary school graduation age and (ii) young people aged 15‐24 years, who have completed lower secondary school.</p>
-<p>preschool_3_no: Percentage of 3 to 4 year olds attending any type of pre–primary education programme.</p>
-</section>
-<section id="data-loading-and-grouping" class="level3">
-<h3 class="anchored" data-anchor-id="data-loading-and-grouping">Data loading and grouping</h3>
-<p><a href="./scripts/load_and_clean_data.R`">clean_script</a></p>
+<section id="section-3-r-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="section-3-r-libraries">Section 3: R Libraries</h3>
 <p>The libraries we use:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#A collection of packages for data manipulation and visualization.</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#A A suite for modern and tidy statistical modeling.</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom) </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Converts statistical analysis objects into tidy format.</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales) </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># For formatting and manipulating axis labels and color scales in plots.</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork) </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Facilitates the combination of multiple ggplot2 plots into one.</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr) </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Enables dynamic report generation integrating R code with text.</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#Provides easy-to-use functions for string operations.</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: carData</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'car'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:dplyr':
-
-    recode</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:purrr':
-
-    some</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Offers tools for regression diagnostics and other statistical tests.</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: lattice</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'caret'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:yardstick':
-
-    precision, recall, sensitivity, specificity</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:purrr':
-
-    lift</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Focuses on training and tuning machine learning models.</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Implements a grammar of graphics for creating plots.</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Streamlines data manipulation tasks.</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Allows for reading Excel files into R.</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MLmetrics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'MLmetrics'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:caret':
-
-    MAE, RMSE</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:base':
-
-    Recall</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Contains functions for computing machine learning metrics.</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Registered S3 method overwritten by 'GGally':
-  method from   
-  +.gg   ggplot2</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Extends ggplot2 for creating complex visualizations easily.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the ‘region’ column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner. To enhance our data preparation process, we plan to refine the regional categorization within our dataset. Initially, we identified that the ‘region’ column unexpectedly amalgamated diverse regions, such as combining Europe with North America and East with Southeast Asia. To address this, we will adopt a strategy to split the data more accurately according to geographic regions. We have sourced an additional dataset that delineates regions and continents more distinctly. By integrating this new dataset with our original data, we will reorganize the regional variables for clearer segmentation. Following these adjustments, we will conduct data visualization on the newly grouped data. This step will facilitate a deeper understanding and provide clearer insights by representing the data in a visually intuitive manner.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'dataset/educ.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 212969 Columns: 86
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (14): iso_code, region_group, income_group, country, survey, level, cate...
-dbl (72): year, grade, comp_prim_v2_m, comp_lowsec_v2_m, comp_upsec_v2_m, co...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>continent <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'dataset/continents2.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 249 Columns: 11
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (7): name, alpha-2, alpha-3, iso_3166-2, region, sub-region, intermediat...
-dbl (4): country-code, region-code, sub-region-code, intermediate-region-code
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>pisa <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'dataset/pisa-scores-by-country-2024.csv'</span>, <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We try to merge PISA and region dataset, so it can allow us for exploring how educational outcomes vary across different regions, and we can analyse the influence of regional contexts on educational difference with data.</p>
-<p><img src="images/clipboard-123080745.png" class="img-fluid"></p>
+<p>-<strong>tidyverse</strong> - A collection of packages for data manipulation and visualization.</p>
+<p>-<strong>tidymodels</strong> - A suite for modern and tidy statistical modeling.</p>
+<p>-<strong>broom</strong> - Converts statistical analysis objects into tidy format.</p>
+<p>-<strong>scales</strong> - # For formatting and manipulating axis labels and color scales in plots.</p>
+<p>-<strong>patchwork</strong> - Facilitates the combination of multiple ggplot2 plots into one.</p>
+<p>-<strong>knitr</strong> - Enables dynamic report generation integrating R code with text.</p>
+<p>-<strong>stringr</strong> - Provides easy-to-use functions for string operations.</p>
+<p>-<strong>car</strong> - Offers tools for regression diagnostics and other statistical tests.</p>
+<p>-<strong>caret</strong> - Focuses on training and tuning machine learning models.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

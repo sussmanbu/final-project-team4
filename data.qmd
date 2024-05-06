@@ -78,11 +78,11 @@ preschool_3_no: Percentage of 3 to 4 year olds attending any type of pre–prima
 
 ### Section 2: Data Cleaning and Merging
 
+[clean_script](/scripts/load_and_clean_data.R%60)
+
 The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.
 
 The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries. This dataset was found from this link: https://www.oecd.org/pisa/data/.
-
-[clean_script](/scripts/load_and_clean_data.R%60)
 
 ### Section 3: R Libraries
 

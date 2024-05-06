@@ -1,11 +1,30 @@
 ---
 title: "Post 6"
 description:  |
-  1111
 author: "Team 4"
 date: "2024-04-22"
 date-modified: "2024-04-22"
 draft: FALSE
 ---
 
-1111111111
+### Data Analysis
+
+By completing our Analysis page, after merging PISA data set we already noticed a significant trend of North America. However, there is some region that does not have the PISA scores. Therefore we decide to merge another Literacy Rate to generalize the visualization of test scores.
+
+![](images/Screenshot 2024-04-22 at 4.57.51 PM.png)
+
+From our graph, we noticed that Africa overall has the lowest PISA and literacy rate.
+
+### Format change
+
+From our feedback of data.qmd, professor suggested us to have a more consistent and clearer format, therefore taking that advice into our formatting we use brew function to make the tables clear and simple to track
+
+![](images/Screenshot 2024-04-22 at 5.20.21 PM.png)
+
+### **Tentative Thesis**
+
+Global disparities in educational outcomes are profoundly influenced by economic factors, with sub-regional disparities indicating that targeted local interventions could be more effective than broad regional strategies. For instance, while general trends suggest higher educational attainment in Europe and lower in Africa, sub-regional analysis reveals that Northern Africa aligns more closely with global averages than Sub-Saharan Africa
+
+### What's next
+
+Data modeling: we are planning to perform a multivariate modelling for the Analysis.qmd as currently we just have a simple modeling just with one variable.

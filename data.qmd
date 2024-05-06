@@ -3,7 +3,7 @@ title: Data
 description: We describe the sources of our data and the cleaning process.
 
 ---
-
+![](https://habitatbroward.org/wp-content/uploads/2020/01/10-Benefits-Showing-Why-Education-Is-Important-to-Our-Society.jpg)
 
 ```{r}
 #| label: library
@@ -30,11 +30,11 @@ library(car)
 
 Our team utilized three main datasets for our analysis:
 
-World Inequality Database on Education (WIDE): Available at the World Inequality Database on Education, the WIDE database compiles data from various reliable surveys and assessments, offering insights into the impact of different inequality factors on educational outcomes. Its goal is to highlight significant educational disparities across and within countries to aid in policy-making and public discourse.
+World Inequality Database on Education (WIDE): Available at the World Inequality Database on Education, the WIDE database compiles data from various reliable surveys and assessments, offering insights into the impact of different inequality factors on educational outcomes. Its goal is to highlight significant educational disparities across and within countries to aid in policy-making and public discourse. This dataset was found from this link: https://www.education-inequalities.org/about. 
 
-Country Mapping - ISO, Continent, Region: This dataset was obtained from Kaggle, a platform offering a wide range of free data resources. It was created for mapping countries in the dataset creator's analysis, and she permits its free use. The variables in this dataset are straightforward, naming countries with their ISO codes and categorizing them into different continents, regions, and sub-regions. For instance, Afghanistan is represented as AFG - Asia - Southern Asia.
+Country Mapping - ISO, Continent, Region: This dataset was obtained from Kaggle, a platform offering a wide range of free data resources. It was created for mapping countries in the dataset creator's analysis, and she permits its free use. The variables in this dataset are straightforward, naming countries with their ISO codes and categorizing them into different continents, regions, and sub-regions. For instance, Afghanistan is represented as AFG - Asia - Southern Asia. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.
 
-PISA Scores by Country 2024: Sourced from the World Population Review, this dataset is part of the Programme for International Student Assessment (PISA), coordinated by the Organisation for Economic Co-operation and Development (OECD). PISA assesses the educational performance of 15-year-old students across approximately 80 countries through a two-hour test focused on science, reading, and mathematics. The dataset provides average scores in these subjects, reflecting the educational standards and economic success indicators of the participating countries.
+PISA Scores by Country 2024: Sourced from the World Population Review, this dataset is part of the Programme for International Student Assessment (PISA), coordinated by the Organisation for Economic Co-operation and Development (OECD). PISA assesses the educational performance of 15-year-old students across approximately 80 countries through a two-hour test focused on science, reading, and mathematics. The dataset provides average scores in these subjects, reflecting the educational standards and economic success indicators of the participating countries. This dataset was found from this link: https://www.oecd.org/pisa/data/.
 
 ### Section 1.2: Potential Limitations
 
@@ -44,19 +44,7 @@ Our dataset is a massive dataset with tens of thousands of rows of data which al
 
 The following are the relevant variables for the chosen dataset.
 
--**name:** Names of the country. 
-
--**region:** The continent in which the country is located.
-
--**sub-region:** The specific region of the continent in which the country is located. 
-
--**OverallPisaScore2022:** Total Pisa scores of the country in 2022.
-
--**PISAScoresMathScore2022:** The Pisa scores in math of the country in 2022.
-
--**PISAScoresScienceScore2022:** The Pisa scores in science of the country in 2022.
-
--**PISAScoresReadingScore2022:** The Pisa scores in reading of the country in 2022.
+***WIDE dataset:***
 
 -**literacy_1524_no:** Percentage of young people aged 15‐24 who can read a simple sentence.
 
@@ -70,13 +58,33 @@ The following are the relevant variables for the chosen dataset.
 
 -**preschool_3_no:** Percentage of 3 to 4 year olds attending any type of pre–primary education programm. 
 
+***Country Mapping Dataset:***
+
+-**name:** Names of the country. 
+
+-**region:** The continent in which the country is located.
+
+-**sub-region:** The specific region of the continent in which the country is located. 
+
+***PISA Dataset***
+
+-**OverallPisaScore2022:** Total Pisa scores of the country in 2022.
+
+-**PISAScoresMathScore2022:** The Pisa scores in math of the country in 2022.
+
+-**PISAScoresScienceScore2022:** The Pisa scores in science of the country in 2022.
+
+-**PISAScoresReadingScore2022:** The Pisa scores in reading of the country in 2022.
+
 ### Section 2: Data Cleaning and Merging
 
 [clean_script](/scripts/load_and_clean_data.R%60)
 
-The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries. This dataset was found from this link: https://www.kaggle.com/datasets/andradaolteanu/country-mapping-iso-continent-region.
+***Data Merging***
 
-The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries. This dataset was found from this link: https://www.oecd.org/pisa/data/.
+The first data set that we are merging with is a dataset that includes more specific world regions. Our original dataset only contains 9 different regions (look at the data_example dataframe below). The dataset that we are merging with (named continent_example) contains 17 different regions, which makes our analysis more specified. The original dataset grouped Central and Southern Asia together, and the new dataset does not do this, which allows us to find more differences within countries. 
+
+The second dataset that we are merging with is a PISA dataset that contains PISA scores from countries all over the world. PISA is a standardized exam that is taken all around the world. Knowing these scores will allow us to make more exciting and interesting models that may provide more insight into the disparities between countries. What is cool about this dataset is that it contains the overall PISA score, but also the breakdowns. For example, it contains each country's overall score, as well as each country's math, science, and reading score. The downside of this dataset is that it does not contain scores from African countries. 
 
 ### Section 3: R Libraries
 
